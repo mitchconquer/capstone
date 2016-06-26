@@ -15630,3 +15630,13 @@ Processing by FeedsController#edit as HTML
   Rendered feeds/_edit_feeds.html.erb (0.7ms)
   Rendered feeds/edit.html.erb within layouts/application (5.4ms)
 Completed 200 OK in 81ms (Views: 80.6ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/feeds/edit" for ::1 at 2016-06-25 20:37:42 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.9ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by FeedsController#edit as HTML
+  Rendered feeds/_feed_groups.html.erb (0.4ms)
+  Rendered layouts/_top_nav.html.erb (0.7ms)
+  Rendered feeds/_edit_feeds.html.erb (0.3ms)
+  Rendered feeds/edit.html.erb within layouts/application (8.3ms)
+Completed 200 OK in 352ms (Views: 351.4ms | ActiveRecord: 0.0ms)

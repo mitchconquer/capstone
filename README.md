@@ -31,13 +31,13 @@ FresherNote is a web application inspired by Evernote that will be build using R
   - [ ] Adequate CSS styling
 
 ## Design Docs
-* [View Wireframes][http://localhost:3000/]
+* [View Wireframes][views]
 * [React Components][components]
 * [Flux Cycles][flux-cycles]
 * [API endpoints][api-endpoints]
 * [DB schema][schema]
 
-[views]: docs/views.md
+[views]: docs/wireframes/index.png
 [components]: docs/components.md
 [flux-cycles]: docs/flux-cycles.md
 [api-endpoints]: docs/api-endpoints.md
