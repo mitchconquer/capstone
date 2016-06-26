@@ -1,0 +1,24 @@
+<div class="container-fluid app-columns">
+
+    <section class="col-sm-2 app-column feed-groups" id="feed-groups">
+      <%= render 'feed_groups' %>
+    </section>
+
+    <div class="col-sm-10 right-pane">
+
+      <%= render 'layouts/top_nav' %>
+      
+      <section class="col-sm-4 app-column feed" id="feed">
+        <header><h4>Feed Name</h4></header>
+        <ul class="list-unstyled">
+          <%= render 'feed' %>
+        </ul>
+      </section>
+
+      <section class="col-sm-8 app-column full-articles" id="full-articles">
+        <%= render 'full_articles' %>
+      </section>
+
+    </div>
+
+</div>

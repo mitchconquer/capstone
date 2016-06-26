@@ -11,25 +11,27 @@ FresherNote is a web application inspired by Evernote that will be build using R
 - [ ] Hosting on Heroku
 - [ ] New account creation, login, and guest/demo login
 - [ ] A production README, replacing this README (**NB**: check out the [sample production README](docs/production_readme.md) -- you'll write this later)
-- [ ] Notes
+- [ ] User Accounts
+  - [ ] Login / Logout
+  - [ ] Update profile information
+- [ ] Feeds
+  - [ ] Organize feeds in groups
+  - [ ] Select feeds from pre-existing recommendations and add to groups
+  - [ ] Add own RSS feeds and add to groups
+  - [ ] Browse feeds and keep track of viewed items
   - [ ] Smooth, bug-free navigation
   - [ ] Adequate seed data to demonstrate the site's features
   - [ ] Adequate CSS styling
-- [ ] Notebooks for organizing notes
-  - [ ] Smooth, bug-free navigation
-  - [ ] Adequate seed data to demonstrate the site's features
-  - [ ] Adequate CSS styling
-- [ ] Tags for notes
-  - [ ] Smooth, bug-free navigation
-  - [ ] Adequate seed data to demonstrate the site's features
-  - [ ] Adequate CSS styling
-- [ ] Rich Text Editing of notes
+- [ ] Feed Groups
+  - [ ] Create and delete feed groups
+  - [ ] Move feeds between groups
+  - [ ] Display unread count in each feed
   - [ ] Smooth, bug-free navigation
   - [ ] Adequate seed data to demonstrate the site's features
   - [ ] Adequate CSS styling
 
 ## Design Docs
-* [View Wireframes][views]
+* [View Wireframes][http://localhost:3000/]
 * [React Components][components]
 * [Flux Cycles][flux-cycles]
 * [API endpoints][api-endpoints]

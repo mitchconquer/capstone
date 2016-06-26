@@ -1,32 +1,34 @@
 ## Component Hierarchy
 
-**Bolded** components are associated with routes.
+### Feed Groups
 
-(:exclamation: Remember, the bolded components are created by their
-associated routes, so the nesting of your bolded components must
-_**exactly**_ match the nesting of your routes.)
+* **Homepage**
+* **FeedGroupIndex**
+  * AddFeedGroup
+  * FeedGroupItems
+    * FeedGroupItem
+      *FeedItems
+  * **FeedIndex**
+    * FeedItem
+    * **FullArticle**
+      * Articles
+  * **AddFeedsIndex**
+    * SuggestedFeedItem
+    * CreateFeed
+      * CreateFeedForm
 
-* **App**
-  * NotebooksIndex
-    * Search
-    * NotebookIndexItem
-    * NotebookForm
-  * **NotesIndex**
-    * NoteForm
-    * NoteIndexItem
-    * **NoteDetail**
-      * NoteTags
-      * NoteEditArea
+### Menu
 
+* Main Menu
+  * Menu Logo
+  * Menu Item
+  * Acccount Menu Item
 
 ## Routes
 
-* **component:** `App` **path:** `/`
-  * **component:** `NotesIndex` **path:** index
-  * **component:** `NotesIndex` **path:** `notebooks/:notebookId`
-    * **component:** `NoteDetail` **path:** `notes/:noteId`
-  * **component:** `NotesIndex` **path:** none
-    * **component:** `NoteDetail` **path:** `notes/:noteId`
+## Routes
 
-For Routes that have no `notebookId`, `NotesIndex` will render all
-notes.
+* **Component:** `FeedGroupIndex`, **Path:** `/`
+  * **Component:** `FeedIndex`, **Path:** `feed/:feedId`
+    * **Component:** `FullArticle`, **Path:** ``
+  * **Component:** `AddFeedsIndex`, **Path:** `edit`
