@@ -5,11 +5,12 @@
 * **Homepage**
 * **FeedGroupIndex**
   * AddFeedGroup
+  * SavedArticles
   * FeedGroupItems
     * FeedGroupItem
       *FeedItems
-  * **FeedIndex**
-    * FeedItem
+  * **FeedArticleIndex**
+    * FeedArticleItem
     * **FullArticle**
       * Articles
   * **AddFeedsIndex**
@@ -29,6 +30,7 @@
 ## Routes
 
 * **Component:** `FeedGroupIndex`, **Path:** `/`
-  * **Component:** `FeedIndex`, **Path:** `feed/:feedId`
+  * **Component:** `Homepage`, **Path:** `home` (if user is not logged in)
+  * **Component:** `FeedArticleIndex`, **Path:** `feed/:feedId`
     * **Component:** `FullArticle`, **Path:** ``
   * **Component:** `AddFeedsIndex`, **Path:** `edit`

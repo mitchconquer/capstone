@@ -15650,3 +15650,33 @@ Processing by FeedsController#index as HTML
   Rendered feeds/_full_articles.html.erb (0.8ms)
   Rendered feeds/index.html.erb within layouts/application (13.9ms)
 Completed 200 OK in 97ms (Views: 95.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for ::1 at 2016-06-27 12:57:20 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.9ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by FeedsController#index as HTML
+  Rendered feeds/_feed_groups.html.erb (0.5ms)
+  Rendered layouts/_top_nav.html.erb (1.1ms)
+  Rendered feeds/_feed.html.erb (0.7ms)
+  Rendered feeds/_full_articles.html.erb (0.8ms)
+  Rendered feeds/index.html.erb within layouts/application (15.8ms)
+Completed 200 OK in 403ms (Views: 402.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/" for ::1 at 2016-06-27 12:57:21 -0700
+Processing by FeedsController#index as HTML
+  Rendered feeds/_feed_groups.html.erb (0.0ms)
+  Rendered layouts/_top_nav.html.erb (0.2ms)
+  Rendered feeds/_feed.html.erb (0.0ms)
+  Rendered feeds/_full_articles.html.erb (0.0ms)
+  Rendered feeds/index.html.erb within layouts/application (2.4ms)
+Completed 200 OK in 37ms (Views: 36.6ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/feeds/edit" for ::1 at 2016-06-27 12:58:24 -0700
+Processing by FeedsController#edit as HTML
+  Rendered feeds/_feed_groups.html.erb (0.0ms)
+  Rendered layouts/_top_nav.html.erb (0.2ms)
+  Rendered feeds/_edit_feeds.html.erb (0.3ms)
+  Rendered feeds/edit.html.erb within layouts/application (2.9ms)
+Completed 200 OK in 40ms (Views: 40.1ms | ActiveRecord: 0.0ms)

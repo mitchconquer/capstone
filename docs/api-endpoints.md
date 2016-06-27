@@ -23,11 +23,17 @@
 ### Feeds
 
 - `GET /api/feeds`
-  - accepts `category_name` query param to list feeds by tag
+  - accepts `recommended` query param to list only recommended feeds by category
 - `POST /api/feeds`
 - `GET /api/feeds/:id`
 - `PATCH /api/feeds/:id`
 - `DELETE /api/feeds/:id`
+
+### Feeds by Feed Group
+- `GET /api/folders/:id/feeds` - get feeds by folder
+
+### Saved Articles
+- `GET /api/users/:id/articles`
 
 ### Feed Groups
 

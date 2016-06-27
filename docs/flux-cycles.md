@@ -32,7 +32,7 @@ what you'll need to do.
   0. `receiveSingleNote` is set as the callback.
 
 * `updateNote`
-  0. invoked from `NoteForm` `onSubmit`
+  0. invoked from `FeedGroupItem` `` (when receives new feed)
   0. `POST /api/notes` is called.
   0. `receiveSingleNote` is set as the callback.
 

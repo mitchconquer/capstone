@@ -1,12 +1,12 @@
 # FresherNote
 
-[Heroku link][heroku] **Note:** This should be a link to your production site
+[Heroku link][heroku]
 
-[heroku]: http://www.herokuapp.com
+[heroku]: https://radiant-hamlet-56535.herokuapp.com/
 
 ## Minimum Viable Product
 
-FresherNote is a web application inspired by Evernote that will be build using Ruby on Rails and React.js.  By the end of Week 9, this app will, at a minimum, satisfy the following criteria:
+Aggregreater (working title...) is an RSS aggregretor that allows users to store feeds, organize them into groups and view and save content easily.
 
 - [ ] Hosting on Heroku
 - [ ] New account creation, login, and guest/demo login
@@ -31,13 +31,15 @@ FresherNote is a web application inspired by Evernote that will be build using R
   - [ ] Adequate CSS styling
 
 ## Design Docs
-* [View Wireframes][views]
+* [Index Wireframes][index_view]
+* [Feed Edit Wireframes][edit_view]
 * [React Components][components]
 * [Flux Cycles][flux-cycles]
 * [API endpoints][api-endpoints]
 * [DB schema][schema]
 
-[views]: docs/wireframes/index.png
+[index_view]: docs/wireframes/index.png
+[edit_view]: docs/wireframes/edit-feeds.png
 [components]: docs/components.md
 [flux-cycles]: docs/flux-cycles.md
 [api-endpoints]: docs/api-endpoints.md
