@@ -8,6 +8,7 @@
   * SavedArticles
   * FolderItems
     * FolderItem
+      * FolderForm
       * FeedItems
         * FeedItemForm
   * **FeedArticleIndex**

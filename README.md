@@ -91,26 +91,26 @@ user interface.
 - [ ] position elements on the page
 - [ ] add basic colors & styles
 
-### Phase 5: Notebooks (1 day, W2 Tu 12pm)
+### Phase 5: Folders (1 day, W2 Tu 12pm)
 
-**Objective:** Notes belong to Notebooks, and can be viewed by notebook.
+**Objective:** Feeds belong to Folders, and can be viewed by folder.
 
-- [ ] create `Notebook` model
+- [ ] create `Folder` model
 - build out API, Flux loop, and components for:
-  - [ ] Notebook CRUD
-  - [ ] adding notes requires a notebook
-  - [ ] moving notes to a different notebook
-  - [ ] viewing notes by notebook
+  - [ ] Folder CRUD
+  - [ ] adding feeds requires a folder
+  - [ ] moving feeds to a different folder
+  - [ ] viewing feeds by folder
 - Use CSS to style new views
 
-Phase 3 adds organization to the Notes. Notes belong to a Notebook,
+Phase 3 adds organization to the Feeds. Feeds belong to a Folder,
 which has its own `Index` view.
 
-### Phase 6: Tags (1 days, W2 Th 12pm)
+### Phase 6: Save Articles (1 days, W2 Th 12pm)
 
-**Objective:** Notes can be tagged with multiple tags, and tags are searchable.
+**Objective:** Articles can be saved.
 
-- [ ] create `Tag` model and join table
+- [ ] create `SavedArticle` model 
 - build out API, Flux loop, and components for:
   - [ ] fetching tags for notebook
   - [ ] adding tags to notebook
@@ -118,13 +118,11 @@ which has its own `Index` view.
   - [ ] searching notebooks by tag
 - [ ] Style new elements
 
-### Phase 7: Allow Complex Styling in Notes (0.5 days, W2 Th 6pm)
+### Phase 7: Animations for loading FeedItems (0.5 days, W2 Th 6pm)
 
-**objective:** Enable complex styling of notes.
+**objective:** Load animations for feed items
 
-- [ ] Integrate `react-quill` (based on Quill.js).
-- [ ] Use Rails helpers to sanitize HTML before rendering.
-- [ ] Style the new Quill elements.
+- [ ] Add load animations for feed items
 
 ### Phase 8: Styling Cleanup and Seeding (1 day, W2 F 6pm)
 
@@ -135,11 +133,8 @@ which has its own `Index` view.
 - [ ] Add modals, transitions, and other styling flourishes.
 
 ### Bonus Features (TBD)
-- [ ] Search through notes for blocks of text
-- [ ] Pagination / infinite scroll for Notes Index
-- [ ] Set reminders on notes
-- [ ] Changelogs for Notes
-- [ ] Multiple sessions
+- [ ] Save searches as tags to folder pane
+- [ ] Drag and drop to rearrange feed items between folders
 
 [phase-one]: docs/phases/phase1.md
 [phase-two]: docs/phases/phase2.md
