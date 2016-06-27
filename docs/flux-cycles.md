@@ -16,10 +16,10 @@ what you'll need to do.
 
 ### Notes API Request Actions
 
-* `fetchAllNotes`
-  0. invoked from `NotesIndex` `didMount`/`willReceiveProps`
-  0. `GET /api/notes` is called.
-  0. `receiveAllNotes` is set as the callback.
+* `fetchAllFeedGroups`
+  0. invoked from `FeedGroupIndex` `didMount`/`willReceiveProps`
+  0. `GET /api/folders` is called.
+  0. `receiveAllFeedGroups` is set as the callback.
 
 * `createNote`
   0. invoked from new note button `onClick`
@@ -33,7 +33,7 @@ what you'll need to do.
 
 * `updateNote`
   0. invoked from `FeedGroupItem` `` (when receives new feed)
-  0. `POST /api/notes` is called.
+  0. `POST /api/notes` is called
   0. `receiveSingleNote` is set as the callback.
 
 * `destroyNote`

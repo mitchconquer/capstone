@@ -8,7 +8,8 @@
   * SavedArticles
   * FeedGroupItems
     * FeedGroupItem
-      *FeedItems
+      * FeedItems
+        * FeedItemForm
   * **FeedArticleIndex**
     * FeedArticleItem
     * **FullArticle**
