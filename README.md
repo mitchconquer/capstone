@@ -6,7 +6,7 @@
 
 ## Minimum Viable Product
 
-Aggregreater (working title...) is an RSS aggregretor that allows users to store feeds, organize them into groups and view and save content easily.
+NewsFocus (working title...) is an RSS aggregretor that allows users to store feeds, organize them into groups and view and save content easily.
 
 - [ ] Hosting on Heroku
 - [ ] New account creation, login, and guest/demo login
