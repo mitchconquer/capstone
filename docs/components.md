@@ -3,11 +3,11 @@
 ### Feed Groups
 
 * **Homepage**
-* **FeedGroupIndex**
-  * AddFeedGroup
+* **FolderIndex**
+  * AddFolder
   * SavedArticles
-  * FeedGroupItems
-    * FeedGroupItem
+  * FolderItems
+    * FolderItem
       * FeedItems
         * FeedItemForm
   * **FeedArticleIndex**
@@ -30,7 +30,7 @@
 
 ## Routes
 
-* **Component:** `FeedGroupIndex`, **Path:** `/`
+* **Component:** `FolderIndex`, **Path:** `/`
   * **Component:** `Homepage`, **Path:** `home` (if user is not logged in)
   * **Component:** `FeedArticleIndex`, **Path:** `feed/:feedId`
     * **Component:** `FullArticle`, **Path:** ``

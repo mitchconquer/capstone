@@ -16,10 +16,10 @@ what you'll need to do.
 
 ### Notes API Request Actions
 
-* `fetchAllFeedGroups`
-  0. invoked from `FeedGroupIndex` `didMount`/`willReceiveProps`
+* `fetchAllFeeds`
+  0. invoked from `FolderIndex` `didMount`/`willReceiveProps`
   0. `GET /api/folders` is called.
-  0. `receiveAllFeedGroups` is set as the callback.
+  0. `receiveAllFolders` is set as the callback.
 
 * `createNote`
   0. invoked from new note button `onClick`
@@ -32,7 +32,7 @@ what you'll need to do.
   0. `receiveSingleNote` is set as the callback.
 
 * `updateNote`
-  0. invoked from `FeedGroupItem` `` (when receives new feed)
+  0. invoked from `FolderItem` `` (when receives new feed)
   0. `POST /api/notes` is called
   0. `receiveSingleNote` is set as the callback.
 
@@ -61,48 +61,48 @@ what you'll need to do.
 * `NoteDetail` component listens to `Note` store.
 
 
-## Notebook Cycles
+## Feedgroup Cycles
 
-### Notebooks API Request Actions
+### Folders API Request Actions
 
-* `fetchAllNotebooks`
-  0. invoked from `NotebooksIndex` `didMount`/`willReceiveProps`
-  0. `GET /api/notebooks` is called.
-  0. `receiveAllNotebooks` is set as the callback.
+* `fetchAllFolders`
+  0. invoked from `FoldersIndex` `didMount`/`willReceiveProps`
+  0. `GET /api/folders` is called.
+  0. `receiveAllFolders` is set as the callback.
 
-* `createNotebook`
-  0. invoked from new notebook button `onClick`
-  0. `POST /api/notebooks` is called.
-  0. `receiveSingleNotebook` is set as the callback.
+* `createFolder`
+  0. invoked from new feed group button `onClick`
+  0. `POST /api/folders` is called.
+  0. `receiveSingleFolder` is set as the callback.
 
-* `fetchSingleNotebook`
-  0. invoked from `NotebookDetail` `didMount`/`willReceiveProps`
+* `fetchSingleFolder`
+  0. invoked from `FolderDetail` `didMount`/`willReceiveProps`
   0. `GET /api/notebooks/:id` is called.
-  0. `receiveSingleNotebook` is set as the callback.
+  0. `receiveSingleFolder` is set as the callback.
 
-* `updateNotebook`
-  0. invoked from `NotebookForm` `onSubmit`
+* `updateFolder`
+  0. invoked from `FolderForm` `onSubmit`
   0. `POST /api/notebooks` is called.
-  0. `receiveSingleNotebook` is set as the callback.
+  0. `receiveSingleFolder` is set as the callback.
 
-* `destroyNotebook`
+* `destroyFolder`
   0. invoked from delete notebook button `onClick`
   0. `DELETE /api/notebooks/:id` is called.
-  0. `removeNotebook` is set as the callback.
+  0. `removeFolder` is set as the callback.
 
-### Notebooks API Response Actions
+### Folders API Response Actions
 
-* `receiveAllNotebooks`
+* `receiveAllFolders`
   0. invoked from an API callback.
-  0. `Notebook` store updates `_notebooks` and emits change.
+  0. `Feedgroup` store updates `_feedgroups` and emits change.
 
-* `receiveSingleNotebook`
+* `receiveSingleFolders`
   0. invoked from an API callback.
-  0. `Notebook` store updates `_notebooks[id]` and emits change.
+  0. `Folders` store updates `_feedgroups[id]` and emits change.
 
-* `removeNotebook`
+* `removeFolders`
   0. invoked from an API callback.
-  0. `Notebook` store removes `_notebooks[id]` and emits change.
+  0. `Folders` store removes `_feedgroups[id]` and emits change.
 
 ### Store Listeners
 
