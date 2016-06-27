@@ -22,13 +22,16 @@ NewsFocus (working title...) is an RSS aggregretor that allows users to store fe
   - [ ] Smooth, bug-free navigation
   - [ ] Adequate seed data to demonstrate the site's features
   - [ ] Adequate CSS styling
-- [ ] Feed Groups
+- [ ] Folders
   - [ ] Create and delete feed groups
   - [ ] Move feeds between groups
   - [ ] Display unread count in each feed
   - [ ] Smooth, bug-free navigation
   - [ ] Adequate seed data to demonstrate the site's features
   - [ ] Adequate CSS styling
+- [ ] Mark feed_items as read/unread per user
+- [ ] Save feed_items to profile
+- [ ] Search feed_items
 
 ## Design Docs
 * [Index Wireframes][index_view]
@@ -133,8 +136,11 @@ which has its own `Index` view.
 - [ ] Add modals, transitions, and other styling flourishes.
 
 ### Bonus Features (TBD)
+- [ ] Load animations for feed items and feed item content
 - [ ] Save searches as tags to folder pane
+- [ ] Browse other users' profile feeds
 - [ ] Drag and drop to rearrange feed items between folders
+- [ ] Sign up via 3rd party website
 
 [phase-one]: docs/phases/phase1.md
 [phase-two]: docs/phases/phase2.md
