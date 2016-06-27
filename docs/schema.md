@@ -1,46 +1,35 @@
 # Schema Information
 
-## notes
+## Feeds
 column name | data type | details
 ------------|-----------|-----------------------
 id          | integer   | not null, primary key
 title       | string    | not null
+url         | string    | not null, indexed
+recommended | boolean   | not null, default false
+category_id | integer   | foreign key
+
+## Articles (May be used, not sure)
+column name | data type | details
+------------|-----------|-----------------------
+id          | integer   | not null, primary key
+feed_id     | integer   | foreign key
+title       | string    | not null
+url         | string    | not null
 body        | text      | not null
-author_id   | integer   | not null, foreign key (references users), indexed
-notebook_id | integer   | not null, foreign key (references notebooks), indexed
-archived    | boolean   | not null, default: false
 
-## notebooks
+# Categories
 column name | data type | details
 ------------|-----------|-----------------------
 id          | integer   | not null, primary key
-author_id   | integer   | not null, foreign key (references users), indexed
-title       | string    | not null
-description | string    | 
+name        | integer   | not null
 
-## reminders
+## Subscriptions
 column name | data type | details
 ------------|-----------|-----------------------
 id          | integer   | not null, primary key
-user_id     | integer   | not null, foreign key (references users), indexed
-note_id     | string    | not null, foreign key (references notes), indexed
-date        | datetime  | not null
-type        | string    | not null
-prev_id     | integer   | foreign key (references reminders), indexed
-
-## tags
-column name | data type | details
-------------|-----------|-----------------------
-id          | integer   | not null, primary key
-name        | string    | not null
-
-## taggings
-column name | data type | details
-------------|-----------|-----------------------
-id          | integer   | not null, primary key
-name        | string    | not null
-note_id     | integer   | not null, foreign key (references notes), indexed, unique [tag_id]
-tag_id      | integer   | not null, foreign key (references tags), indexed
+user_id     | integer   | not null, foreign key
+feed_id     | integer   | not null, foreign key
 
 ## users
 column name     | data type | details

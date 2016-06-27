@@ -15640,3 +15640,13 @@ Processing by FeedsController#edit as HTML
   Rendered feeds/_edit_feeds.html.erb (0.3ms)
   Rendered feeds/edit.html.erb within layouts/application (8.3ms)
 Completed 200 OK in 352ms (Views: 351.4ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/feeds" for ::1 at 2016-06-25 21:04:45 -0700
+Processing by FeedsController#index as HTML
+  Rendered feeds/_feed_groups.html.erb (0.3ms)
+  Rendered layouts/_top_nav.html.erb (1.5ms)
+  Rendered feeds/_feed.html.erb (1.1ms)
+  Rendered feeds/_full_articles.html.erb (0.8ms)
+  Rendered feeds/index.html.erb within layouts/application (13.9ms)
+Completed 200 OK in 97ms (Views: 95.1ms | ActiveRecord: 0.0ms)
