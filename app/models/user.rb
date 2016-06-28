@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
     if user = User.find_by_username(username)
       return user if user.valid_password?(password)
     end
-    nil
+    false
   end
 
   def reset_token!
