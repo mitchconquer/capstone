@@ -34,6 +34,7 @@
 
 * **Component:** `FolderIndex`, **Path:** `/`
   * **Component:** `Homepage`, **Path:** `home` (if user is not logged in)
+  * **Component:** `FeedItemIndex`, **Path:** `feed/all` (Index Route)
   * **Component:** `FeedItemIndex`, **Path:** `feed/:feedId`
     * **Component:** `FeedItemDetails`, **Path:** ``
-  * **Component:** `AddFeedsIndex`, **Path:** `edit`
+  * **Component:** `AddFeedsIndex`, **Path:** `new`

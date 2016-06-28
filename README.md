@@ -235,7 +235,8 @@ React will send the complete Feed Source object to the update the store immediat
       { "http://www.lemonde.fr/rss/une.xml": {
           read: [
             "http://www.lemonde.fr/tiny/4959075/",
-            "http://www.lemonde.fr/tiny/4959257/" ] 
+            "http://www.lemonde.fr/tiny/4959257/" ],
+          folder_id: 39
         }
       }
       * At this time, server should update feed_items, deleting entries that are no longer included
@@ -265,16 +266,21 @@ React will send the complete Feed Source object to the update the store immediat
 * ServerActions.saveItem will create actionType "RECEIVE_SAVED_ITEM" with savedItem
 * FeedStore will push the savedItem to the savedItems
 
-## Search feed items ???
-
 ## Update Feed Source (Including delete or change folder)
 
 * Triggered by FeedSourceForm onSubmit
-* FeedActions.updateFeedSource
+* FeedActions.updateFeedSource(feedSource)
+* WebApiUtils.updateFeedSource(feedSource, ServerActions.updateFeedSource)
+* ServerActions.updateFeedSource(feedSource)
+  * actionType: UPDATE_FEED_SOURCE
+  * feedSource: feedSource
+* FeedStore's UPDATE_FEED_SOURCE will update just that item and emit change
 
+## Search feed items ???
 * Triggered by onChange in Search component
 
 Server has:
+
 feed_sources
   * id
   * title
@@ -288,11 +294,16 @@ folders
   * id
   * user_id
   * title
-"folderings" name?
+subscriptions
   * id
   * user_id
   * folder_id
   * feed_source_id
-subscriptions
 user_read
+  * id
+  * user_id
+  * feed_item_id
 saved_items
+  * id
+  * user_id
+  * feed_item_id

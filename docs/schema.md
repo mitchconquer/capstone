@@ -1,29 +1,30 @@
 # Schema Information
 
-## Feeds
+## Feed Sources
 column name | data type | details
 ------------|-----------|-----------------------
 id          | integer   | not null, primary key
 title       | string    | not null
 url         | string    | not null, indexed
+image_url   | string    | 
 recommended | boolean   | not null, default false
 category_id | integer   | foreign key
 
-## Feed Groups
+## Folders
 column name | data type | details
 ------------|-----------|-----------------------
 id          | integer   | not null, primary key
 title       | string    | not null
 user_id     | integer   | not null, foreign key
 
-## Articles (May be used, not sure)
-column name | data type | details
-------------|-----------|-----------------------
-id          | integer   | not null, primary key
-feed_id     | integer   | foreign key
-title       | string    | not null
-url         | string    | not null
-body        | text      | not null
+## Feed Items
+column name     | data type | details
+----------------|-----------|-----------------------
+id              | integer   | not null, primary key
+feed_source_id  | integer   | foreign key
+title           | string    | not null
+guid            | string    | not null
+body            | text      | not null
 
 ## Saved Articles
 column name | data type | details
@@ -41,11 +42,18 @@ column name | data type | details
 id          | integer   | not null, primary key
 name        | integer   | not null
 
+## Read Articles
+column name | data type | details
+------------|-----------|-----------------------
+id          | integer   | not null, primary key
+user_id     | integer   | foreign key
+feed_item   | integer   | foreign key
+
 ## Subscriptions
 column name   | data type | details
 --------------|-----------|-----------------------
 id            | integer   | not null, primary key
-feed_group_id | integer   | not null, foreign key
+folder_id     | integer   | not null, foreign key
 user_id       | integer   | not null, foreign key
 feed_id       | integer   | not null, foreign key
 
