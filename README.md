@@ -16,18 +16,17 @@ Handy reference for RSS XML documents: [W3.org Feed Validator][w3_validator]
 - [ ] User Accounts
   - [ ] Login / Logout
 - [ ] Feed Sources
-  - [ ] Organize feeds in folders
   - [ ] Select feeds from pre-existing recommendations and add to folders
   - [ ] Add own RSS feeds and add to folders
   - [ ] Browse feeds and keep track of viewed items
   - [ ] Delete Feed Sources
-  - [ ] Move feed source to different folder
   - [ ] Smooth, bug-free navigation
   - [ ] Adequate seed data to demonstrate the site's features
   - [ ] Adequate CSS styling
 - [ ] Folders
+  - [ ] Move feed source to different folder
+  - [ ] Organize feeds in folders
   - [ ] Create and delete feed folders
-  - [ ] Move feeds between folders
   - [ ] Display unread count in each feed
   - [ ] Smooth, bug-free navigation
   - [ ] Adequate seed data to demonstrate the site's features

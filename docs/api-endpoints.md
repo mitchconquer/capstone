@@ -29,13 +29,13 @@
 - `PATCH /api/feeds/:id`
 - `DELETE /api/feeds/:id`
 
-### Feeds by Feed Group
+### Feeds by Folder
 - `GET /api/folders/:id/feeds` - get feeds by folder
 
 ### Saved Articles
 - `GET /api/users/:id/articles`
 
-### Feed Groups
+### Folders
 
 - `GET /api/folders`
 - `POST /api/folders`
