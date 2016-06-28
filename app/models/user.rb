@@ -15,19 +15,20 @@ class User < ActiveRecord::Base
     BCrypt::Password.new(self.password_digest).is_password?(password)
   end
 
-  def find_by_credentials(login_params)
-    username = login_params[username]
-    password = login_params[password]
-
-    if user = User.find_by_username(username)
-      return user if user.valid_password?(password)
-    end
-    false
-  end
-
   def reset_token!
     self.update(session_token: SecureRandom.urlsafe_base64(16))
     self.session_token
+  end
+
+  def self.find_by_credentials(login_params)
+    username = login_params[:username]
+    password = login_params[:password]
+    
+    if user = User.find_by_username(username)
+      return user if user.valid_password?(password)
+    end
+    errors.add(:credentials, :invalid_credentials)
+    false
   end
 
   private
