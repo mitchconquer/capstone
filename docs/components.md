@@ -7,11 +7,12 @@
   * SearchForm
   * AddFolder
   * SavedArticles
+  * AllFeedSources
   * FolderItems
     * FolderItem
       * FolderForm
-      * FeedItems
-        * FeedItemForm
+      * FeedSources
+        * FeedSourceForm
   * **FeedItemIndex**
     * FeedItemIndex
     * **FeedItemDetails**

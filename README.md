@@ -15,18 +15,19 @@ Handy reference for RSS XML documents: [W3.org Feed Validator][w3_validator]
 - [ ] A production README, replacing this README (**NB**: check out the [sample production README](docs/production_readme.md) -- you'll write this later)
 - [ ] User Accounts
   - [ ] Login / Logout
-  - [ ] Update profile information
-- [ ] Feeds
-  - [ ] Organize feeds in groups
-  - [ ] Select feeds from pre-existing recommendations and add to groups
-  - [ ] Add own RSS feeds and add to groups
+- [ ] Feed Sources
+  - [ ] Organize feeds in folders
+  - [ ] Select feeds from pre-existing recommendations and add to folders
+  - [ ] Add own RSS feeds and add to folders
   - [ ] Browse feeds and keep track of viewed items
+  - [ ] Delete Feed Sources
+  - [ ] Move feed source to different folder
   - [ ] Smooth, bug-free navigation
   - [ ] Adequate seed data to demonstrate the site's features
   - [ ] Adequate CSS styling
 - [ ] Folders
-  - [ ] Create and delete feed groups
-  - [ ] Move feeds between groups
+  - [ ] Create and delete feed folders
+  - [ ] Move feeds between folders
   - [ ] Display unread count in each feed
   - [ ] Smooth, bug-free navigation
   - [ ] Adequate seed data to demonstrate the site's features
@@ -34,6 +35,23 @@ Handy reference for RSS XML documents: [W3.org Feed Validator][w3_validator]
 - [ ] Mark feed_items as read/unread per user
 - [ ] Save feed_items to profile
 - [ ] Search feed_items
+- [ ] Add recommended and own custom feed sources
+  - [ ] Select a FeedSource from recommended FeedSources
+  - [ ] Add own custom feed source
+
+Bonus Items
+
+- [ ] Load animations for feed items and feed item content
+- [ ] FeedIndex shows the feed item that's curretnly in the view as active
+- [ ] Modal transition for new feed source forms
+- [ ] Content is infinitely scrolling
+- [ ] Drag and drop to rearrange feed items between folders
+- [ ] Add refresh FeedSource button to FeedIndex
+- [ ] Update profile information
+- [ ] Save searches as tags to folder pane
+- [ ] Get full content of article if possible
+- [ ] Sign up via 3rd party website
+- [ ] Browse other users' profile feeds
 
 [w3_validator]: https://validator.w3.org/feed/docs/rss2.html
 
@@ -153,29 +171,19 @@ which has its own `Index` view.
 [phase-four]: docs/phases/phase4.md
 [phase-five]: docs/phases/phase5.md
 
+## Initital Loading
 
 * If not logged in, show homepage
-* if logged in, show defaults (all feed_items)
+* if logged in, show AllFeedSources
   * UpdateAllFeeds
     * Initialize updatedFeedSourcesForServer object
     * Initialize udpatedFeedSources
-    * Request user's feed_sources from api
+    * Request user's feed_sources plus saved feed items from api
       (Could order feed_sources by number of user_read entries so you are
       getting the feeds the user reads the most first)
-    * For each feed_source
-      * get updated XML
-      * Parse XML into POJO 
-        * Add POJO to Updated Feeds POJO with <channel><link></link></channel> as key
-          (As do this, could give the feed_source to store so it can start to render;
-          should be a function that just does one feed_source at a time so can use
-          for other things and can )
-        * Add only info req'd by server to updatedFeedSourcesForServer
-        * Add all info to updatedFeedSources for store
-        * Update the store with updatedFeedSource
-    * Send updatedFeedSourcesForServer object to server with callback of ServerActions.receiveFeedSources and for each source:
-      * Delete old feed_items (and all dependencies in user_read table)
-      * Add new feed_items
-    * Send 
+    * For each feed_source: Refresh Feed Source
+
+## Refresh Feed Source
 
 The gist is that when updating a feed source, the React app will create two Feed Source objects, a simplified one for the server and a complete one for the app.  The server will update its records for that feed source and return an object that has for that feed source that includes an array listing which feed_items have bene read already by that user.
 
@@ -230,25 +238,41 @@ React will send the complete Feed Source object to the update the store immediat
             "http://www.lemonde.fr/tiny/4959257/" ] 
         }
       }
+      * At this time, server should update feed_items, deleting entries that are no longer included
     * ServerActions.receiveReadFeedItems(readFeedItems) will send actionType "RECEIVE_READ_FEED_ITEMS"
     * Store will update the "read" properties of each affected feedSource and __emitChange()
   * Client: FeedActions.updateStoreFeedSource(storeUpdatedFeedSource) is invoked to create actionType "RECEIVE_FEED_SOURCES"
     * Store will update the _feeds with the new info or add the feed if it's not yet in the store
     * Store will __emitChange()
 
+## Mark FeedItem as read per user
 
+* Triggered by feedItem onClick
+* FeedActions.markRead({ feedSourceIdentifier: feedItemIdentitier }) 
+* WebApiUtils.markRead({ feedSourceIdentifier: feedItemIdentitier }, ServerActions.markRead)
+  * Creates action with actionType "RECEIVE_READ_FEED_ITEM" with { feedSourceIdentifier: { read: [ feedItemIdentifier ]}}
+* FeedStore pushes new read feedItemIdentifier to read array of feedSourceIdentifier in _feeds and emits change
 
+## Save FeedItem to profile
 
+* Triggered by FeedItemDetails "save" button onClick
+* FeedActions.saveItem(feedItem)
+  * feedItem is object with all data about feedItem
+  * {feedSourceIdentifier:
+        {guid: "http://www.lemonde.fr/tiny/4959221/", title: "Title...", description: "Descr...", author: "Author...", link: "http://www...", pubDate: "date..."},
+    }
+* WebApiUtils.saveItem({ feedSourceIdentifier: feedItemIdentitier }, ServerActions.saveItem)
+* ServerActions.saveItem will create actionType "RECEIVE_SAVED_ITEM" with savedItem
+* FeedStore will push the savedItem to the savedItems
 
+## Search feed items ???
 
-    * Add POJO to Updated Feeds POJO with <channel><link></link></channel> as key
-      (As do this, could give the feed_source to store so it can start to render;
-      should be a function that just does one feed_source at a time so can use
-      for other things and can )
-    * Add only info req'd by server to updatedFeedSourcesForServer
-    * Add all info to updatedFeedSources for store
-    * Update the store with updatedFeedSource
+## Update Feed Source (Including delete or change folder)
 
+* Triggered by FeedSourceForm onSubmit
+* FeedActions.updateFeedSource
+
+* Triggered by onChange in Search component
 
 Server has:
 feed_sources
@@ -257,6 +281,9 @@ feed_sources
   * url
   * image link?
 feed_items
+  * id
+  * feed_source_id
+  * guid
 folders
   * id
   * user_id
