@@ -26,7 +26,8 @@ React will send the complete Feed Source object to the update the store immediat
     * Add each XML item.guid to serverUpdatedFeedSource
     * Add title, link, description, author, guid, pubDate (set as blank if don't exist) to storeUpdatedFeedSource, nested under guid.  If guid doesn't exist, use link.
   * serverUpdatedFeedSource now looks like:
-    ```js
+
+    ```JSON
     { "http://www.lemonde.fr/rss/une.xml":
       {
         link: "http://www.lemonde.fr/rss/une.xml", 
@@ -39,9 +40,12 @@ React will send the complete Feed Source object to the update the store immediat
       }
     }
     ```
+
     * All data is nested under the unique identitifier for that feedSource (the <channel><link></channel><link>)
       * Feed items is an array that's stored under the feed_items key
   * storeUpdatedFeedSource now looks like:
+
+   ```JSON
    { "http://www.lemonde.fr/rss/une.xml": 
     {
      title: "Le Monde.fr - Actualité à la Une",
@@ -55,6 +59,8 @@ React will send the complete Feed Source object to the update the store immediat
       read: []
     }
    }
+   ```
+
     * All data is nested under the unique identitifier for that feedSource (the <channel><link></channel><link>)
     * Channel information is top level in the nested object
     * Feed items is an array that's stored under the feed_items key.
