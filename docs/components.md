@@ -4,6 +4,7 @@
 
 * **Homepage**
 * **FolderIndex**
+  * SearchForm
   * AddFolder
   * SavedArticles
   * FolderItems
@@ -11,10 +12,9 @@
       * FolderForm
       * FeedItems
         * FeedItemForm
-  * **FeedArticleIndex**
-    * FeedArticleItem
-    * **FullArticle**
-      * Articles
+  * **FeedItemIndex**
+    * FeedItemIndex
+    * **FeedItemDetails**
   * **AddFeedsIndex**
     * SuggestedFeedItem
     * CreateFeed
@@ -33,6 +33,6 @@
 
 * **Component:** `FolderIndex`, **Path:** `/`
   * **Component:** `Homepage`, **Path:** `home` (if user is not logged in)
-  * **Component:** `FeedArticleIndex`, **Path:** `feed/:feedId`
-    * **Component:** `FullArticle`, **Path:** ``
+  * **Component:** `FeedItemIndex`, **Path:** `feed/:feedId`
+    * **Component:** `FeedItemDetails`, **Path:** ``
   * **Component:** `AddFeedsIndex`, **Path:** `edit`

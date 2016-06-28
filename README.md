@@ -8,6 +8,8 @@
 
 NewsFocus (working title...) is an RSS aggregretor that allows users to store feeds, organize them into groups and view and save content easily.
 
+Handy reference for RSS XML documents: [W3.org Feed Validator][w3_validator]
+
 - [ ] Hosting on Heroku
 - [ ] New account creation, login, and guest/demo login
 - [ ] A production README, replacing this README (**NB**: check out the [sample production README](docs/production_readme.md) -- you'll write this later)
@@ -32,6 +34,8 @@ NewsFocus (working title...) is an RSS aggregretor that allows users to store fe
 - [ ] Mark feed_items as read/unread per user
 - [ ] Save feed_items to profile
 - [ ] Search feed_items
+
+[w3_validator]: https://validator.w3.org/feed/docs/rss2.html
 
 ## Design Docs
 * [Index Wireframes][index_view]
@@ -139,6 +143,7 @@ which has its own `Index` view.
 - [ ] Load animations for feed items and feed item content
 - [ ] Save searches as tags to folder pane
 - [ ] Browse other users' profile feeds
+- [ ] Get full content of article if possible
 - [ ] Drag and drop to rearrange feed items between folders
 - [ ] Sign up via 3rd party website
 
@@ -147,3 +152,120 @@ which has its own `Index` view.
 [phase-three]: docs/phases/phase3.md
 [phase-four]: docs/phases/phase4.md
 [phase-five]: docs/phases/phase5.md
+
+
+* If not logged in, show homepage
+* if logged in, show defaults (all feed_items)
+  * UpdateAllFeeds
+    * Initialize updatedFeedSourcesForServer object
+    * Initialize udpatedFeedSources
+    * Request user's feed_sources from api
+      (Could order feed_sources by number of user_read entries so you are
+      getting the feeds the user reads the most first)
+    * For each feed_source
+      * get updated XML
+      * Parse XML into POJO 
+        * Add POJO to Updated Feeds POJO with <channel><link></link></channel> as key
+          (As do this, could give the feed_source to store so it can start to render;
+          should be a function that just does one feed_source at a time so can use
+          for other things and can )
+        * Add only info req'd by server to updatedFeedSourcesForServer
+        * Add all info to updatedFeedSources for store
+        * Update the store with updatedFeedSource
+    * Send updatedFeedSourcesForServer object to server with callback of ServerActions.receiveFeedSources and for each source:
+      * Delete old feed_items (and all dependencies in user_read table)
+      * Add new feed_items
+    * Send 
+
+The gist is that when updating a feed source, the React app will create two Feed Source objects, a simplified one for the server and a complete one for the app.  The server will update its records for that feed source and return an object that has for that feed source that includes an array listing which feed_items have bene read already by that user.
+
+React will send the complete Feed Source object to the update the store immediately.  The server will then update the store with the read_information only when it has it.
+
+* Update FeedSource(feedSourceLink)
+  * Instantiate storeUpdatedFeedSource object
+  * Instantiate serverUpdatedFeedSource object
+  * Get updated XML
+  * Parse XML into POJO
+    * Add XML channel.link to storeUpdatedFeedSource and serverUpdatedFeedSource
+    * Add each XML item.guid to serverUpdatedFeedSource
+    * Add title, link, description, author, guid, pubDate (set as blank if don't exist) to storeUpdatedFeedSource, nested under guid.  If guid doesn't exist, use link.
+  * serverUpdatedFeedSource now looks like:
+    { "http://www.lemonde.fr/rss/une.xml":
+      {
+        link: "http://www.lemonde.fr/rss/une.xml", 
+        feed_items: 
+          [
+           "http://www.lemonde.fr/tiny/4959221/",
+           "http://www.lemonde.fr/tiny/4959075/",
+           "http://www.lemonde.fr/tiny/4959257/"
+          ]
+      }
+    }
+    * All data is nested under the unique identitifier for that feedSource (the <channel><link></channel><link>)
+      * Feed items is an array that's stored under the feed_items key
+  * storeUpdatedFeedSource now looks like:
+   { "http://www.lemonde.fr/rss/une.xml": 
+    {
+     title: "Le Monde.fr - Actualité à la Une",
+     link: "http://www.lemonde.fr/rss/une.xml",
+     feed_items: 
+       [
+        {guid: "http://www.lemonde.fr/tiny/4959221/", title: "Title...", description: "Descr...", author: "Author...", link: "http://www...", pubDate: "date..."},
+        {guid: "http://www.lemonde.fr/tiny/4959075/", title: "Title...", description: "Descr...", author: "Author...", link: "http://www...", pubDate: "date..."},
+        {guid: "http://www.lemonde.fr/tiny/4959257/", title: "Title...", description: "Descr...", author: "Author...", link: "http://www...", pubDate: "date..."}
+       ],
+      read: []
+    }
+   }
+    * All data is nested under the unique identitifier for that feedSource (the <channel><link></channel><link>)
+    * Channel information is top level in the nested object
+    * Feed items is an array that's stored under the feed_items key.
+      * Feed items includes title, link, guid, description, pubDate, author
+  * Server: FeedActions.updateServerFeedSource(serverUpdatedFeedSource) is called with callback ServerActions.receiveReadFeedItems
+    * WebApiUtils.updateServerFeedSource(serverUpdatedFeedSource, ServerActions.receiveReadFeedItems)
+    * Server returns object that includes sources that have been read with source guid as key
+      { "http://www.lemonde.fr/rss/une.xml": {
+          read: [
+            "http://www.lemonde.fr/tiny/4959075/",
+            "http://www.lemonde.fr/tiny/4959257/" ] 
+        }
+      }
+    * ServerActions.receiveReadFeedItems(readFeedItems) will send actionType "RECEIVE_READ_FEED_ITEMS"
+    * Store will update the "read" properties of each affected feedSource and __emitChange()
+  * Client: FeedActions.updateStoreFeedSource(storeUpdatedFeedSource) is invoked to create actionType "RECEIVE_FEED_SOURCES"
+    * Store will update the _feeds with the new info or add the feed if it's not yet in the store
+    * Store will __emitChange()
+
+
+
+
+
+
+    * Add POJO to Updated Feeds POJO with <channel><link></link></channel> as key
+      (As do this, could give the feed_source to store so it can start to render;
+      should be a function that just does one feed_source at a time so can use
+      for other things and can )
+    * Add only info req'd by server to updatedFeedSourcesForServer
+    * Add all info to updatedFeedSources for store
+    * Update the store with updatedFeedSource
+
+
+Server has:
+feed_sources
+  * id
+  * title
+  * url
+  * image link?
+feed_items
+folders
+  * id
+  * user_id
+  * title
+"folderings" name?
+  * id
+  * user_id
+  * folder_id
+  * feed_source_id
+subscriptions
+user_read
+saved_items
