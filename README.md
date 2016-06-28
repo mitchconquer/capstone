@@ -51,6 +51,8 @@ Bonus Items
 - [ ] Get full content of article if possible
 - [ ] Sign up via 3rd party website
 - [ ] Browse other users' profile feeds
+- [ ] Keyboard shortcuts
+- [ ] Loading progress indicator
 
 [w3_validator]: https://validator.w3.org/feed/docs/rss2.html
 
