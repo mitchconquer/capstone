@@ -1,4 +1,4 @@
-# FresherNote
+# NewsFocus
 
 [Heroku link][heroku]
 
