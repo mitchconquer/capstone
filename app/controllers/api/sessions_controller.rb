@@ -10,7 +10,7 @@ class Api::SessionsController < ApplicationController
     # byebug
     if user = User.find_by_credentials(login_params)
       # byebug
-      log_in!(user)
+      login_user!(user)
       render json: user
     else
       user = User.new(username: login_params[:username])
@@ -22,7 +22,7 @@ class Api::SessionsController < ApplicationController
 
   def destroy
     if current_user
-      log_out!(current_user)
+      logout_user!(current_user)
       render json: {}
     else
       render json: { base: ['User already logged out'] }, status: 404

@@ -6,11 +6,11 @@ class ApplicationController < ActionController::Base
   helper_method :current_user, :require_login
 
   private
-  def log_in!(user)
+  def login_user!(user)
     session[:session_token] = user.reset_token!
   end
 
-  def log_out!(user)
+  def logout_user!(user)
     session[:session_token] = nil
     user.reset_token!
   end
