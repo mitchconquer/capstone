@@ -1,6 +1,7 @@
 import { Router, Route, IndexRoute, Link, hashHistory } from 'react-router';
 const React = require('react');
 const ReactDOM = require('react-dom');
+const SessionApiUtil = require('./utils/session_api_util');
 
 const App = React.createClass({
   render() {
@@ -18,3 +19,5 @@ const routes = (
 document.addEventListener("DOMContentLoaded", function() {
   ReactDOM.render(<Router history={hashHistory} >{routes}</Router>, document.getElementById('content'));
 });
+
+window.SessionApiUtil = SessionApiUtil;
