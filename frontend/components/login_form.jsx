@@ -9,7 +9,7 @@ const LoginForm = React.createClass({
 
   getInitialState() {
       return {
-          username: "", password: ""  
+          username: "", password: "", errors: {} 
       };
   },
 
@@ -19,21 +19,22 @@ const LoginForm = React.createClass({
      { username: this.state.username,
        password: this.state.password } }
 
-    SessionActions.login(formData, this.retry);
+    SessionActions.login(formData);
   },
 
   componentDidMount() {
     SessionStore.addListener(this.redirectIfLoggedIn);  
+    ErrorStore.addListener(this.errorChange);
+  },
+
+  errorChange() {
+    this.setState({ errors: ErrorStore.formErrors('LoginForm') });
   },
 
   redirectIfLoggedIn() {
     if (SessionStore.isUserLoggedIn()) {
       this.context.router.push("/");
     }
-  },
-
-  retry(e) {
-    console.log(e);
   },
 
   usernameChange(e) {
@@ -45,9 +46,16 @@ const LoginForm = React.createClass({
   },
 
   render() {
+    const errors = Object.keys(this.state.errors).map(key => {
+          return (<li key={key}>{this.state.errors[key]}</li>);
+        });
+
     return(
       <section className="login form">
         <h2>Log In!</h2>
+        <div>
+          {errors}
+        </div>
         <form onSubmit={this.onFormSubmit}>
           <label for="username">Username:</label>
           <input type="text" onChange={this.usernameChange} id="username" />

@@ -1,27 +1,28 @@
 const AppDispatcher = require('../dispatcher/dispatcher');
 const SessionApiUtil = require('../utils/session_api_util');
 const SessionConstants = require('../constants/session_constants');
+const ErrorActions = require('./error_actions');
 
 const SessionActions = {
   /**
   * @param {object} formData - {user: {username: username, password: password}}
   */
-  signup(formData, errorCallback) {
-    SessionApiUtil.signup(formData, this.receiveCurrentUser, errorCallback);
+  signup(formData) {
+    SessionApiUtil.signup(formData, this.receiveCurrentUser, ErrorActions.setErrors);
   },
 
   /**
   * @param {object} formData - {user: {username: username, password: password}}
   */
-  login(formData, errorCallback) {
-    SessionApiUtil.login(formData, this.receiveCurrentUser, errorCallback);
+  login(formData) {
+    SessionApiUtil.login(formData, this.receiveCurrentUser, ErrorActions.setErrors);
   },
 
   /**
   * @param {object} formData - {user: {username: username, password: password}}
   */
-  logout(formData, errorCallback) {
-    SessionApiUtil.logout(formData, this.receiveCurrentUser, errorCallback);
+  logout(formData) {
+    SessionApiUtil.logout(formData, this.receiveCurrentUser, ErrorActions.setErrors);
   },
 
   /**

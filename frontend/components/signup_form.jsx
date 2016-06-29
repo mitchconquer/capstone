@@ -1,6 +1,7 @@
 const React = require('react');
 const SessionActions = require('../actions/session_actions');
 const SessionStore = require('../stores/session_store');
+const ErrorStore = require('../stores/error_store');
 
 const SignupForm = React.createClass({
   contextTypes: {
@@ -9,7 +10,7 @@ const SignupForm = React.createClass({
 
   getInitialState() {
       return {
-          username: "", password: ""  
+          username: "", password: "", errors: {}
       };
   },
 
@@ -19,21 +20,22 @@ const SignupForm = React.createClass({
      { username: this.state.username,
        password: this.state.password } }
 
-    SessionActions.signup(formData, this.retry);
+    SessionActions.signup(formData);
   },
 
   componentDidMount() {
-    SessionStore.addListener(this.redirectIfLoggedIn);  
+    SessionStore.addListener(this.redirectIfLoggedIn);
+    ErrorStore.addListener(this.errorChange);
+  },
+
+  errorChange() {
+    this.setState({ errors: ErrorStore.formErrors('SignupForm') });
   },
 
   redirectIfLoggedIn() {
     if (SessionStore.isUserLoggedIn()) {
       this.context.router.push("/");
     }
-  },
-
-  retry(e) {
-    console.log(e);
   },
 
   usernameChange(e) {
@@ -45,9 +47,17 @@ const SignupForm = React.createClass({
   },
 
   render() {
+    const errors = Object.keys(this.state.errors).map(key => {
+      return (<li key={key}>{this.state.errors[key]}</li>);
+    });
     return(
       <section className="signup">
         <h2>Sign Up!</h2>
+        <div>
+          <ul>
+            {errors}
+          </ul>
+        </div>
         <form onSubmit={this.onFormSubmit}>
           <label for="username">Username:</label>
           <input type="text" onChange={this.usernameChange} id="username" />

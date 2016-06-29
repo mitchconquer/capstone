@@ -7,7 +7,7 @@ class Api::UsersController < ApplicationController
       login_user!(@user)
       render :show
     else
-      render json: { base: @user.errors.full_messages }, status: 401
+      render json: { errors: @user.errors.full_messages, form: 'SignupForm' }, status: 401
     end
   end
 
