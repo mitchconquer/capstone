@@ -7,7 +7,6 @@ const SessionStore = require('./stores/session_store');
 const ErrorStore = require('./stores/error_store');
 const LoginForm = require('./components/login_form');
 const SignupForm = require('./components/signup_form');
-// const LogInLink = require('./components/login_link');
 const UserAccountLink = require('./components/user_account_link');
 
 const App = React.createClass({
