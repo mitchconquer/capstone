@@ -12,7 +12,4 @@ class ReadFeedRecord < ActiveRecord::Base
     foreign_key: :feed_item_id,
     class_name: :FeedItem
 
-  def self.sayHi
-    puts "HIIIIIIIIIIII!"
-  end
 end
