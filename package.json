@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "[Heroku link][heroku]",
   "main": "index.js",
+  "engines": {
+    "node": "6.2.1",
+    "npm": "3.9.3",
+  },
   "directories": {
     "doc": "docs",
     "test": "test"
