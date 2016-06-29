@@ -48,7 +48,7 @@ id               | integer   | not null, primary key
 feed_source_id   | integer   | not null, foreign key
 category_id      | integer   | not null, foreign key
 
-## Read Feed Items
+## Read Feed Records
 column name | data type | details
 ------------|-----------|-----------------------
 id          | integer   | not null, primary key
@@ -63,7 +63,7 @@ folder_id     | integer   | not null, foreign key
 user_id       | integer   | not null, foreign key
 feed_id       | integer   | not null, foreign key
 
-## users
+## Users
 column name     | data type | details
 ----------------|-----------|-----------------------
 id              | integer   | not null, primary key

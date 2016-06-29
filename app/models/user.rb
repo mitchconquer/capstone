@@ -7,6 +7,17 @@ class User < ActiveRecord::Base
   validates :password, length: { minimum: 6, allow_nil: true }
   after_initialize :ensure_session_token
 
+  has_many :read_feed_records,
+    primary_key: :id,
+    foreign_key: :user_id,
+    class_name: :ReadFeedRecord
+
+  has_many :read_feed_items,
+    through: :read_feed_records,
+    primary_key: :id,
+    foreign_key: :feed_item_id,
+    class_name: :FeedItem
+
   def password=(password)
     @password = password
     self.password_digest = BCrypt::Password.create(password)
