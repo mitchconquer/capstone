@@ -36,7 +36,7 @@ const UserAccountLink = React.createClass({
     }
     return (
       <div>
-        <Link to="/login">Login</Link>
+        <Link to="/login">Login</Link> or <Link to="/signup">Sign up</Link>
       </div>
     );
   }

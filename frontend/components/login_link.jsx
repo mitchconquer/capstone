@@ -7,7 +7,7 @@ const LoginLink = React.createClass({
   render() {
     return (
       <div>
-        <Link to="/login">Login</Link>
+        <Link to="/login">Login</Link> or <Link to="/signup">Sign up</Link>
       </div>
     );
   }
