@@ -91,8 +91,8 @@ Bonus Items
 **Objective:** FeedSources can be created, read, edited and destroyed through
 the API.
 
-- [ ] create `feed_source` model
-- [ ] create `feed_item` model
+- [X] create `feed_source` model
+- [X] create `feed_item` model
 - [ ] seed the database with a small amount of test data including demo/guest accounts
 - [ ] CRUD API for feed sources (`FeedSourcesController`)
 - [ ] API for marking feed_items read

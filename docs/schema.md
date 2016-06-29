@@ -8,7 +8,6 @@ title       | string    | not null
 url         | string    | not null, indexed
 recommended | boolean   | not null, default false
 image_link  | string    | not null, need a default...
-category_id | integer   | foreign key
 
 ## Folders
 column name | data type | details
@@ -36,11 +35,18 @@ body        | text      | not null
 author      | string    | 
 pub_date    | string    | 
 
-# Categories
+## Categories
 column name | data type | details
 ------------|-----------|-----------------------
 id          | integer   | not null, primary key
 name        | integer   | not null
+
+## Category Feed Source (Join table)
+column name      | data type | details
+-----------------|-----------|-----------------------
+id               | integer   | not null, primary key
+feed_source_id   | integer   | not null, foreign key
+category_id      | integer   | not null, foreign key
 
 ## Read Feed Items
 column name | data type | details

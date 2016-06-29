@@ -5,3 +5,14 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+cateogries = [
+ { name: "Uncategorized"},
+ { name: "News"},
+ { name: "News"},
+
+]
+
+feed_sources = [ 
+  { title: "紐約時報中文網 國際縱覽", url: "http://cn.nytimes.com/rss/zh-hant/", recommended: "true", category_id: , image_url: , }  
+]

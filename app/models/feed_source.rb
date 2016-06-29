@@ -1,5 +1,5 @@
 class FeedSource < ActiveRecord::Base
-  validates :title, :url, :recommended, :image_url, presence: true
+  validates :title, :url, :image_url, presence: true
   after_initialize :ensure_defaults
 
   has_many :feed_items,
@@ -8,10 +8,16 @@ class FeedSource < ActiveRecord::Base
     foreign_key: :feed_source_id,
     class_name: :FeedSource
 
-  belongs_to :category,
+  has_many :categories,
+    through: :categories_feed_sources,
     primary_key: :id,
     foreign_key: :category_id,
     class_name: :Category
+
+  has_many :categories_feed_sources,
+    primary_key: :id,
+    foreign_key: :feed_source_id,
+    class_name: :CategoriesFeedSource
 
   private
   def ensure_defaults
