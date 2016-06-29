@@ -5,9 +5,9 @@ column name | data type | details
 ------------|-----------|-----------------------
 id          | integer   | not null, primary key
 title       | string    | not null
-url         | string    | not null, indexed
+url         | text      | not null, indexed
 recommended | boolean   | not null, default false
-image_link  | string    | not null, need a default...
+image_url   | text      | not null, need a default...
 
 ## Folders
 column name | data type | details
@@ -21,7 +21,7 @@ column name     | data type | details
 ----------------|-----------|-----------------------
 id              | integer   | not null, primary key
 feed_source_id  | integer   | foreign key
-identifier      | string    | not null
+identifier      | text      | not null
 
 ## Saved Feed Items
 column name | data type | details
@@ -30,7 +30,7 @@ id          | integer   | not null, primary key
 user_id     | integer   | foreign key
 feed_id     | integer   | foreign key
 title       | string    | not null
-url         | string    | not null
+url         | text      | not null
 body        | text      | not null
 author      | string    | 
 pub_date    | string    | 
