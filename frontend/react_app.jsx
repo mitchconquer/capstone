@@ -33,9 +33,15 @@ const Welcome = React.createClass({
   }
 });
 
+function _ensureLoggedIn(nextState, replace) {
+  if (!SessionStore.isUserLoggedIn()) {
+   replace('/login');
+  }
+}
+
 const routes = (
   <Route path="/" component={App}>
-    <IndexRoute component={Welcome} />
+    <IndexRoute onEnter={_ensureLoggedIn} component={Welcome} />
     <Route path="login" component={LoginForm} />
     <Route path="signup" component={SignupForm} />
   </Route>
