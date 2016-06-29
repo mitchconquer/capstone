@@ -22,9 +22,7 @@ column name     | data type | details
 ----------------|-----------|-----------------------
 id              | integer   | not null, primary key
 feed_source_id  | integer   | foreign key
-title           | string    | not null
-guid            | string    | not null
-body            | text      | not null
+identifier      | string    | not null
 
 ## Saved Feed Items
 column name | data type | details
