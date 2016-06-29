@@ -6,22 +6,22 @@ const SessionActions = {
   /**
   * @param {object} formData - {user: {username: username, password: password}}
   */
-  signup(formData) {
-    SessionApiUtil.signup(formData, this.receiveCurrentUser);
+  signup(formData, errorCallback) {
+    SessionApiUtil.signup(formData, this.receiveCurrentUser, errorCallback);
   },
 
   /**
   * @param {object} formData - {user: {username: username, password: password}}
   */
-  login(formData) {
-    SessionApiUtil.login(formData, this.receiveCurrentUser);
+  login(formData, errorCallback) {
+    SessionApiUtil.login(formData, this.receiveCurrentUser, errorCallback);
   },
 
   /**
   * @param {object} formData - {user: {username: username, password: password}}
   */
-  logout(formData) {
-    SessionApiUtil.logout(formData, this.receiveCurrentUser);
+  logout(formData, errorCallback) {
+    SessionApiUtil.logout(formData, this.receiveCurrentUser, errorCallback);
   },
 
   /**
