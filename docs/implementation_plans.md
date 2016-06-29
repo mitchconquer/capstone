@@ -13,7 +13,7 @@
 
 ## Refresh Feed Source
 
-The gist is that when updating a feed source, the React app will create two Feed Source objects, a simplified one for the server and a complete one for the app.  The server will update its records for that feed source and return an object that has for that feed source that includes an array listing which feed_items have bene read already by that user.
+The gist is that when updating a feed source, the React app will create two Feed Source objects, a simplified one for the server and a complete one for the app.  The server will update its records for that feed source and return an object that has for that feed source that includes an array listing which feed_items have been read already by that user.
 
 React will send the complete Feed Source object to the update the store immediately.  The server will then update the store with the read_information only when it has it.
 
@@ -25,7 +25,7 @@ React will send the complete Feed Source object to the update the store immediat
     * Add XML channel.link to storeUpdatedFeedSource and serverUpdatedFeedSource
     * Add each XML item.guid to serverUpdatedFeedSource
     * Add title, link, description, author, guid, pubDate (set as blank if don't exist) to storeUpdatedFeedSource, nested under guid.  If guid doesn't exist, use link.
-  * serverUpdatedFeedSource now looks like:
+  * **serverUpdatedFeedSource** now looks like:
 
     ```JSON
     { "http://www.lemonde.fr/rss/une.xml":
@@ -36,6 +36,18 @@ React will send the complete Feed Source object to the update the store immediat
            "http://www.lemonde.fr/tiny/4959221/",
            "http://www.lemonde.fr/tiny/4959075/",
            "http://www.lemonde.fr/tiny/4959257/"
+          ]
+      }
+    }
+
+    { uniqueIdentifier:
+      {
+        link: url, 
+        feed_items: 
+          [
+           feedItemUniqueIdentifier,
+           feedItemUniqueIdentifier,
+           feedItemUniqueIdentifier
           ]
       }
     }
@@ -59,6 +71,21 @@ React will send the complete Feed Source object to the update the store immediat
       read: []
     }
    }
+
+   {uniqueIdentifier: 
+    {
+     title: channelTitle,
+     link: channelLink,
+     feed_items: 
+       [
+        {guid: guid, title: title, description: description, author: author, link: url, pubDate: date},
+        {guid: guid, title: title, description: description, author: author, link: url, pubDate: date},
+        {guid: guid, title: title, description: description, author: author, link: url, pubDate: date}
+       ],
+      read: []
+    }
+   }
+
    ```
 
     * All data is nested under the unique identitifier for that feedSource (the <channel><link></channel><link>)
