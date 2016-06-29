@@ -31,8 +31,8 @@
 
 ### Feed Items
 - `GET /api/feeds/:id/items` 
-- `POST /api/items/markread` mark feed item read by current user
-- `POST /api/items/markunread` mark feed item unread by current user
+- `POST /api/items/read` mark feed item read by current user
+- `POST /api/items/unread` mark feed item unread by current user
 
 ### Feeds by Folder
 - `GET /api/folders/:id/feeds` - get feeds by folder
