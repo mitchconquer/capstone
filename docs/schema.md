@@ -6,8 +6,8 @@ column name | data type | details
 id          | integer   | not null, primary key
 title       | string    | not null
 url         | string    | not null, indexed
-image_url   | string    | 
 recommended | boolean   | not null, default false
+image_link  | string    | not null, need a default...
 category_id | integer   | foreign key
 
 ## Folders
@@ -26,7 +26,7 @@ title           | string    | not null
 guid            | string    | not null
 body            | text      | not null
 
-## Saved Articles
+## Saved Feed Items
 column name | data type | details
 ------------|-----------|-----------------------
 id          | integer   | not null, primary key
@@ -35,6 +35,8 @@ feed_id     | integer   | foreign key
 title       | string    | not null
 url         | string    | not null
 body        | text      | not null
+author      | string    | 
+pub_date    | string    | 
 
 # Categories
 column name | data type | details
@@ -42,7 +44,7 @@ column name | data type | details
 id          | integer   | not null, primary key
 name        | integer   | not null
 
-## Read Articles
+## Read Feed Items
 column name | data type | details
 ------------|-----------|-----------------------
 id          | integer   | not null, primary key

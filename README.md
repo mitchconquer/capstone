@@ -2,7 +2,7 @@
 
 [Heroku link][heroku]
 
-[heroku]: https://radiant-hamlet-56535.herokuapp.com/
+[heroku]: https://evening-inlet-45993.herokuapp.com/
 
 ## Minimum Viable Product
 

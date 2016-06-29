@@ -53,6 +53,7 @@ React will send the complete Feed Source object to the update the store immediat
     }
     ```
 
+    * **Unique identifier note for <item />'s:** only thet title and description are required so must use title if no guid or link are present as unique identifier.
     * All data is nested under the unique identitifier for that feedSource (the <channel><link></channel><link>)
       * Feed items is an array that's stored under the feed_items key
   * storeUpdatedFeedSource now looks like:
@@ -61,6 +62,7 @@ React will send the complete Feed Source object to the update the store immediat
    { "http://www.lemonde.fr/rss/une.xml": 
     {
      title: "Le Monde.fr - Actualité à la Une",
+     imageUrl: imageUrl,
      link: "http://www.lemonde.fr/rss/une.xml",
      feed_items: 
        [
@@ -108,6 +110,8 @@ React will send the complete Feed Source object to the update the store immediat
   * Client: FeedActions.updateStoreFeedSource(storeUpdatedFeedSource) is invoked to create actionType "RECEIVE_FEED_SOURCES"
     * Store will update the _feeds with the new info or add the feed if it's not yet in the store
     * Store will __emitChange()
+
+  **Note:** Feed sources have image url in database; this should just be overwritten every time and default to a site icon default if none is present.
 
 ## Mark FeedItem as read per user
 
