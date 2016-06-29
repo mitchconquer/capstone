@@ -10,11 +10,11 @@ NewsFocus (working title...) is an RSS aggregretor that allows users to store fe
 
 Handy reference for RSS XML documents: [W3.org Feed Validator][w3_validator]
 
-- [ ] Hosting on Heroku
+- [X] Hosting on Heroku
 - [ ] New account creation, login, and guest/demo login
 - [ ] A production README, replacing this README (**NB**: check out the [sample production README](docs/production_readme.md) -- you'll write this later)
-- [ ] User Accounts
-  - [ ] Login / Logout
+- [X] User Accounts
+  - [X] Login / Logout
 - [ ] Feed Sources
   - [ ] Select feeds from pre-existing recommendations and add to folders
   - [ ] Add own RSS feeds and add to folders
