@@ -9,19 +9,26 @@ url         | text      | not null, indexed
 recommended | boolean   | not null, default false
 image_url   | text      | not null, need a default...
 
-## Folders
-column name | data type | details
-------------|-----------|-----------------------
-id          | integer   | not null, primary key
-title       | string    | not null
-user_id     | integer   | not null, foreign key
-
 ## Feed Items
 column name     | data type | details
 ----------------|-----------|-----------------------
 id              | integer   | not null, primary key
 feed_source_id  | integer   | foreign key
 identifier      | text      | not null
+
+## Read Feed Records
+column name | data type | details
+------------|-----------|-----------------------
+id          | integer   | not null, primary key
+user_id     | integer   | foreign key
+feed_item_id| integer   | foreign key
+
+## Folders
+column name | data type | details
+------------|-----------|-----------------------
+id          | integer   | not null, primary key
+title       | string    | not null
+user_id     | integer   | not null, foreign key
 
 ## Saved Feed Items
 column name | data type | details
@@ -47,13 +54,6 @@ column name      | data type | details
 id               | integer   | not null, primary key
 feed_source_id   | integer   | not null, foreign key
 category_id      | integer   | not null, foreign key
-
-## Read Feed Records
-column name | data type | details
-------------|-----------|-----------------------
-id          | integer   | not null, primary key
-user_id     | integer   | foreign key
-feed_item   | integer   | foreign key
 
 ## Subscriptions
 column name   | data type | details

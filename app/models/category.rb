@@ -3,9 +3,7 @@ class Category < ActiveRecord::Base
 
   has_many :feed_sources,
     through: :categories_feed_sources,
-    primary_key: :id,
-    foreign_key: :feed_source_id,
-    class_name: :FeedSource
+    source: :FeedSource
   
   has_many :categories_feed_sources,
     primary_key: :id,

@@ -14,9 +14,11 @@ class User < ActiveRecord::Base
 
   has_many :read_feed_items,
     through: :read_feed_records,
-    primary_key: :id,
-    foreign_key: :feed_item_id,
-    class_name: :FeedItem
+    source: :feed_item
+
+  def read_by_source(feed_source_id)
+    read_feed_items.where(feed_source_id: feed_source_id)
+  end
 
   def password=(password)
     @password = password

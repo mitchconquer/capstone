@@ -10,4 +10,8 @@ class ReadFeedRecord < ActiveRecord::Base
     primary_key: :id,
     foreign_key: :feed_item_id,
     class_name: :FeedItem
+
+  def self.sayHi
+    puts "HIIIIIIIIIIII!"
+  end
 end
