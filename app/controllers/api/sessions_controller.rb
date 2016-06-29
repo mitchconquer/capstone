@@ -8,12 +8,12 @@ class Api::SessionsController < ApplicationController
 
   def create
     # byebug
-    if user = User.find_by_credentials(login_params)
+    if @user = User.find_by_credentials(login_params)
       # byebug
-      login_user!(user)
-      render json: user
+      login_user!(@user)
+      render :show
     else
-      user = User.new(username: login_params[:username])
+      @user = User.new(username: login_params[:username])
       # @user.errors = ["Invalid username or password"]
       render json: { base: ['Invalid username or password'] }, status: 401
       # render json: params
