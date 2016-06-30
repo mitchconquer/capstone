@@ -51,7 +51,7 @@
           pubDate: dateTime,
           pubDateAgo: String,
           enclosure: url:Text,
-          guid: text }, 
+          identifier: text }, 
         feedItemId: { 
           title: title,
           link: link,
@@ -60,7 +60,7 @@
           author: String,
           pubDate: dateTime,
           enclosure: url:Text,
-          guid: text }
+          identifier: text }
       }
     },
 
@@ -78,7 +78,7 @@
           pubDate: dateTime,
           pubDateAgo: String,
           enclosure: url:Text,
-          guid: text }
+          identifier: text }
       }
     }
   }
@@ -104,7 +104,7 @@ feedSourceId: {
       pubDate: dateTime,
       pubDateAgo: String,
       enclosure: url:Text,
-      guid: text }, 
+      identifier: text }, 
     feedItemId: { 
       title: String,
       link: Text,
@@ -112,9 +112,9 @@ feedSourceId: {
       read: Boolean,
       author: String,
       pubDate: dateTime,
-      pubDateAgo: String,
+      pubDateAgo: String,  
       enclosure: url:Text,
-      guid: text }, 
+      identifier: text }, 
   }
 }
 ```

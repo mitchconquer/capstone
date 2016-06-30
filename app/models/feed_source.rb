@@ -17,12 +17,8 @@ class FeedSource < ActiveRecord::Base
     foreign_key: :feed_source_id,
     class_name: :CategoriesFeedSource
 
-  def read_items
-    self.feed_items.where({})
-  end
-
-  def read_feed_items
-    current_user.read_by_source(self.id)
+  def read_feed_items(user)
+    user.read_by_source(self.id)
   end
 
   private
