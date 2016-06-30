@@ -86,7 +86,8 @@
 ```
 ### †† refreshFeedSources([feedSourceId, feedSourceId, ...])
 
-Return format:
+* Requests to `/api/feeds/:id`
+* Return format:
 
 ```javascript
 feedSourceId: {

@@ -25,12 +25,11 @@
 - `GET /api/feeds` - all of current user's feed sources
   - accepts `recommended` query param to list only recommended feeds by category
 - `POST /api/feeds` - new feed source
-- `GET /api/feeds/:id` 
+- `GET /api/feeds/:id` - Feed Source and all feed items (called by refreshFeedSource))
 - `PATCH /api/feeds/:id`
 - `DELETE /api/feeds/:id`
 
 ### Feed Items
-- `GET /api/feeds/:id/items` 
 - `POST /api/items/read` mark feed item read by current user
 - `POST /api/items/unread` mark feed item unread by current user
 
@@ -40,6 +39,7 @@
 ### Saved Feed Items
 - `GET /api/users/:id/items` - all saved items
 - `GET /api/users/:id/items/:id`
+- `POST /api/users/:id/items` - save new item (should be passed all info bec item may have been deleted from DB)
 - `PATCH /api/users/:id/items/:id`
 - `DELETE /api/users/:id/items/:id`
 

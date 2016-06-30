@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     resources :users, only: [ :create ]
 
     resources :feed_sources, path: 'feeds' do
-      resources :feed_items, path: 'items', only: [ :index ]
+      # resources :feed_items, path: 'items', only: [ :index ]
     end
 
     post 'items/mark_read', to: 'feed_item#mark_read'

@@ -19,7 +19,7 @@ title           | text      | not null
 link            | text      |
 description     | text      |
 author          | string    |
-pubDate         | DateTime  |
+pubDate         | datetime  |
 enclosure       | text      |
 guid            | string    |
 
