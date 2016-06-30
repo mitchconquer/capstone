@@ -11,9 +11,9 @@
       getting the feeds the user reads the most first)
     * For each feed_source: Refresh Feed Source
     
-**Server Response Format:** 
+### Server Initial Load Response Format
 
-* Returns folders and their feed sources as well as list of feed sources.  
+* Returns two nested objects, folders (with their feed sources) and a list of feed sources
 * The advantage is that feed sources can be given in any order (so can optimize or change order later, ie: order by feeds with the most read items first)
 * Once we load all of the feed sources for the initial load, can reuse them to render individual feed views.
 * Should have FeedSourceStore and FolderStore

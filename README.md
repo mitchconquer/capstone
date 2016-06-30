@@ -1,8 +1,11 @@
 # NewsFocus
 
+> Aggregreater (working title...) is an RSS aggregretor that allows users to store feeds, organize them into groups and view and save content easily.
+
 [Heroku link][heroku]
 
 [heroku]: https://evening-inlet-45993.herokuapp.com/
+
 
 ## Minimum Viable Product
 
@@ -72,6 +75,12 @@ Bonus Items
 [api-endpoints]: docs/api-endpoints.md
 [schema]: docs/schema.md
 [implementation]: docs/implementation_plans.md
+
+## Used Libraries
+
+* [Feedjira][feedjira_docs]
+
+[feedjira_docs][http://www.rubydoc.info/github/feedjira/feedjira/Feedjira/Parser]
 
 ## Implementation Timeline
 
@@ -158,11 +167,3 @@ user interface.
 - [ ] Refactor HTML classes & CSS rules
 - [ ] Add modals, transitions, and other styling flourishes.
 
-### Bonus Features (TBD)
-
-<!-- [phase-one]: docs/phases/phase1.md
-[phase-two]: docs/phases/phase2.md
-[phase-three]: docs/phases/phase3.md
-[phase-four]: docs/phases/phase4.md
-[phase-five]: docs/phases/phase5.md
- -->
