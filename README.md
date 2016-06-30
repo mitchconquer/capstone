@@ -94,7 +94,7 @@ the API.
 - [X] create `feed_source` model
 - [X] create `feed_item` model
 - [X] seed the database with a small amount of test data including demo/guest accounts
-- [ ] CRUD API for feed sources (`FeedSourcesController`)
+- [X] CRUD API for feed sources (`FeedSourcesController`)
 - [ ] API for marking feed_items read
 - [ ] jBuilder views for feed sources
 - [ ] setup Webpack & Flux scaffold
