@@ -6,11 +6,9 @@ Rails.application.routes.draw do
 
     resources :users, only: [ :create ]
 
-    resources :feed_sources, path: 'feeds' do
-      # resources :feed_items, path: 'items', only: [ :index ]
-    end
+    resources :feed_sources, path: 'feeds', except: [ :new, :edit ]
 
-    post 'items/mark_read', to: 'feed_item#mark_read'
-    post 'items/mark_unread', to: 'feed_item#mark_unread'
+    post 'items/:id/mark_read', to: 'feed_item#mark_read'
+    post 'items/:id/mark_unread', to: 'feed_item#mark_unread'
   end 
 end
