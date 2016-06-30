@@ -1,5 +1,5 @@
 class FeedItem < ActiveRecord::Base
-  validates :feed_source_id, :identifier, presence: true
+  validates :feed_source_id, :identifier, :title, presence: true
   validates :identifier, uniqueness: true
 
   belongs_to :feed_source,
