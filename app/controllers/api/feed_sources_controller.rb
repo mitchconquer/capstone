@@ -12,9 +12,9 @@ class Api::FeedSourcesController < ApplicationController
     end
     byebug
     
-    # folders = params[:folders] # folders is array of folder ID's
+    folders = params[:folders] # folders is array of folder ID's
 
-    # current_user.subscribe_to(@feed_source, folders)
+    Subscription.subscribe(current_user, @feed_source, folders)
 
     # TODO: What does React need for return value?
     render :show

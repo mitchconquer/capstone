@@ -35,7 +35,7 @@ class FeedSource < ActiveRecord::Base
     self.recommended ||= false
     self.image_url ||= "https://placeimg.com/500/500/nature"
   end
-
+  
   def self.feedjira_error
     # Return error messages
     # Perhaps should be feedjira module if used elsewhere?
@@ -48,8 +48,7 @@ class FeedSource < ActiveRecord::Base
       feed_url: feed.respond_to?(:feed_url) ? feed.feed_url : nil,
       image_url: feed.respond_to?(:image_url) ? feed.image_url : nil
     }
-
-    new_feed_source = FeedSource.new(params).save
-    new_feed_source
+    
+    FeedSource.create(params)
   end
 end
