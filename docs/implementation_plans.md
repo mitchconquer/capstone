@@ -10,6 +10,45 @@
       (Could order feed_sources by number of user_read entries so you are
       getting the feeds the user reads the most first)
     * For each feed_source: Refresh Feed Source
+    
+**Server Response Format:** 
+
+* Returns folders and their feed sources as well as list of feed sources.  
+* The advantage is that feed sources can be given in any order (so can optimize or change order later, ie: order by feeds with the most read items first)
+* Once we load all of the feed sources for the initial load, can reuse them to render individual feed views.
+* Should have FeedSourceStore and FolderStore
+
+```JSON
+{
+  folders: {
+    folderId: {
+      folderName: folderName,
+      feedSources: [feedSourceId, feedSourceId, ...]
+    },
+    folderId: {
+      folderName: folderName,
+      feedSources: [feedSourceId, feedSourceId, ...]
+    }
+  },
+
+  feedSources: {
+    feedSourceId: {
+      feedSourceTitle: title,
+      feedSourceUrl: url,
+      feedSourceImageUrl: imageUrl
+    },
+    feedSourceId: {
+      feedSourceTitle: title,
+      feedSourceUrl: url,
+      feedSourceImageUrl: imageUrl
+    }
+  }
+}
+```
+
+
+
+
 
 ## Refresh Feed Source
 
@@ -28,9 +67,8 @@ React will send the complete Feed Source object to the update the store immediat
   * **serverUpdatedFeedSource** now looks like:
 
     ```JSON
-    { "http://www.lemonde.fr/rss/une.xml":
+    { 12:
       {
-        link: "http://www.lemonde.fr/rss/une.xml", 
         feed_items: 
           [
            "http://www.lemonde.fr/tiny/4959221/",
@@ -40,9 +78,8 @@ React will send the complete Feed Source object to the update the store immediat
       }
     }
 
-    { uniqueIdentifier:
+    { feed_source_id:
       {
-        link: url, 
         feed_items: 
           [
            feedItemUniqueIdentifier,
@@ -59,7 +96,7 @@ React will send the complete Feed Source object to the update the store immediat
   * storeUpdatedFeedSource now looks like:
 
    ```JSON
-   { "http://www.lemonde.fr/rss/une.xml": 
+   { 12: 
     {
      title: "Le Monde.fr - Actualité à la Une",
      imageUrl: imageUrl,
@@ -74,10 +111,11 @@ React will send the complete Feed Source object to the update the store immediat
     }
    }
 
-   {uniqueIdentifier: 
+   {feedSourceId: 
     {
      title: channelTitle,
      link: channelLink,
+     imageUrl: imageUrl,
      feed_items: 
        [
         {guid: guid, title: title, description: description, author: author, link: url, pubDate: date},
