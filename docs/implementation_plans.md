@@ -3,7 +3,7 @@
 
 * If not logged in, show homepage
 * if logged in, load `<FolderIndex />`
-* `<FolderIndex />` will ask rails for Folders and Feed Sources*
+* `<FolderIndex />` will ask rails for Folders and Feed Sources †
   * Default child component: `<AllFeeds sources={[feedSourceId, feedSourceId, ...]} />`
     * Get all feed source IDs from Util method that grabs keys from FeedSourcesStore
   * `<SavedFeedItems />`
@@ -16,7 +16,7 @@
   * Will listen to `FeedSourceStore`, when there's a change, calls method `updateFeedItems()` to cycle through own feed source ID's and push feed items into its feed item state property
 * `<FeedItemDetails />` is pane to show the actual of the `<FeedItem />`
 
-### *Server response to initial data request
+### † Server response to initial data request
 
 * Returns two nested objects, folders (with their feed sources) and a list of feed sources
 * Feed sources can be given in any order (so can optimize or change order later, ie: order by feeds with the most read items first)
@@ -40,13 +40,80 @@
     feedSourceId: {
       feedSourceTitle: title,
       feedSourceUrl: url,
-      feedSourceImageUrl: imageUrl
+      feedSourceImageUrl: imageUrl,
+      feedItems: { 
+        feedItemId: { 
+          title: title,
+          link: link,
+          description: description,
+          read: True/False,
+          author: String,
+          pubDate: dateTime,
+          pubDateAgo: String,
+          enclosure: url:Text,
+          guid: text }, 
+        feedItemId: { 
+          title: title,
+          link: link,
+          description: description,
+          read: True/False,
+          author: String,
+          pubDate: dateTime,
+          enclosure: url:Text,
+          guid: text }
+      }
     },
+
     feedSourceId: {
       feedSourceTitle: title,
       feedSourceUrl: url,
-      feedSourceImageUrl: imageUrl
+      feedSourceImageUrl: imageUrl,
+      feedItems: { 
+        feedItemId: { 
+          title: title,
+          link: link,
+          description: description,
+          read: True/False,
+          author: String,
+          pubDate: dateTime,
+          pubDateAgo: String,
+          enclosure: url:Text,
+          guid: text }
+      }
     }
+  }
+}
+```
+### †† refreshFeedSources([feedSourceId, feedSourceId, ...])
+
+Return format:
+
+```javascript
+feedSourceId: {
+  feedSourceTitle: String,
+  feedSourceUrl: Text,
+  feedSourceImageUrl: Text,
+  feedItems: { 
+    feedItemId: { 
+      title: String,
+      link: Text,
+      description: Text,
+      read: Boolean,
+      author: String,
+      pubDate: dateTime,
+      pubDateAgo: String,
+      enclosure: url:Text,
+      guid: text }, 
+    feedItemId: { 
+      title: String,
+      link: Text,
+      description: Text,
+      read: Boolean,
+      author: String,
+      pubDate: dateTime,
+      pubDateAgo: String,
+      enclosure: url:Text,
+      guid: text }, 
   }
 }
 ```

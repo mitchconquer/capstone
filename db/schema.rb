@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160629193101) do
+ActiveRecord::Schema.define(version: 20160630160802) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,6 +39,13 @@ ActiveRecord::Schema.define(version: 20160629193101) do
     t.text     "identifier",     null: false
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
+    t.text     "title"
+    t.text     "link"
+    t.text     "description"
+    t.string   "author"
+    t.datetime "pub_date"
+    t.text     "enclosure"
+    t.string   "guid"
   end
 
   add_index "feed_items", ["identifier"], name: "index_feed_items_on_identifier", using: :btree

@@ -15,6 +15,13 @@ column name     | data type | details
 id              | integer   | not null, primary key
 feed_source_id  | integer   | foreign key
 identifier      | text      | not null
+title           | text      | not null
+link            | text      |
+description     | text      |
+author          | string    |
+pubDate         | DateTime  |
+enclosure       | text      |
+guid            | string    |
 
 ## Read Feed Records
 column name | data type | details
