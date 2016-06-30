@@ -1,7 +1,8 @@
 require 'feedjira'
 
 class FeedSource < ActiveRecord::Base
-  validates :title, :url, :image_url, presence: true
+  validates :title, :feed_url, :image_url, presence: true
+  validates :feed_url, uniqueness: true
   after_initialize :ensure_defaults
 
   has_many :feed_items,
