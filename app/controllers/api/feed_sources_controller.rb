@@ -11,7 +11,6 @@ class Api::FeedSourcesController < ApplicationController
 
     Subscription.subscribe(current_user, @feed_source, folders)
 
-    # TODO: What does React need for return value?
     render :show
   end
 
