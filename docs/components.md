@@ -15,7 +15,7 @@
         * FeedSourceForm
   * **FeedItemIndex**
     * FeedItemIndex
-    * **FeedItemDetails**
+    * FeedItemDetails
   * **AddFeedsIndex**
     * SuggestedFeedItem
     * CreateFeed
@@ -34,7 +34,6 @@
 
 * **Component:** `FolderIndex`, **Path:** `/`
   * **Component:** `Homepage`, **Path:** `home` (if user is not logged in)
-  * **Component:** `FeedItemIndex`, **Path:** `feed/all` (Index Route)
-  * **Component:** `FeedItemIndex`, **Path:** `feed/:feedId`
-    * **Component:** `FeedItemDetails`, **Path:** ``
-  * **Component:** `AddFeedsIndex`, **Path:** `new`
+  * **Component:** `FeedItemIndex`, **Path:** `feeds/all` (Index Route)
+  * **Component:** `FeedItemIndex`, **Path:** `feeds/:feedId`
+  * **Component:** `AddFeedsIndex`, **Path:** `feeds/edit`

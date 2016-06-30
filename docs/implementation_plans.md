@@ -3,7 +3,7 @@
 
 * If not logged in, show homepage
 * if logged in, load `<FolderIndex />`
-* `<FolderIndex />` will ask rails for Folders and Feed Sources (1)
+* `<FolderIndex />` will ask rails for Folders and Feed Sources*
   * Default child component: `<AllFeeds sources={[feedSourceId, feedSourceId, ...]} />`
     * Get all feed source IDs from Util method that grabs keys from FeedSourcesStore
   * `<SavedFeedItems />`
@@ -16,7 +16,7 @@
   * Will listen to `FeedSourceStore`, when there's a change, calls method `updateFeedItems()` to cycle through own feed source ID's and push feed items into its feed item state property
 * `<FeedItemDetails />` is pane to show the actual of the `<FeedItem />`
 
-### (1) Both Folders and Feed Sources are nested in same JSON response:
+### *Server response to initial data request
 
 * Returns two nested objects, folders (with their feed sources) and a list of feed sources
 * Feed sources can be given in any order (so can optimize or change order later, ie: order by feeds with the most read items first)
