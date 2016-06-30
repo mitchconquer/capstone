@@ -2,23 +2,28 @@
 ## Initital Loading
 
 * If not logged in, show homepage
-* if logged in, show AllFeedSources
-  * UpdateAllFeeds
-    * Initialize updatedFeedSourcesForServer object
-    * Initialize udpatedFeedSources
-    * Request user's feed_sources plus saved feed items from api
-      (Could order feed_sources by number of user_read entries so you are
-      getting the feeds the user reads the most first)
-    * For each feed_source: Refresh Feed Source
-    
-### Server Initial Load Response Format
+* if logged in, load `<FolderIndex />`
+* `<FolderIndex />` will ask rails for Folders and Feed Sources (1)
+  * Default child component: `<AllFeeds sources={[feedSourceId, feedSourceId, ...]} />`
+    * Get all feed source IDs from Util method that grabs keys from FeedSourcesStore
+  * `<SavedFeedItems />`
+  * `<Folder sources={[feedSourceId, feedSourceId, ...]} />`
+  * `<FeedSource sources={[feedSourceId]} />`
+* `<FeedItemIndex sources={[feedSourceId, feedSourceId, ...]} />` is rendered with feed source ID's as a prop in an array from `<AllFeeds />`, `<Folder />` or `<FeedSource />`
+  * Has feed items as a state property
+  * When rendered, calls method `refreshFeedSources([feedSourceId, feedSourceId, ...])`
+    * Will loop through feed sources and for each one, ask rails to update and send response to store
+  * Will listen to `FeedSourceStore`, when there's a change, calls method `updateFeedItems()` to cycle through own feed source ID's and push feed items into its feed item state property
+* `<FeedItemDetails />` is pane to show the actual of the `<FeedItem />`
+
+### (1) Both Folders and Feed Sources are nested in same JSON response:
 
 * Returns two nested objects, folders (with their feed sources) and a list of feed sources
-* The advantage is that feed sources can be given in any order (so can optimize or change order later, ie: order by feeds with the most read items first)
-* Once we load all of the feed sources for the initial load, can reuse them to render individual feed views.
-* Should have FeedSourceStore and FolderStore
+* Feed sources can be given in any order (so can optimize or change order later, ie: order by feeds with the most read items first)
+* Once we load all of the feed sources for the initial load, can reuse them to render individual feed views
+* Two stores: `FeedSourceStore` and `FolderStore`
 
-```JSON
+```javascript
 {
   folders: {
     folderId: {
@@ -46,140 +51,38 @@
 }
 ```
 
-
-
-
-
-## Refresh Feed Source
-
-The gist is that when updating a feed source, the React app will create two Feed Source objects, a simplified one for the server and a complete one for the app.  The server will update its records for that feed source and return an object that has for that feed source that includes an array listing which feed_items have been read already by that user.
-
-React will send the complete Feed Source object to the update the store immediately.  The server will then update the store with the read_information only when it has it.
-
-* Update FeedSource(feedSourceLink)
-  * Instantiate storeUpdatedFeedSource object
-  * Instantiate serverUpdatedFeedSource object
-  * Get updated XML
-  * Parse XML into POJO
-    * Add XML channel.link to storeUpdatedFeedSource and serverUpdatedFeedSource
-    * Add each XML item.guid to serverUpdatedFeedSource
-    * Add title, link, description, author, guid, pubDate (set as blank if don't exist) to storeUpdatedFeedSource, nested under guid.  If guid doesn't exist, use link.
-  * **serverUpdatedFeedSource** now looks like:
-
-    ```JSON
-    { 12:
-      {
-        feed_items: 
-          [
-           "http://www.lemonde.fr/tiny/4959221/",
-           "http://www.lemonde.fr/tiny/4959075/",
-           "http://www.lemonde.fr/tiny/4959257/"
-          ]
-      }
-    }
-
-    { feed_source_id:
-      {
-        feed_items: 
-          [
-           feedItemUniqueIdentifier,
-           feedItemUniqueIdentifier,
-           feedItemUniqueIdentifier
-          ]
-      }
-    }
-    ```
-
-    * **Unique identifier note for <item />'s:** only thet title and description are required so must use title if no guid or link are present as unique identifier.
-    * All data is nested under the unique identitifier for that feedSource (the <channel><link></channel><link>)
-      * Feed items is an array that's stored under the feed_items key
-  * storeUpdatedFeedSource now looks like:
-
-   ```JSON
-   { 12: 
-    {
-     title: "Le Monde.fr - Actualité à la Une",
-     imageUrl: imageUrl,
-     link: "http://www.lemonde.fr/rss/une.xml",
-     feed_items: 
-       [
-        {guid: "http://www.lemonde.fr/tiny/4959221/", title: "Title...", description: "Descr...", author: "Author...", link: "http://www...", pubDate: "date..."},
-        {guid: "http://www.lemonde.fr/tiny/4959075/", title: "Title...", description: "Descr...", author: "Author...", link: "http://www...", pubDate: "date..."},
-        {guid: "http://www.lemonde.fr/tiny/4959257/", title: "Title...", description: "Descr...", author: "Author...", link: "http://www...", pubDate: "date..."}
-       ],
-      read: []
-    }
-   }
-
-   {feedSourceId: 
-    {
-     title: channelTitle,
-     link: channelLink,
-     imageUrl: imageUrl,
-     feed_items: 
-       [
-        {guid: guid, title: title, description: description, author: author, link: url, pubDate: date},
-        {guid: guid, title: title, description: description, author: author, link: url, pubDate: date},
-        {guid: guid, title: title, description: description, author: author, link: url, pubDate: date}
-       ],
-      read: []
-    }
-   }
-
-   ```
-
-    * All data is nested under the unique identitifier for that feedSource (the <channel><link></channel><link>)
-    * Channel information is top level in the nested object
-    * Feed items is an array that's stored under the feed_items key.
-      * Feed items includes title, link, guid, description, pubDate, author
-  * Server: FeedActions.updateServerFeedSource(serverUpdatedFeedSource) is called with callback ServerActions.receiveReadFeedItems
-    * WebApiUtils.updateServerFeedSource(serverUpdatedFeedSource, ServerActions.receiveReadFeedItems)
-    * Server returns object that includes sources that have been read with source guid as key
-      { "http://www.lemonde.fr/rss/une.xml": {
-          read: [
-            "http://www.lemonde.fr/tiny/4959075/",
-            "http://www.lemonde.fr/tiny/4959257/" ],
-          folder_id: 39
-        }
-      }
-      * At this time, server should update feed_items, deleting entries that are no longer included
-    * ServerActions.receiveReadFeedItems(readFeedItems) will send actionType "RECEIVE_READ_FEED_ITEMS"
-    * Store will update the "read" properties of each affected feedSource and __emitChange()
-  * Client: FeedActions.updateStoreFeedSource(storeUpdatedFeedSource) is invoked to create actionType "RECEIVE_FEED_SOURCES"
-    * Store will update the _feeds with the new info or add the feed if it's not yet in the store
-    * Store will __emitChange()
-
-  **Note:** Feed sources have image url in database; this should just be overwritten every time and default to a site icon default if none is present.
-
 ## Mark FeedItem as read per user
 
-* Triggered by feedItem onClick
-* FeedActions.markRead({ feedSourceIdentifier: feedItemIdentitier }) 
-* WebApiUtils.markRead({ feedSourceIdentifier: feedItemIdentitier }, ServerActions.markRead)
-  * Creates action with actionType "RECEIVE_READ_FEED_ITEM" with { feedSourceIdentifier: { read: [ feedItemIdentifier ]}}
-* FeedStore pushes new read feedItemIdentifier to read array of feedSourceIdentifier in _feeds and emits change
+* Triggered by `<FeedItem />` `onClick`
+* `FeedActions.markRead(feedItemId)`
+* `WebApiUtils.markRead(feedItemId, ServerActions.markRead)`
+  * Creates action with actionType `RECEIVE_READ_FEED_ITEM` with `{ feedSourceId: #, feedItemId: # }`
+* `FeedSourceStore` pushes marks `read: true` in the feed item object and emits change
 
 ## Save FeedItem to profile
 
-* Triggered by FeedItemDetails "save" button onClick
-* FeedActions.saveItem(feedItem)
-  * feedItem is object with all data about feedItem
-  * {feedSourceIdentifier:
-        {guid: "http://www.lemonde.fr/tiny/4959221/", title: "Title...", description: "Descr...", author: "Author...", link: "http://www...", pubDate: "date..."},
+* Triggered by `<FeedItemDetails />` "save" button `onClick`
+* `FeedActions.saveItem(feedItem)`
+  * `feedItem` is object with all data about feedItem
+  * 
+  ```javascript
+  {feedItemId:
+        {...all other content from props/state...},
     }
-* WebApiUtils.saveItem({ feedSourceIdentifier: feedItemIdentitier }, ServerActions.saveItem)
+  ```
+* `WebApiUtils.saveItem(feedItem, ServerActions.saveItem)`
 * ServerActions.saveItem will create actionType "RECEIVE_SAVED_ITEM" with savedItem
 * FeedStore will push the savedItem to the savedItems
 
 ## Update Feed Source (Including delete or change folder)
 
-* Triggered by FeedSourceForm onSubmit
-* FeedActions.updateFeedSource(feedSource)
-* WebApiUtils.updateFeedSource(feedSource, ServerActions.updateFeedSource)
-* ServerActions.updateFeedSource(feedSource)
-  * actionType: UPDATE_FEED_SOURCE
-  * feedSource: feedSource
-* FeedStore's UPDATE_FEED_SOURCE will update just that item and emit change
+* Triggered by `FeedSourceForm` `onSubmit`
+* `FeedActions.updateFeedSource(feedSource)`
+* `WebApiUtils.updateFeedSource(feedSource, ServerActions.updateFeedSource)`
+* `ServerActions.updateFeedSource(feedSource)`
+  * `actionType: UPDATE_FEED_SOURCE`
+  * `feedSource: feedSource`
+* `FeedStore`'s `UPDATE_FEED_SOURCE` will update just that item and emit change
 
 ## Search feed items ???
 * Triggered by onChange in Search component
