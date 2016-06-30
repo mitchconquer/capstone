@@ -5,9 +5,10 @@ column name | data type | details
 ------------|-----------|-----------------------
 id          | integer   | not null, primary key
 title       | string    | not null
-url         | text      | not null, indexed
+feed_url    | text      | not null, indexed, unique
 recommended | boolean   | not null, default false
 image_url   | text      | not null, need a default...
+url         | text      | 
 
 ## Feed Items
 column name     | data type | details

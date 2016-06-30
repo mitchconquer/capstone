@@ -40,6 +40,7 @@
     feedSourceId: {
       feedSourceTitle: title,
       feedSourceUrl: url,
+      feedSourceFeedUrl: url,
       feedSourceImageUrl: imageUrl,
       feedItems: { 
         feedItemId: { 
@@ -67,6 +68,7 @@
     feedSourceId: {
       feedSourceTitle: title,
       feedSourceUrl: url,
+      feedSourceFeedUrl: url,
       feedSourceImageUrl: imageUrl,
       feedItems: { 
         feedItemId: { 
@@ -93,6 +95,7 @@
 feedSourceId: {
   feedSourceTitle: String,
   feedSourceUrl: Text,
+  feedSourceFeedUrl: Text,
   feedSourceImageUrl: Text,
   feedItems: { 
     feedItemId: { 
