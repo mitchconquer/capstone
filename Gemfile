@@ -26,6 +26,8 @@ gem 'bcrypt', '~> 3.1.7'
 # A library to retrieve and parse RSS feeds
 gem 'feedjira', '~> 2.0'
 
+gem 'bootstrap-sass'
+
 # Use Unicorn as the app server
 # gem 'unicorn'
 
