@@ -1,5 +1,6 @@
 const React = require('react'),
-      FeedStore = require('../stores/feed_store');
+      FeedStore = require('../stores/feed_store'),
+      FeedActions = require('../actions/feed_actions');
 
 const FolderIndex = React.createClass({
   getInitialState(){
@@ -9,6 +10,7 @@ const FolderIndex = React.createClass({
   },
 
   componentDidMount() {
+    FeedActions.fetchAll();
     this.feedStoreListener = FeedStore.addListener(this._feedStoreChange);
   },
 
@@ -20,16 +22,15 @@ const FolderIndex = React.createClass({
     this.setState({ feedSources: FeedStore.all() })
   },
 
-  feedSourceLis() {
+  feedSourceListItems() {
     return Object.keys(this.state.feedSources).map(id => {
       const feedSource = this.state.feedSources[id];
-      console.log(feedSource);
       return <li key={feedSource.id}>{feedSource.title}</li>;
     });
   },
 
   render() {
-    const feedSources = this.feedSourceLis();
+    const feedSources = this.feedSourceListItems();
     return (
       <section>
         <p>Folders go here</p>

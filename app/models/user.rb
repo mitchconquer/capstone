@@ -24,6 +24,8 @@ class User < ActiveRecord::Base
   has_many :feed_sources,
     through: :subscriptions,
     source: :feed_source
+    # Documentation says I should be able to use uniq but rails doesn't like it
+    # uniq: true
 
   def read_by_source(feed_source_id)
     read_feed_items.where(feed_source_id: feed_source_id)

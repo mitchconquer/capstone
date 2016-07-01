@@ -11,7 +11,7 @@
   * FolderItems
     * FolderItem
       * FolderForm
-      * FeedSources
+      * FeedSourceItem
         * FeedSourceForm
   * **FeedItemIndex**
     * FeedItemIndex

@@ -10,16 +10,27 @@ const FeedActions = {
     FeedApiUtil.createFeedSource(feedSourceUrl, FeedActions.receiveFeedSource)
   },
 
+  fetchAll() {
+    FeedApiUtil.fetchAll(FeedActions.receiveFeedSources);
+  },
+
   /* SERVER RESPONSE ACTIONS */
 
   receiveFeedSource(feedSource) {
-    console.log('Logging response from server from FeedActions#receiveFeedSource');
-    console.log(feedSource);
     AppDispatcher.dispatch({
       actionType: FeedConstants.RECEIVE_FEED_SOURCE,
       feedSource: feedSource
     });
+  },
+
+  receiveFeedSources(feedSources) {
+    AppDispatcher.dispatch({
+      actionType: FeedConstants.RECEIVE_FEED_SOURCES,
+      feedSources: feedSources
+    });
   }
+
+
 };
 
 module.exports = FeedActions;

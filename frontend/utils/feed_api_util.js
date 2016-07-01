@@ -7,5 +7,14 @@ module.exports = {
       data: { url: feedSourceUrl },
       success: successCallback
     });
+  },
+
+  fetchAll(successCallback) {
+    $.ajax({
+      url: 'api/feeds',
+      method: 'GET',
+      dataType: 'json',
+      success: successCallback
+    });
   }
 };

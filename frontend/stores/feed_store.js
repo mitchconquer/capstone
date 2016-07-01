@@ -13,9 +13,16 @@ function setFeed(newFeed) {
   FeedStore.__emitChange();
 }
 
-function resetFeeds() {}
+function resetFeeds(feedSources) {
+  _feeds = {};
+  Object.keys(feedSources).map(id => {
+    _feeds[id] = feedSources[id];
+  });
+  FeedStore.__emitChange();
+}
 
 FeedStore.all = function() {
+  // TODO: Return copy of object
   // return StoreUtil.cloneObject(_feeds);
   return _feeds;
 };
@@ -23,63 +30,12 @@ FeedStore.all = function() {
 FeedStore.__onDispatch = function(payload) {
   switch (payload.actionType) {
     case FeedConstants.RECEIVE_FEED_SOURCE:
-      setFeed(payload.feedSource);
       break;
+    case FeedConstants.RECEIVE_FEED_SOURCES:
+      resetFeeds(payload.feedSources);
     default:
       break; 
   }
 };
 
 module.exports = FeedStore;
-
-/*
-STRUCTURE OF _feed
- feedSources: {
-    feedSourceId: {
-      feedSourceTitle: title,
-      feedSourceUrl: url,
-      feedSourceFeedUrl: url,
-      feedSourceImageUrl: imageUrl,
-      feedItems: { 
-        feedItemId: { 
-          title: title,
-          link: link,
-          description: description,
-          read: True/False,
-          author: String,
-          pubDate: dateTime,
-          pubDateAgo: String,
-          enclosure: url:Text,
-          identifier: text }, 
-        feedItemId: { 
-          title: title,
-          link: link,
-          description: description,
-          read: True/False,
-          author: String,
-          pubDate: dateTime,
-          enclosure: url:Text,
-          identifier: text }
-      }
-    },
-
-    feedSourceId: {
-      feedSourceTitle: title,
-      feedSourceUrl: url,
-      feedSourceFeedUrl: url,
-      feedSourceImageUrl: imageUrl,
-      feedItems: { 
-        feedItemId: { 
-          title: title,
-          link: link,
-          description: description,
-          read: True/False,
-          author: String,
-          pubDate: dateTime,
-          pubDateAgo: String,
-          enclosure: url:Text,
-          identifier: text }
-      }
-    }
-  }
-*/
