@@ -5,7 +5,7 @@ const React = require('react');
 const MainContent = React.createClass({
   render() {
     return (
-      <span>
+      <span className="modal-container">
         {this.props.children}
       </span>
     );

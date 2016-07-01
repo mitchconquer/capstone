@@ -1,10 +1,12 @@
-const React = require('react');
+const React = require('react'),
+      AddFeedSourceButton = require('./add_feed_source_button');
 
 const FeedItemDetails = React.createClass({
   render() {
     
     return (
       <section className="col-sm-8 app-column full-articles" id="full-articles">
+        <AddFeedSourceButton />
         <article>
           <h2>Lorem ipsum dolor sit amet, consectetur adipisicing elit</h2>
           <div className="article-content">

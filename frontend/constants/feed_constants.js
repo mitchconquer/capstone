@@ -1,0 +1,3 @@
+module.exports = {
+  RECEIVE_FEED_SOURCE: "RECEIVE_FEED_SOURCE"
+};

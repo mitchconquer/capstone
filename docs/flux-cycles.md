@@ -22,7 +22,7 @@ what you'll need to do.
   0. `receiveAllFeedSources` is set as the callback.
 
 * `createFeedSource`
-  0. invoked from new note button `onClick`
+  0. invoked from new feed source button `onClick`
   0. `POST /api/feeds` is called.
   0. `receiveSingleFeedSource` is set as the callback.
 
