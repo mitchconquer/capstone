@@ -1,7 +1,7 @@
 import { Link, hashHistory } from 'react-router';
 const React = require('react'),
       Nav = require('react-bootstrap/lib/Nav'),
-      Navbar = require('react-bootstrap/lib/NavBar'),
+      Navbar = require('react-bootstrap/lib/Navbar'),
       NavItem = require('react-bootstrap/lib/NavItem'),
       NavDropdown = require('react-bootstrap/lib/NavDropdown'),
       UserAccountLink = require('./user_account_link'),
