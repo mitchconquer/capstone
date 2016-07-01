@@ -30,14 +30,14 @@ const UserAccountLink = React.createClass({
 
   render() {
     if (this.state.loggedIn) {
-      return (<div>
+      return (<p className="navbar-text">
         Oh hai, {SessionStore.currentUser().username}!&nbsp;<button onClick={this.logoutButton}>Logout</button> if ya wanna!
-      </div>);
+      </p>);
     }
     return (
-      <div>
+      <p className="navbar-text">
         <Link to="/login">Login</Link> or <Link to="/signup">Sign up</Link>
-      </div>
+      </p>
     );
   }
 });

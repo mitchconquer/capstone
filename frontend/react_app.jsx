@@ -8,15 +8,12 @@ const ErrorStore = require('./stores/error_store');
 const LoginForm = require('./components/login_form');
 const SignupForm = require('./components/signup_form');
 const UserAccountLink = require('./components/user_account_link');
+const FolderIndex = require('./components/folder_index');
 
 const App = React.createClass({
   render() {
     return (
-      <div>
-        <header><UserAccountLink /></header>
-        <h1>React App</h1>
-        {this.props.children}
-      </div>
+        <FolderIndex />
     );
   }
 });
@@ -38,18 +35,24 @@ function _ensureLoggedIn(nextState, replace) {
   }
 }
 
-const routes = (
-  <Route path="/" component={App}>
-    <IndexRoute onEnter={_ensureLoggedIn} component={Welcome} />
-    <Route path="login" component={LoginForm} />
-    <Route path="signup" component={SignupForm} />
-  </Route>
-);
+// const routes = (
+//   <Route path="/" component={FolderIndex}>
+//     <IndexRoute onEnter={_ensureLoggedIn} component={Welcome} />
+//     <Route path="login" component={LoginForm} />
+//     <Route path="signup" component={SignupForm} />
+//   </Route>
+// );
+
+// document.addEventListener("DOMContentLoaded", function() {
+//   SessionActions.receiveCurrentUser(window.currentUser);
+//   ReactDOM.render(<Router history={hashHistory} >{routes}</Router>, document.getElementById('content'));
+// });
 
 document.addEventListener("DOMContentLoaded", function() {
   SessionActions.receiveCurrentUser(window.currentUser);
-  ReactDOM.render(<Router history={hashHistory} >{routes}</Router>, document.getElementById('content'));
+  ReactDOM.render(<App />, document.getElementById('content'));
 });
+
 
 window.SessionApiUtil = SessionApiUtil;
 window.SessionActions = SessionActions;

@@ -1,4 +1,12 @@
-// "bootstrap-sprockets" must be imported before "bootstrap" and "bootstrap/variables"
+// 'sprockets' must precede 'bootstrap'
 @import "bootstrap-sprockets";
 @import "bootstrap-variables";
 @import "bootstrap";
+
+@import 'nav';
+
+@import './page.scss';
+@import './_feed.scss';
+@import './_feed_groups.scss';
+@import './_full_articles.scss';
+@import './_edit_feeds.scss';
