@@ -29,6 +29,10 @@
 - `PATCH /api/feeds/:id`
 - `DELETE /api/feeds/:id`
 
+### Subscriptions
+- `POST /api/feeds/:id/subscriptions/` - Create subscription
+- `DELETE /api/feeds/:id/subscriptions/` - Delete subscription
+
 ### Feed Items
 - `POST /api/items/read` mark feed item read by current user
 - `POST /api/items/unread` mark feed item unread by current user

@@ -20,7 +20,6 @@ const AddFeedSourceButton = React.createClass({
   },
 
   focusOnForm() {
-    console.log('Modal entered');
     document.getElementById('feed-url').focus();
   },
 
@@ -34,8 +33,6 @@ const AddFeedSourceButton = React.createClass({
 
   submitForm() {
     FeedActions.createFeedSource(this.state.feedUrl);
-    console.log('Sending this to FeedActions.createFeedSource');
-    console.log(this.state.feedUrl);
     this.closeModal();
   },
 

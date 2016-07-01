@@ -20,6 +20,12 @@ class FeedSource < ActiveRecord::Base
     foreign_key: :feed_source_id,
     class_name: :CategoriesFeedSource
 
+  has_many :subscriptions,
+    dependent: :destroy,
+    primary_key: :id,
+    foreign_key: :feed_source_id,
+    class_name: :Subscription
+
   def read_feed_items(user)
     user.read_by_source(self.id)
   end

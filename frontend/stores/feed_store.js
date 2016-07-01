@@ -30,9 +30,11 @@ FeedStore.all = function() {
 FeedStore.__onDispatch = function(payload) {
   switch (payload.actionType) {
     case FeedConstants.RECEIVE_FEED_SOURCE:
+      setFeed(payload.feedSource);
       break;
     case FeedConstants.RECEIVE_FEED_SOURCES:
       resetFeeds(payload.feedSources);
+      break;
     default:
       break; 
   }
