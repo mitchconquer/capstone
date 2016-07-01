@@ -105,7 +105,7 @@ the API.
 - [X] seed the database with a small amount of test data including demo/guest accounts
 - [X] CRUD API for feed sources (`FeedSourcesController`)
 - [ ] API for marking feed_items read
-- [ ] jBuilder views for feed sources
+- [X] jBuilder views for feed sources
 - [ ] setup Webpack & Flux scaffold
 - [ ] setup `APIUtil` to interact with the API
 - [ ] test out API interaction in the console.
@@ -117,7 +117,7 @@ user interface.
 
 - [ ] setup the flux loop with skeleton files
 - [ ] setup React Router
-- [ ] implement each note component, building out the flux loop as needed.
+- [ ] implement each feed component, building out the flux loop as needed.
   - [ ] `FeedsIndex`
   - [ ] `FeedIndexItem`
   - [ ] `FeedForm`

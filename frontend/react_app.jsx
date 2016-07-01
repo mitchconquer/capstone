@@ -39,12 +39,6 @@ document.addEventListener("DOMContentLoaded", function() {
   ReactDOM.render(<Router history={hashHistory} >{routes}</Router>, document.getElementById('content'));
 });
 
-// document.addEventListener("DOMContentLoaded", function() {
-//   SessionActions.receiveCurrentUser(window.currentUser);
-//   ReactDOM.render(<App />, document.getElementById('content'));
-// });
-
-
 window.SessionApiUtil = SessionApiUtil;
 window.SessionActions = SessionActions;
 window.SessionStore = SessionStore;

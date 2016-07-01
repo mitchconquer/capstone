@@ -23,7 +23,7 @@ const MainMenu = React.createClass({
         
               <UserAccountLink />
 
-          <Nav pullRight>
+          <Nav pullRight className="nav navbar-nav pull-right">
             <NavItem eventKey={1} href="#">Home</NavItem>
             <NavItem eventKey={2} href="#">Edit Feeds</NavItem>
             <NavDropdown eventKey={3} title="Account" id="basic-nav-dropdown">

@@ -7,6 +7,10 @@ const React = require('react'),
 
 const FolderIndex = React.createClass({
   render(){
+    
+    /* {this.props.children} */
+    /* And then the FeedItemIndex and EditFeedIndex are sibblings and FeedItemDetails is child of FeedItemIndex */
+    
     return (
       <div className="container-fluid app-columns folder-index">
         
@@ -17,7 +21,7 @@ const FolderIndex = React.createClass({
         <div className="col-sm-10 right-pane">
 
           <MainMenu />
-          
+
           <FeedItemIndex />
 
           <FeedItemDetails />
