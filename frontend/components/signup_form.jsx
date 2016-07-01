@@ -2,6 +2,8 @@ const React = require('react');
 const SessionActions = require('../actions/session_actions');
 const SessionStore = require('../stores/session_store');
 const ErrorStore = require('../stores/error_store');
+const UserAccountLink = require('./user_account_link');
+
 
 const SignupForm = React.createClass({
   contextTypes: {
@@ -52,6 +54,7 @@ const SignupForm = React.createClass({
     });
     return(
       <section className="signup">
+        <UserAccountLink />
         <h2>Sign Up!</h2>
         <div>
           <ul>

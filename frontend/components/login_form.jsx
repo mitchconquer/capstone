@@ -1,6 +1,7 @@
 const React = require('react');
 const SessionActions = require('../actions/session_actions');
 const SessionStore = require('../stores/session_store');
+const UserAccountLink = require('./user_account_link');
 
 const LoginForm = React.createClass({
   contextTypes: {
@@ -52,6 +53,7 @@ const LoginForm = React.createClass({
 
     return(
       <section className="login form">
+        <UserAccountLink />
         <h2>Log In!</h2>
         <div>
           {errors}
