@@ -15,7 +15,6 @@ const FeedActions = {
   receiveFeedSource(feedSource) {
     console.log('Logging response from server from FeedActions#receiveFeedSource');
     console.log(feedSource);
-    // alert(feedSource);
     AppDispatcher.dispatch({
       actionType: FeedConstants.RECEIVE_FEED_SOURCE,
       feedSource: feedSource

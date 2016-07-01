@@ -121,6 +121,12 @@ feedSourceId: {
   }
 }
 ```
+## Add New Feed
+
+* FeedActions#CreateFeedSource
+* FeedApiUtil#CreateFeedSource
+* FeedActions#ReceiveFeedSource
+* FeedStore#ReceiveFeedSource
 
 ## Mark FeedItem as read per user
 

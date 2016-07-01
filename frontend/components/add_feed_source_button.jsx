@@ -34,6 +34,8 @@ const AddFeedSourceButton = React.createClass({
 
   submitForm() {
     FeedActions.createFeedSource(this.state.feedUrl);
+    console.log('Sending this to FeedActions.createFeedSource');
+    console.log(this.state.feedUrl);
     this.closeModal();
   },
 
@@ -45,7 +47,7 @@ const AddFeedSourceButton = React.createClass({
     return (
       <span>
         <div className="clearfix">
-          <Button className="pull-right" onClick={this.toggleModal}>Ninja</Button>
+          <Button className="pull-right" onClick={this.toggleModal}>Add a Feed</Button>
         </div>
         <Modal show={this.state.show} onHide={this.closeModal} container={this} onEntered={this.focusOnForm} >
           <Modal.Body>

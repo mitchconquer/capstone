@@ -13,6 +13,7 @@ const EditFeeds = require('./components/edit_feeds');
 const FeedItemIndex = require('./components/feed_item_index');
 const NotFound = require('./components/not_found');
 const MainContent = require('./components/main_content');
+const FeedStore = require('./stores/feed_store');
 
 const AppContainer = React.createClass({
   render() {
@@ -54,3 +55,4 @@ window.SessionApiUtil = SessionApiUtil;
 window.SessionActions = SessionActions;
 window.SessionStore = SessionStore;
 window.ErrorStore = ErrorStore;
+window.FeedStore = FeedStore;
