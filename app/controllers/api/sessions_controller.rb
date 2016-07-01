@@ -5,9 +5,7 @@ class Api::SessionsController < ApplicationController
   end
 
   def create
-    # byebug
     if @user = User.find_by_credentials(login_params)
-      # byebug
       login_user!(@user)
       render :show
     else

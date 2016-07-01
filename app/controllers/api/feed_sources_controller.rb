@@ -1,5 +1,3 @@
-require 'byebug'
-
 class Api::FeedSourcesController < ApplicationController
 
   def create
