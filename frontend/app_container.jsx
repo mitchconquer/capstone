@@ -8,9 +8,13 @@ const ErrorStore = require('./stores/error_store');
 const LoginForm = require('./components/login_form');
 const SignupForm = require('./components/signup_form');
 const UserAccountLink = require('./components/user_account_link');
-const FolderIndex = require('./components/folder_index');
+const ReactApp = require('./components/react_app');
+const EditFeeds = require('./components/edit_feeds');
+const FeedItemIndex = require('./components/feed_item_index');
+const NotFound = require('./components/not_found');
+const MainContent = require('./components/main_content');
 
-const App = React.createClass({
+const AppContainer = React.createClass({
   render() {
     return (
       <div className="container-fluid app-columns folder-index">
@@ -27,12 +31,19 @@ function _ensureLoggedIn(nextState, replace) {
 }
 
 const routes = (
-  <Route path="/" component={App}>
-    <IndexRoute onEnter={_ensureLoggedIn} component={FolderIndex} />
+  <Route path="/" component={AppContainer}>
+    <Route onEnter={_ensureLoggedIn} component={ReactApp} >
+      <IndexRoute onEnter={_ensureLoggedIn} component={FeedItemIndex} />
+      <Route onEnter={_ensureLoggedIn} path="feeds" component={FeedItemIndex} />
+      <Route onEnter={_ensureLoggedIn} path="edit" component={EditFeeds} />
+    </Route>
     <Route path="login" component={LoginForm} />
     <Route path="signup" component={SignupForm} />
+    <Route path='*' component={NotFound} />
   </Route>
 );
+
+
 
 document.addEventListener("DOMContentLoaded", function() {
   SessionActions.receiveCurrentUser(window.currentUser);

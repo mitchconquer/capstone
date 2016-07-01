@@ -1,4 +1,5 @@
-const React = require('react');
+const React = require('react'),
+      FeedItemDetails = require('./feed_item_details');
 
 const FeedItemIndex = React.createClass({
   render() {
@@ -22,13 +23,15 @@ const FeedItemIndex = React.createClass({
     }
     
     return (
-      <section className="col-sm-4 app-column feed" id="feed">
-        <header><h4>Feed Name</h4></header>
-        <ul className="list-unstyled">
-          {feedItems}
-        </ul>
-      </section>
-      
+      <span>
+        <section className="col-sm-4 app-column feed" id="feed">
+          <header><h4>Feed Name</h4></header>
+          <ul className="list-unstyled">
+            {feedItems}
+          </ul>
+        </section>
+        <FeedItemDetails />
+      </span>
     );
   }
 });

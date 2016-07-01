@@ -1,37 +1,13 @@
-import { Link, hashHistory } from 'react-router';
-const React = require('react'),
-      FolderIndexUtils = require('./folder_index_utils'),
-      FeedItemIndex = require('./feed_item_index'),
-      FeedItemDetails = require('./feed_item_details'),
-      MainMenu = require('./main_menu');
+const React = require('react');
 
 const FolderIndex = React.createClass({
-  render(){
-    
-    /* {this.props.children} */
-    /* And then the FeedItemIndex and EditFeedIndex are sibblings and FeedItemDetails is child of FeedItemIndex */
-    
+  render() {
     return (
-      <div className="container-fluid app-columns folder-index">
-        
-        <section className="col-sm-2 app-column left-pane" id="feed-groups">
-          <FolderIndexUtils />
-        </section>
-
-        <div className="col-sm-10 right-pane">
-
-          <MainMenu />
-
-          <FeedItemIndex />
-
-          <FeedItemDetails />
-
-        </div>
-
-      </div>
+      <section>
+        <p>Folders go here</p>
+      </section>
     );
   }
 });
 
 module.exports = FolderIndex;
-

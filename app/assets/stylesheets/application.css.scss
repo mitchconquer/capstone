@@ -3,7 +3,12 @@
 @import "bootstrap-variables";
 @import "bootstrap";
 
-@import 'nav';
+// Boostrap
+@import './bootstrap/nav';
+
+// Layout
+
+// Components
 
 @import './page.scss';
 @import './_feed.scss';
