@@ -1,11 +1,12 @@
 class Api::FeedSourcesController < ApplicationController
 
   def create
-    unless @feed_source = FeedSource.find_by_url(params[:url])    
+    unless @feed_source = FeedSource.find_by_feed_url(params[:url])    
       @feed_source = FeedSource.create_from_feedjira(params[:url])
     end
     
-    folders = params[:folders] # folders is array of folder ID's
+    # folders = params[:folders] # folders is array of folder ID's
+    folders = [1]
 
     Subscription.subscribe(current_user, @feed_source, folders)
 

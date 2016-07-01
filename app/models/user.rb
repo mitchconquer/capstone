@@ -16,6 +16,11 @@ class User < ActiveRecord::Base
     through: :read_feed_records,
     source: :feed_item
 
+  has_many :subscriptions,
+    primary_key: :id,
+    foreign_key: :user_id,
+    class_name: :Subscription
+
   def read_by_source(feed_source_id)
     read_feed_items.where(feed_source_id: feed_source_id)
   end

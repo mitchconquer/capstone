@@ -47,7 +47,7 @@ const AddFeedSourceButton = React.createClass({
         <div className="clearfix">
           <Button className="pull-right" onClick={this.toggleModal}>Ninja</Button>
         </div>
-        <Modal show={this.state.show} onHide={this.closeModal} keyboard={true} backdrop={true} container={this} onEntered={this.focusOnForm} >
+        <Modal show={this.state.show} onHide={this.closeModal} container={this} onEntered={this.focusOnForm} >
           <Modal.Body>
             <h4>Enter your feed URL below:</h4>
             <form onSubmit={this.submitForm}>
@@ -58,7 +58,7 @@ const AddFeedSourceButton = React.createClass({
                 <InputGroup>
                   <FormControl type="text" placeholder="http://..." onChange={this.feedUrlChange} value={this.state.feedUrl} />
                   <InputGroup.Button>
-                    <Button type="submit" onClick={this.submitForm}>Subscribe!</Button>
+                    <Button type="submit">Subscribe!</Button>
                   </InputGroup.Button>
                 </InputGroup>
               </FormGroup>
