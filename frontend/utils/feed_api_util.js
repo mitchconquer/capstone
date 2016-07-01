@@ -4,7 +4,7 @@ module.exports = {
       url: 'api/feeds',
       method: 'POST',
       dataType: 'json',
-      data: { url: 'http://www.wired.com/feed/' },
+      data: { url: feedSourceUrl },
       success: successCallback
     });
   }
