@@ -7,6 +7,7 @@
   * Default child component: `<AllFeeds sources={[feedSourceId, feedSourceId, ...]} />`
     * Get all feed source IDs from Util method that grabs keys from FeedSourcesStore
   * `<SavedFeedItems />`
+  * Note: I'm first going to implement FeedItemIndex so that it works just with tbhe single feedSourceId passed down as a prop
   * `<Folder sources={[feedSourceId, feedSourceId, ...]} />`
   * `<FeedSource sources={[feedSourceId]} />`
 * `<FeedItemIndex sources={[feedSourceId, feedSourceId, ...]} />` is rendered with feed source ID's as a prop in an array from `<AllFeeds />`, `<Folder />` or `<FeedSource />`

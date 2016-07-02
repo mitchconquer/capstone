@@ -35,7 +35,7 @@ const routes = (
   <Route path="/" component={AppContainer}>
     <Route onEnter={_ensureLoggedIn} component={ReactApp} >
       <IndexRoute onEnter={_ensureLoggedIn} component={FeedItemIndex} />
-      <Route onEnter={_ensureLoggedIn} path="feeds" component={FeedItemIndex} />
+      <Route onEnter={_ensureLoggedIn} path="feeds/:id" component={FeedItemIndex} />
       <Route onEnter={_ensureLoggedIn} path="edit" component={EditFeeds} />
     </Route>
     <Route path="login" component={LoginForm} />

@@ -25,7 +25,7 @@ const FeedItemIndex = React.createClass({
     return (
       <span>
         <section className="col-sm-4 app-column feed" id="feed">
-          <header><h4>Feed Name</h4></header>
+          <header><h4>Feed {this.props.params.id}</h4></header>
           <ul className="list-unstyled">
             {feedItems}
           </ul>
