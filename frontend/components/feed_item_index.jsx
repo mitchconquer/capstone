@@ -25,6 +25,16 @@ const FeedItemIndex = React.createClass({
     return Object.keys(this.state.feedSources).map(id => parseInt(id));
   },
 
+  feedItemIds() {
+    const nestedIds = [];
+    this.feedSourceIds().forEach(id => {
+      if (this.state.feedSources[id].feedItems) {
+        nestedIds.concat(Object.keys(this.state.feedSources[id].feedItems));
+      }
+    });
+    return nestedIds.reduce((prev, current) => {return prev.concat(current)}, []);
+  },
+
   _feedStoreChange(){
     console.log('FeedItemIndex#_feedStoreChange was invoked');
     console.log(this.feedSourceIds());
@@ -38,13 +48,13 @@ const FeedItemIndex = React.createClass({
       this.setState({
         feedSources: FeedStore.getFeeds([parseInt(nextProps.params.id)])
       });
-    FeedActions.refreshFeedSources(this.feedSourceIds());
+    FeedActions.refreshFeedSources([nextProps.params.id]);
   },
 
   currentFeedTitle() {
     return Object.keys(this.state.feedSources).map(id => {
       if (this.state.feedSources[id]) {
-        return this.state.feedSources[id].title
+        return this.state.feedSources[id].title;
       }
     }).join(", ");
   },
@@ -54,7 +64,7 @@ const FeedItemIndex = React.createClass({
     if (Object.keys(this.state.feedSources).length > 0) {
       Object.keys(this.state.feedSources).forEach(function(feedSourceId) {
         const sourceId = parseInt(feedSourceId);
-        if (this.state.feedSources[sourceId] && (Object.keys(this.state.feedSources[sourceId].feedItems).length > 0)) {
+        if ((this.state.feedSources[sourceId]) && (Object.keys(this.state.feedSources[sourceId].feedItems).length > 0)) {
           Object.keys(this.state.feedSources[sourceId].feedItems).forEach(function(feedItemId) {
             const itemId = parseInt(feedItemId);
             const feedItem = this.state.feedSources[sourceId].feedItems[itemId];
@@ -68,7 +78,7 @@ const FeedItemIndex = React.createClass({
     return feedItems;
   },
 
-  render() {    
+  render() {
     return (
       <span>
         <section className="col-sm-4 app-column feed" id="feed">
