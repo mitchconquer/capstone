@@ -34,8 +34,9 @@ const FeedItemIndex = React.createClass({
   },
 
   componentWillReceiveProps(nextProps) {
+    console.log('FeedItemIndex receiving new props ' + nextProps.params.id);
       this.setState({
-        feedSources: FeedStore.getFeeds([nextProps])
+        feedSources: FeedStore.getFeeds([parseInt(nextProps.params.id)])
       });
     FeedActions.refreshFeedSources(this.feedSourceIds());
   },
