@@ -34,7 +34,16 @@ class FeedSource < ActiveRecord::Base
     # TODO: Create failure callback (see private methods below)
     feed = Feedjira::Feed.fetch_and_parse url
 
-    self.map_feed(feed)
+    params = self.set_params(feed)
+
+    FeedSource.create(params)
+  end
+
+  def refresh
+    feed = Feedjira::Feed.fetch_and_parse self.feed_url
+    params = update_params(feed)
+    self.update(params)
+    FeedItem.reset_source_items!(self.id, feed.entries)
   end
 
   private
@@ -48,14 +57,21 @@ class FeedSource < ActiveRecord::Base
     # Perhaps should be feedjira module if used elsewhere?
   end
 
-  def self.map_feed(feed)
-    params = {
+  def update_params(feed)
+    {
       title: feed.respond_to?(:title) ? feed.title : 'No Title ¯\_(ツ)_/¯',
       url: feed.respond_to?(:url) ? feed.url : nil,
       feed_url: feed.respond_to?(:feed_url) ? feed.feed_url : nil,
       image_url: feed.respond_to?(:image_url) ? feed.image_url : nil
     }
-    
-    FeedSource.create(params)
+  end
+
+  def self.set_params(feed)
+    {
+      title: feed.respond_to?(:title) ? feed.title : 'No Title ¯\_(ツ)_/¯',
+      url: feed.respond_to?(:url) ? feed.url : nil,
+      feed_url: feed.respond_to?(:feed_url) ? feed.feed_url : nil,
+      image_url: feed.respond_to?(:image_url) ? feed.image_url : nil
+    }
   end
 end

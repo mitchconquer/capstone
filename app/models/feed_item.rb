@@ -16,4 +16,56 @@ class FeedItem < ActiveRecord::Base
     through: :read_feed_records,
     source: :User
 
+  def self.reset_source_items!(feed_source_id, new_feed_items)
+    # Delete items if they aren't in this list
+    current_source_items = FeedItem.where(feed_source_id: feed_source_id)
+    current_item_ids = []
+    new_feed_items.each do |feed_item|
+      params = FeedItem.set_params(feed_item).merge({feed_source_id: feed_source_id})
+      id = FeedItem.update_or_create(current_source_items, params)
+      id.is_a?(Array) ? current_item_ids.concat(id) : current_item_ids.push(id)
+    end
+    FeedItem.remove_old_items(current_item_ids, current_source_items.map(&:id))
+  end
+
+  def self.get_identifier(feed_item)
+    if feed_item.respond_to?(:guid)
+      return feed_item.guid
+    elsif feed_item.respond_to?(:url)
+      return feed_item.url
+    end
+    return feed_item.title
+  end
+
+  def self.set_params(feed_item)
+    {
+      title: feed_item.respond_to?(:title) ? feed_item.title : 'No Title!!!?? (╯°□°)╯︵ ┻━┻',
+      url: feed_item.respond_to?(:url) ? feed_item.url : nil,
+      pub_date: feed_item.respond_to?(:published) ? feed_item.published : nil,
+      description: feed_item.respond_to?(:summary) ? feed_item.summary : nil,
+      author: feed_item.respond_to?(:author) ? feed_item.author : nil,
+      enclosure: feed_item.respond_to?(:enclosure) ? feed_item.summary : nil,
+      identifier: FeedItem.get_identifier(feed_item)
+    }
+  end
+
+  def self.update_or_create(current_source_items, params)
+    if current_source_items.where(identifier: params[:identifier]).count > 0
+      # already exists, udpate
+      updated = current_source_items.where(identifier: params[:identifier]).each { |item| item.update(params) }
+      return updated.map(&:id)
+    else
+      # doesn't exist, create
+      feed_item = FeedItem.create(params)
+      return feed_item.id unless feed_item.id.nil?
+    end
+  end
+
+  def self.remove_old_items(current_item_ids, old_item_ids)
+    old_item_ids.each do |id|
+      unless current_item_ids.include?(id)
+        FeedItem.destroy(id)
+      end
+    end
+  end
 end

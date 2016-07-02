@@ -34,6 +34,18 @@ FeedStore.all = function() {
   return _feeds;
 };
 
+/*
+* Return an object of specific feedSource items
+* feedSourceIds {Array}
+*/
+FeedStore.getFeeds = function(feedSourceIds) {
+  let feedSources = {};
+  feedSourceIds.forEach(id =>{
+    feedSources[id] = _feeds[id];
+  });
+  return feedSources;
+};
+
 FeedStore.__onDispatch = function(payload) {
   switch (payload.actionType) {
     case FeedConstants.RECEIVE_FEED_SOURCE:

@@ -20,6 +20,13 @@ const FeedActions = {
     FeedApiUtil.unsubscribe(feedSourceId, folderId, FeedActions.removeFeedSource);
   },
 
+  refreshFeedSources(feedSourceIds) {
+    // Make a call for each one to the API with a success function
+    feedSourceIds.forEach(id => {
+      FeedApiUtil.refreshFeedSource(id, FeedActions.receiveFeedSource);
+    });
+  },
+
   /* SERVER RESPONSE ACTIONS */
 
   receiveFeedSource(feedSource) {
