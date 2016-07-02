@@ -1,0 +1,10 @@
+.form-control.transparent {
+  border-radius: 0;
+  border: 0;
+  background: rgba(256,256,256,0.3);
+  color: white;
+}
+
+.form-control.transparent::-webkit-input-placeholder {
+  color: white;
+}

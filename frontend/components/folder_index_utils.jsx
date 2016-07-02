@@ -8,7 +8,7 @@ const FolderIndexUtils = React.createClass({
     return (
       <form>
         <ControlLabel srOnly={true} htmlFor="folder-filter">Filter</ControlLabel>
-        <FormControl type="text" placeholder="Filter feeds..." id="folder-filter" className="feed-groups-filter"/>
+        <FormControl type="text" placeholder="Filter feeds..." id="folder-filter" className="feed-groups-filter transparent"/>
       </form>
     );
   }

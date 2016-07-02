@@ -6,12 +6,16 @@
 // Boostrap
 @import './bootstrap/nav';
 @import './bootstrap/modals';
+@import './bootstrap/type';
+@import './bootstrap/forms';
 
 // Layout
 @import './layout/alignment';
 
-// Components
+// Style
+@import './style/backgrounds';
 
+// Components
 @import './page.scss';
 @import './_feed.scss';
 @import './_feed_groups.scss';

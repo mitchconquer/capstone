@@ -44,7 +44,7 @@ const AddFeedSourceButton = React.createClass({
     return (
       <span>
         <div className="clearfix">
-          <Button className="pull-right" onClick={this.toggleModal}>Add a Feed</Button>
+          <Button className="pull-right btn-success" onClick={this.toggleModal}>Add a Feed</Button>
         </div>
         <Modal show={this.state.show} onHide={this.closeModal} container={this} onEntered={this.focusOnForm} >
           <Modal.Body>
@@ -57,7 +57,7 @@ const AddFeedSourceButton = React.createClass({
                 <InputGroup>
                   <FormControl type="text" placeholder="http://..." onChange={this.feedUrlChange} value={this.state.feedUrl} />
                   <InputGroup.Button>
-                    <Button type="submit">Subscribe!</Button>
+                    <Button type="submit" className="btn-success">Subscribe!</Button>
                   </InputGroup.Button>
                 </InputGroup>
               </FormGroup>

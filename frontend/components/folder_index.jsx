@@ -35,7 +35,7 @@ const FolderIndex = React.createClass({
     return (
       <section>
         <p>Folders go here</p>
-        <ul>
+        <ul className="list-unstyled">
           {feedSources}
         </ul>
       </section>

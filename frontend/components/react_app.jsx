@@ -13,7 +13,7 @@ const ReactApp = React.createClass({
     return (
       <div className="container-fluid app-columns folder-index">
         
-        <section className="col-sm-2 app-column left-pane" id="feed-groups">
+        <section className="col-sm-2 app-column left-pane color-bg text-white links-white" id="feed-groups">
           <FolderIndexUtils />
           <FolderIndex />
         </section>
