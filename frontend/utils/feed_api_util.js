@@ -16,5 +16,14 @@ module.exports = {
       dataType: 'json',
       success: successCallback
     });
+  },
+
+  unsubscribe(feedSourceId, folderId, successCallback) {
+    $.ajax({
+      url: `api/folders/${folderId}/feeds/${feedSourceId}`,
+      method: 'DELETE',
+      dataType: 'json',
+      success: successCallback
+    });
   }
 };

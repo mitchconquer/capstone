@@ -21,6 +21,15 @@ function resetFeeds(feedSources) {
   FeedStore.__emitChange();
 }
 
+function removeFeeds(feedSourceIds) {
+  console.log('FeedStore#removeFeeds');
+  console.log(feedSourceIds);
+  feedSourceIds.forEach(id => {
+    delete _feeds[id];
+  });
+  FeedStore.__emitChange();
+}
+
 FeedStore.all = function() {
   // TODO: Return copy of object
   // return StoreUtil.cloneObject(_feeds);
@@ -34,6 +43,9 @@ FeedStore.__onDispatch = function(payload) {
       break;
     case FeedConstants.RECEIVE_FEED_SOURCES:
       resetFeeds(payload.feedSources);
+      break;
+    case FeedConstants.REMOVE_FEED_SOURCES:
+      removeFeeds(payload.feedSourceIds);
       break;
     default:
       break; 

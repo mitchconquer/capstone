@@ -1,6 +1,7 @@
 const React = require('react'),
       FeedStore = require('../stores/feed_store'),
-      FeedActions = require('../actions/feed_actions');
+      FeedActions = require('../actions/feed_actions'),
+      FeedSourceItem = require('./feed_source_item');
 
 const FolderIndex = React.createClass({
   getInitialState(){
@@ -25,7 +26,7 @@ const FolderIndex = React.createClass({
   feedSourceListItems() {
     return Object.keys(this.state.feedSources).map(id => {
       const feedSource = this.state.feedSources[id];
-      return <li key={feedSource.id}>{feedSource.title}</li>;
+      return <FeedSourceItem key={feedSource.id} feedSource={feedSource} folderId="1" />;
     });
   },
 

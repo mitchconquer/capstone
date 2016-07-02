@@ -14,6 +14,12 @@ const FeedActions = {
     FeedApiUtil.fetchAll(FeedActions.receiveFeedSources);
   },
 
+  unsubscribe(feedSourceId, folderId) {
+    // This "REMOVE FEED SOURCE" will have to become setFolder() where the 
+    // API send the folder with the updated list of feedSources
+    FeedApiUtil.unsubscribe(feedSourceId, folderId, FeedActions.removeFeedSource);
+  },
+
   /* SERVER RESPONSE ACTIONS */
 
   receiveFeedSource(feedSource) {
@@ -27,6 +33,13 @@ const FeedActions = {
     AppDispatcher.dispatch({
       actionType: FeedConstants.RECEIVE_FEED_SOURCES,
       feedSources: feedSources
+    });
+  },
+
+  removeFeedSource(feedSourceIds) {
+    AppDispatcher.dispatch({
+      actionType: FeedConstants.REMOVE_FEED_SOURCES,
+      feedSourceIds: feedSourceIds
     });
   }
 

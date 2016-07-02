@@ -30,8 +30,8 @@
 - `DELETE /api/feeds/:id`
 
 ### Subscriptions
-- `POST /api/feeds/:id/subscriptions/` - Create subscription
-- `DELETE /api/feeds/:id/subscriptions/` - Delete subscription
+- `POST /api/folders/:folder_id/feeds/:feed_id` - Create subscription
+- `DELETE /api/folders/:folder_id/feeds/:feed_id` - Delete subscription
 
 ### Feed Items
 - `POST /api/items/read` mark feed item read by current user
