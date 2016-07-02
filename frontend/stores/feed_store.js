@@ -22,8 +22,6 @@ function resetFeeds(feedSources) {
 }
 
 function removeFeeds(feedSourceIds) {
-  console.log('FeedStore#removeFeeds');
-  console.log(feedSourceIds);
   feedSourceIds.forEach(id => {
     delete _feeds[id];
   });
