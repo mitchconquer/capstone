@@ -11,6 +11,8 @@ const FeedItemIndex = React.createClass({
   },
 
   componentDidMount() {
+    console.log('FeedItemIndex#componentDidMount, refeshing feedsources in this.state: ' + this.feedSourceIds());
+    console.log('FeedItemIndex#componentDidMount, current feedsources in props: ' + this.props.params.id);
     FeedActions.refreshFeedSources(this.feedSourceIds());
     this.feedStoreListener = FeedStore.addListener(this._feedStoreChange);
   },
@@ -31,15 +33,32 @@ const FeedItemIndex = React.createClass({
     });
   },
 
+  componentWillReceiveProps(nextProps) {
+      this.setState({
+        feedSources: FeedStore.getFeeds([nextProps])
+      });
+    FeedActions.refreshFeedSources(this.feedSourceIds());
+  },
+
   render() {
     const feedItems = [];
-    for (let i = 0; i < 15; i++) {
-      feedItems.push(
-        <li className="feed-item" key={i} >
-          
-        </li>
-      );
+    if (Object.keys(this.state.feedSources).length > 0) {
+      Object.keys(this.state.feedSources).forEach(function(feedSourceId) {
+        const sourceId = parseInt(feedSourceId);
+        if (this.state.feedSources[sourceId] && (Object.keys(this.state.feedSources[sourceId].feedItems).length > 0)) {
+          Object.keys(this.state.feedSources[sourceId].feedItems).forEach(function(feedItemId) {
+            const itemId = parseInt(feedItemId);
+            const feedItem = this.state.feedSources[sourceId].feedItems[itemId];
+            feedItems.push(
+              <li key={itemId}>{feedItem.title}</li>
+            );
+          }.bind(this));
+        }  
+      }.bind(this));    
     }
+    // First will get li's here, then try to extract to own method and see if still updates
+
+
     
     return (
       <span>
