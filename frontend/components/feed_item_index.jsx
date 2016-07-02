@@ -40,7 +40,15 @@ const FeedItemIndex = React.createClass({
     FeedActions.refreshFeedSources(this.feedSourceIds());
   },
 
-  render() {
+  currentFeedTitle() {
+    return Object.keys(this.state.feedSources).map(id => {
+      if (this.state.feedSources[id]) {
+        return this.state.feedSources[id].title
+      }
+    }).join(", ");
+  },
+
+  currentFeedItems() {
     const feedItems = [];
     if (Object.keys(this.state.feedSources).length > 0) {
       Object.keys(this.state.feedSources).forEach(function(feedSourceId) {
@@ -56,19 +64,16 @@ const FeedItemIndex = React.createClass({
         }  
       }.bind(this));    
     }
-    // First will get li's here, then try to extract to own method and see if still updates
+    return feedItems;
+  },
 
-
-    
+  render() {    
     return (
       <span>
         <section className="col-sm-4 app-column feed" id="feed">
-          <header><h4>Feed {this.props.params.id}</h4></header>
-          <blockquote>
-            FeedSources:<br />
-          </blockquote>
+          <header><h4>Feed {this.currentFeedTitle()}</h4></header>
           <ul className="list-unstyled">
-            {feedItems}
+            {this.currentFeedItems()}
           </ul>
         </section>
         <FeedItemDetails />
