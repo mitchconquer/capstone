@@ -10,7 +10,7 @@ const React = require('react'),
 const MainMenu = React.createClass({
   render(){
     return (
-      <nav className="navbar navbar-default header">
+      <nav className="navbar navbar-default header shadow-bottom">
 
         <Navbar.Header>
           <Navbar.Brand>
