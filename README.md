@@ -45,6 +45,7 @@ Bonus Items
 
 - [ ] Load animations for feed items and feed item content
 - [ ] FeedIndex shows the feed item that's curretnly in the view as active
+- [ ] Animate dropdown menu
 - [ ] Modal transition for new feed source forms
 - [ ] Content is infinitely scrolling
 - [ ] Drag and drop to rearrange feed items between folders
