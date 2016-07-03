@@ -33,6 +33,7 @@ class FeedSource < ActiveRecord::Base
   def self.create_from_feedjira(url)
     # TODO: Create failure callback (see private methods below)
     feed = Feedjira::Feed.fetch_and_parse url
+    feed.sanitize_entries!
 
     params = self.set_params(feed)
 

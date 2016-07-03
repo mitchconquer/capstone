@@ -77,7 +77,7 @@ const FeedItemIndex = React.createClass({
     return (
       <span>
         <section className="col-sm-4 app-column feed" id="feed">
-          <header><h4>Feed {this.currentFeedTitle()}</h4></header>
+          <header><h3 className="color-bg-heading">{this.currentFeedTitle()}</h3></header>
           <ul className="list-unstyled">
             {this.currentFeedItems()}
           </ul>

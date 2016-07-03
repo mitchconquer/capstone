@@ -29,12 +29,17 @@ const FeedItemDetails = React.createClass({
       })  
   },
 
+  parseHTML(inputHtml) {
+    return {__html: inputHtml};
+  },
+
   render() {
     if (this.state.feedItems && this.state.feedItems.length > 0) {
+      // const description = $.parseHTML(feedItem.description);
       const feedItems = this.state.feedItems.map(feedItem => {
         return (
           <article id="article-{feeditem.id}" key={feedItem.id} ><h2>{feedItem.title}</h2>
-            <p>{feedItem.description}</p>
+            <div dangerouslySetInnerHTML={this.parseHTML(feedItem.description)}></div>
           </article>
         );
       });
