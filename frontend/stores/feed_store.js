@@ -31,8 +31,10 @@ function removeFeeds(feedSourceIds) {
 FeedStore.all = function() {
   // TODO: Return copy of object
   // return StoreUtil.cloneObject(_feeds);
-  return _feeds;
+  return Object.assign({}, _feeds);
 };
+
+
 
 /*
 * Return an object of specific feedSource items
