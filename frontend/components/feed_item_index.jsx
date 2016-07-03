@@ -11,8 +11,6 @@ const FeedItemIndex = React.createClass({
   },
 
   componentDidMount() {
-    console.log('FeedItemIndex#componentDidMount, refeshing feedsources in this.state: ' + this.feedSourceIds());
-    console.log('FeedItemIndex#componentDidMount, current feedsources in props: ' + this.props.params.id);
     FeedActions.refreshFeedSources(this.feedSourceIds());
     this.feedStoreListener = FeedStore.addListener(this._feedStoreChange);
   },
@@ -36,15 +34,12 @@ const FeedItemIndex = React.createClass({
   },
 
   _feedStoreChange(){
-    console.log('FeedItemIndex#_feedStoreChange was invoked');
-    console.log(this.feedSourceIds());
     this.setState({
       feedSources: FeedStore.getFeeds(this.feedSourceIds())
     });
   },
 
   componentWillReceiveProps(nextProps) {
-    console.log('FeedItemIndex receiving new props ' + nextProps.params.id);
       this.setState({
         feedSources: FeedStore.getFeeds([parseInt(nextProps.params.id)])
       });
@@ -87,7 +82,7 @@ const FeedItemIndex = React.createClass({
             {this.currentFeedItems()}
           </ul>
         </section>
-        <FeedItemDetails />
+        <FeedItemDetails feedSourceIds={this.feedSourceIds()} />
       </span>
     );
   }

@@ -2,20 +2,55 @@ const React = require('react'),
       AddFeedSourceButton = require('./add_feed_source_button');
 
 const FeedItemDetails = React.createClass({
+  getInitialState() {
+      return {
+          feedItems: [] 
+      };
+  },
+
+  componentDidMount() {
+      this.feedStoreListener = FeedStore.addListener(this._feedStoreChange);  
+  },
+
+  componentWillUnmount() {
+      this.feedStoreListener.remove();  
+  },
+
+  _feedStoreChange() {
+    this.setState({
+      feedItems: FeedStore.getFeedItems(this.props.feedSourceIds)
+    });
+    console.log('FeedItemDetails#_FeedStoreChange');
+  },
+
+  componentWillReceiveProps(nextProps) {
+      this.setState({
+        feedItems: FeedStore.getFeedItems(nextProps.feedSourceIds)
+      })  
+  },
+
   render() {
+    if (this.state.feedItems && this.state.feedItems.length > 0) {
+      const feedItems = this.state.feedItems.map(feedItem => {
+        return (
+          <article id="article-{feeditem.id}" key={feedItem.id} ><h2>{feedItem.title}</h2>
+            <p>{feedItem.description}</p>
+          </article>
+        );
+      });
+      
+      return (
+        <section className="col-sm-8 app-column full-articles" id="full-articles">
+          <AddFeedSourceButton />
+            {feedItems}
+        </section>
+      );
+    }
     
     return (
-      <section className="col-sm-8 app-column full-articles" id="full-articles">
+      <div>
         <AddFeedSourceButton />
-        <article>
-          <h2>Lorem ipsum dolor sit amet, consectetur adipisicing elit</h2>
-          <div className="article-content">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil eaque necessitatibus modi, mollitia possimus, aspernatur excepturi facere quod deserunt nam culpa illo, voluptatem aut rerum corrupti dicta doloribus est nulla!</p>
-            
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil eaque necessitatibus modi, mollitia possimus, aspernatur excepturi facere quod deserunt nam culpa illo, voluptatem aut rerum corrupti dicta doloribus est nulla!</p>
-          </div>
-        </article>
-      </section>
+      </div>
     );
   }
 });

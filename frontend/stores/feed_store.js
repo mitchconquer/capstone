@@ -34,8 +34,6 @@ FeedStore.all = function() {
   return Object.assign({}, _feeds);
 };
 
-
-
 /*
 * Return an object of specific feedSource items
 * feedSourceIds {Array}
@@ -46,6 +44,22 @@ FeedStore.getFeeds = function(feedSourceIds) {
     feedSources[id] = _feeds[id];
   });
   return feedSources;
+};
+
+/*
+* Return array of feed items based on feedSource id's
+* feedSourceIds {Array}
+*/
+FeedStore.getFeedItems = function(feedSourceIds) {
+  let feeds = [];
+  feedSourceIds.forEach(id => {
+    if (_feeds[id].feedItems){
+      Object.keys(_feeds[id].feedItems).forEach(itemId => {
+        feeds.push(_feeds[id].feedItems[itemId]);
+      });
+    }
+  });
+  return feeds;
 };
 
 FeedStore.__onDispatch = function(payload) {

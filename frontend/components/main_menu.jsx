@@ -14,7 +14,7 @@ const MainMenu = React.createClass({
 
         <Navbar.Header>
           <Navbar.Brand>
-            <a href="#">Aggregreater</a>
+            <a href="#">Aggregreater&nbsp;&gt;</a>
           </Navbar.Brand>
           <Navbar.Toggle />
         </Navbar.Header>

@@ -1,4 +1,4 @@
-json.extract! feed_item, :title, :description, :author, :enclosure, :identifier
+json.extract! feed_item, :id, :title, :description, :author, :enclosure, :identifier
 json.set! :pubDate, feed_item.pub_date
 unless feed_item.pub_date.nil?
   json.set! :pubDateAgo, time_ago_in_words(feed_item.pub_date)
