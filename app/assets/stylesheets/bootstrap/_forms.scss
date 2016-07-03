@@ -7,8 +7,28 @@
   font-family: 'Source Sans Pro';
   font-weight: 300;
   padding: 30px 10px;
+  padding-right: 50px;
+  &:focus {
+    box-shadow: none;
+  }
 }
 
 .form-control.transparent::-webkit-input-placeholder {
   color: white;
+}
+
+::-webkit-input-placeholder {
+   opacity: .6;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+   opacity: .6;  
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   opacity: .6;  
+}
+
+:-ms-input-placeholder {  
+   opacity: .6;  
 }

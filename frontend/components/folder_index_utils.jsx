@@ -6,8 +6,9 @@ const React = require('react'),
 const FolderIndexUtils = React.createClass({
   render(){
     return (
-      <form>
+      <form className="filter-feeds-form">
         <ControlLabel srOnly={true} htmlFor="folder-filter">Filter</ControlLabel>
+        <span className="glyphicon glyphicon-search"></span>
         <FormControl type="text" placeholder="Filter feeds..." id="folder-filter" className="feed-groups-filter transparent"/>
       </form>
     );
