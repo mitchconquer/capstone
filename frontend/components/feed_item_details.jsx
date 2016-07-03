@@ -37,9 +37,13 @@ const FeedItemDetails = React.createClass({
     if (this.state.feedItems && this.state.feedItems.length > 0) {
       // const description = $.parseHTML(feedItem.description);
       const feedItems = this.state.feedItems.map(feedItem => {
+        const id = `item-${feedItem.id}`;
         return (
-          <article id="article-{feeditem.id}" key={feedItem.id} ><h2>{feedItem.title}</h2>
+          <article id={id} key={feedItem.id} ><h2>{feedItem.title}</h2>
             <div dangerouslySetInnerHTML={this.parseHTML(feedItem.description)}></div>
+            <div className="clearfix">
+              <a href={feedItem.link} target="_blank" className="btn btn-hollow pull-right"><div className="btn-hollow-inner">Continue Reading ></div></a>
+            </div>
           </article>
         );
       });
