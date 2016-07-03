@@ -71,7 +71,7 @@ const FeedItemIndex = React.createClass({
             feedItems.push(
               <li key={itemId} className="feed-item">
                   <a href="#" onClick={(e) => {e.preventDefault(); document.getElementById(`item-${itemId}`).scrollIntoView(true);}}>{feedItem.title}<br />
-                    <div><span className="author">{feedItem.author}</span>&nbsp;{feedItem.pubDateAgo}&nbsp;ago</div>
+                    <div><span className="author">{feedItem.author}</span>,&nbsp;{feedItem.pubDateAgo}&nbsp;ago</div>
                   </a>
               </li>
             );

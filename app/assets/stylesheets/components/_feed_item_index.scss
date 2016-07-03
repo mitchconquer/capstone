@@ -12,15 +12,27 @@
   font-weight: 300;
 }
 
+.feed-item:nth-child(2n+1) a {
+  background-color: #e0e0e0;
+  &:hover {
+    background-color: lighten(#e0e0e0, 2.5%);
+  }
+}
+
 .feed-item a {
   display: block;
   padding: 17px 10px;
-  border-bottom: 1px solid #CCC;
   height: 100px;
   color: black;
   font-size: 14px;
   font-weight: 400;
   position: relative;
+  background-color: #ececec;
+  &:hover {
+    background-color: lighten(#ececec, 2.5%);
+  }
+
+
 
   div {
     font-size: 12px;

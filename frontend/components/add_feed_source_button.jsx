@@ -42,7 +42,7 @@ const AddFeedSourceButton = React.createClass({
 
   render() {
     return (
-      <span className="add-feed-source">
+      <span className="add-feed-source" id="add-feed-source">
         <div className="clearfix">
           <Button className="pull-right btn-success" onClick={this.toggleModal}>Add a Feed</Button>
         </div>

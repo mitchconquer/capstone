@@ -1,5 +1,7 @@
 import { Link, hashHistory } from 'react-router';
 const React = require('react'),
+      SessionStore = require('../stores/session_store'),
+      SessionActions = require('../actions/session_actions'),
       Nav = require('react-bootstrap/lib/Nav'),
       Navbar = require('react-bootstrap/lib/Navbar'),
       NavItem = require('react-bootstrap/lib/NavItem'),
@@ -8,7 +10,14 @@ const React = require('react'),
       MenuItem = require('react-bootstrap/lib/MenuItem');
 
 const MainMenu = React.createClass({
+  logoutButton(e) {
+    e.preventDefault();
+    SessionActions.logout();
+    hashHistory.push("/login");
+  },
+
   render(){
+    const username = <span><span className="glyphicon glyphicon-user"></span>&nbsp;{SessionStore.currentUser().username}</span>;
     return (
       <nav className="navbar navbar-default header shadow-bottom">
 
@@ -20,18 +29,15 @@ const MainMenu = React.createClass({
         </Navbar.Header>
 
         <Navbar.Collapse>
-        
-              <UserAccountLink />
-
           <Nav pullRight className="nav navbar-nav pull-right">
             <NavItem eventKey={1} href="#">Home</NavItem>
             <NavItem eventKey={2} href="#">Edit Feeds</NavItem>
-            <NavDropdown eventKey={3} title="Account" id="basic-nav-dropdown">
+            <NavDropdown eventKey={3} title={username} id="basic-nav-dropdown">
               <MenuItem eventKey={3.1}>Profile</MenuItem>
               <MenuItem eventKey={3.2}>Settings</MenuItem>
               <MenuItem eventKey={3.3}>Comments</MenuItem>
               <MenuItem divider />
-              <MenuItem eventKey={3.3}>Logout</MenuItem>
+              <MenuItem eventKey={3.3} onClick={this.logoutButton}>Logout</MenuItem>
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>

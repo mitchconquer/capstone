@@ -26,7 +26,8 @@ const FeedItemDetails = React.createClass({
   componentWillReceiveProps(nextProps) {
       this.setState({
         feedItems: FeedStore.getFeedItems(nextProps.feedSourceIds)
-      })  
+      }) ;
+      document.getElementById('add-feed-source').scrollIntoView(true);
   },
 
   parseHTML(inputHtml) {
