@@ -51,6 +51,10 @@ FeedStore.getFeeds = function(feedSourceIds) {
 * feedSourceIds {Array}
 */
 FeedStore.getFeedItems = function(feedSourceIds) {
+  if (feedSourceIds.length === 0) {
+    return;
+  }
+  
   let feeds = [];
   feedSourceIds.forEach(id => {
     if (_feeds[id].feedItems){

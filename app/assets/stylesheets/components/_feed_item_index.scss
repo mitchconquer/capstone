@@ -1,3 +1,8 @@
+.feed {
+  overflow-y: scroll;
+  background-color: #ececec;
+}
+
 .color-bg-heading {
   background-color: $brand-success;
   font-size: 25px;
@@ -5,4 +10,22 @@
   margin: 0;
   padding: 40px 20px 30px;
   font-weight: 300;
+}
+
+.feed-item a {
+  display: block;
+  padding: 25px 10px;
+  border-bottom: 1px solid #CCC;
+  height: 75px;
+
+  .media {
+    position: relative;
+    margin: 0;
+    padding: 5px;
+
+    small {
+      position: absolute;
+      bottom: 2px;
+    }
+  }
 }

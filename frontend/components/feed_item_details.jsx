@@ -41,7 +41,7 @@ const FeedItemDetails = React.createClass({
         return (
           <article id={id} key={feedItem.id} ><h2>{feedItem.title}</h2>
             <div dangerouslySetInnerHTML={this.parseHTML(feedItem.description)}></div>
-            <div className="clearfix">
+            <div className="clearfix continue-reading-link">
               <a href={feedItem.link} target="_blank" className="btn btn-hollow pull-right"><div className="btn-hollow-inner">Continue Reading ></div></a>
             </div>
           </article>

@@ -18,7 +18,11 @@
 @import './style/backgrounds';
 
 // Components
+@import './components/feed_item_details';
 @import './components/feed_item_index';
+@import './components/folder_index';
+@import './components/main_menu';
+@import './components/react_app';
 @import './page.scss';
 @import './_feed.scss';
 @import './_feed_groups.scss';

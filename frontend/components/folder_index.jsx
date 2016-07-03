@@ -33,7 +33,7 @@ const FolderIndex = React.createClass({
   render() {
     const feedSources = this.feedSourceListItems();
     return (
-      <section>
+      <section className="folder-index">
         <p>Folders go here</p>
         <ul className="list-unstyled">
           {feedSources}

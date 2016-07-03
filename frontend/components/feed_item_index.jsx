@@ -23,6 +23,11 @@ const FeedItemIndex = React.createClass({
     return Object.keys(this.state.feedSources).map(id => parseInt(id));
   },
 
+  scrollToFeedItem(e, id) {
+    e.preventDefault();
+    document.getElementById(`item-${id}`).scrollIntoView(true);
+  },
+
   feedItemIds() {
     const nestedIds = [];
     this.feedSourceIds().forEach(id => {
@@ -64,7 +69,9 @@ const FeedItemIndex = React.createClass({
             const itemId = parseInt(feedItemId);
             const feedItem = this.state.feedSources[sourceId].feedItems[itemId];
             feedItems.push(
-              <li key={itemId}>{feedItem.title}</li>
+              <li key={itemId} className="feed-item">
+                  <a href="#" onClick={(e) => {e.preventDefault(); document.getElementById(`item-${itemId}`).scrollIntoView(true);}}>{feedItem.title}</a>
+              </li>
             );
           }.bind(this));
         }  
