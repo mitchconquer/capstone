@@ -25,6 +25,11 @@ class User < ActiveRecord::Base
   has_many :feed_sources,
     through: :subscriptions,
     source: :feed_source
+
+  has_many :folders,
+    primary_key: :id,
+    foreign_key: :user_id,
+    class_name: :Folder
     # Documentation says I should be able to use uniq but rails doesn't like it
     # uniq: true
 
