@@ -105,44 +105,44 @@ the API.
 - [X] create `feed_item` model
 - [X] seed the database with a small amount of test data including demo/guest accounts
 - [X] CRUD API for feed sources (`FeedSourcesController`)
-- [ ] API for marking feed_items read
+- [X] API for marking feed_items read
 - [X] jBuilder views for feed sources
-- [ ] setup Webpack & Flux scaffold
-- [ ] setup `APIUtil` to interact with the API
-- [ ] test out API interaction in the console.
+- [X] setup Webpack & Flux scaffold
+- [X] setup `APIUtil` to interact with the API
+- [X] test out API interaction in the console.
 
 ### Phase 3: Flux Architecture and Router (1.5 days, W1 F 6pm)
 
 **Objective:** FeedSources can be created, read, edited and destroyed with the
 user interface.
 
-- [ ] setup the flux loop with skeleton files
-- [ ] setup React Router
-- [ ] implement each feed component, building out the flux loop as needed.
-  - [ ] `FeedsIndex`
-  - [ ] `FeedIndexItem`
+- [X] setup the flux loop with skeleton files
+- [X] setup React Router
+- [X] implement each feed component, building out the flux loop as needed.
+  - [X] `FeedsIndex`
+  - [X] `FeedIndexItem`
   - [ ] `FeedForm`
-- [ ] save Feeds to the DB
+- [X] save Feeds to the DB
 
 ### Phase 4: Start Styling (0.5 days, W2 M 12pm)
 
 **Objective:** Existing pages (including signup/signin) will look good.
 
-- [ ] create a basic style guide
-- [ ] position elements on the page
-- [ ] setup structure of site frontend, just listing feeds where folders will go
-- [ ] add basic colors & styles
+- [X] create a basic style guide
+- [X] position elements on the page
+- [X] setup structure of site frontend, just listing feeds where folders will go
+- [X] add basic colors & styles
 
 ### Phase 5: Folders (1 day, W2 Tu 12pm)
 
 **Objective:** FeedSources belong to Folders, and can be viewed by folder.
 
-- [ ] create `Folder` model
+- [X] create `Folder` model
 - build out API, Flux loop, and components for:
-  - [ ] Folder CRUD
-  - [ ] adding feeds requires a folder
+  - [X] Folder CRUD
+  - [X] adding feeds requires a folder
   - [ ] moving feeds to a different folder
-  - [ ] viewing feeds by folder
+  - [X] viewing feeds by folder
 - Use CSS to style new views
 
 ### Phase 6: Save Articles (1 days, W2 Th 12pm)
