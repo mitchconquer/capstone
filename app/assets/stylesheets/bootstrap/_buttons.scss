@@ -18,4 +18,8 @@
     background: transparent;
     color: white;
   }
+
+  &:active, &:focus {
+    @extend .color-bg;
+  }
 }
