@@ -1,3 +1,30 @@
 .folder-index {
   padding: 15px;
 }
+
+.feed-source-list {
+  li {
+    position: relative;
+
+    .feed-source-item-link {
+      display: block;
+      margin-right: 20px;
+    }
+
+    &:hover, &:focus, &:active {
+      .feed-source-tools {
+        opacity: 1;
+      }
+    }
+
+    .feed-source-tools {
+      float: right;
+      position: absolute;
+      right: 0;
+      top: 0;
+      padding: 0 5px;
+      opacity: 0;
+      padding-top: 1px;
+    }
+  }
+} 
