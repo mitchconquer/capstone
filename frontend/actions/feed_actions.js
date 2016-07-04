@@ -14,6 +14,7 @@ const FeedActions = {
     FeedApiUtil.fetchAll(FeedActions.receiveFeedSources);
   },
 
+  // TODO: Unsubscribing should be a folder action and not a feed action
   unsubscribe(feedSourceId, folderId) {
     // This "REMOVE FEED SOURCE" will have to become setFolder() where the 
     // API send the folder with the updated list of feedSources

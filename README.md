@@ -40,6 +40,7 @@ Handy reference for RSS XML documents: [W3.org Feed Validator][w3_validator]
 - [ ] Add recommended and own custom feed sources
   - [ ] Select a FeedSource from recommended FeedSources
   - [ ] Add own custom feed source
+- [ ] Search codebase for TODO's for more
 
 Bonus Items
 

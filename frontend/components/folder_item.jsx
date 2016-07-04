@@ -33,7 +33,7 @@ const FolderItem = React.createClass({
   render() {
     return (
       <li>
-        <h3>{this.props.folderName}</h3>
+        <h3 className="folder-name">{this.props.folderName}</h3>
         <ul className="list-unstyled feed-source-list">
           {this.feedSourceListItems()}
         </ul>
