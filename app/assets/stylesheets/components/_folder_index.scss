@@ -2,16 +2,19 @@
   padding: 15px;
 }
 
+.folder-name {
+  text-transform: uppercase;
+  font-size: 21px;
+  position: relative;
+  cursor: pointer;
+}
+
 .folder-list {
   li {
     position: relative;
   }
 
   .folder-name {
-    text-transform: uppercase;
-    font-size: 21px;
-    position: relative;
-    cursor: pointer;
     &:hover, &:active, &:focus {
       .folder-menu {
         display: inline-block;

@@ -38,7 +38,6 @@ const FolderIndex = React.createClass({
     const folders = this.folderListItems();
     return (
       <section className="folder-index">
-        <h4>Folderzzz yas</h4>
         <CreateFolderItem />
         <ul className="list-unstyled folder-list">
           {folders}
