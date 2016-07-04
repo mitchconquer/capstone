@@ -38,7 +38,7 @@ const FolderItem = React.createClass({
   render() {
     return (
       <li>
-        <h3 className="folder-name">{this.props.folderName}</h3><div className="folder-menu"><span className="glyphicon glyphicon-remove" onClick={this.removeFolder}></span></div>
+        <h3 className="folder-name">{this.props.folderName}<div className="folder-menu"><span className="glyphicon glyphicon-remove" onClick={this.removeFolder}></span></div></h3>
         <ul className="list-unstyled feed-source-list">
           {this.feedSourceListItems()}
         </ul>

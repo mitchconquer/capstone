@@ -2,9 +2,34 @@
   padding: 15px;
 }
 
-.folder-name {
-  text-transform: uppercase;
-  font-size: 21px;
+.folder-list {
+  li {
+    position: relative;
+  }
+
+  .folder-name {
+    text-transform: uppercase;
+    font-size: 21px;
+    position: relative;
+    cursor: pointer;
+    &:hover, &:active, &:focus {
+      .folder-menu {
+        display: inline-block;
+      }
+    }
+  }
+
+  .folder-menu {
+    position: absolute;
+    top: 3px;
+    right: 0;
+    display: none;
+    font-size: 14px;
+    cursor: pointer;
+    &:hover, &:active, &:focus {
+      color: tomato;
+    }
+  }
 }
 
 .feed-source-list {
@@ -31,86 +56,5 @@
       opacity: 0;
       padding-top: 1px;
     }
-  }
-}
-
-.create-folder {
-  cursor: pointer;
-}
-
-.create-folder-form {
-
-  margin-bottom: -11px;
-  position: relative;
-
-  .input-container {
-    margin-right: -10px;
-  }
-
-  input {
-    border-radius: 0;
-    background-color: rgba(256,256,256,0.3);
-    border: 0;
-    color: white;
-    text-transform: uppercase;
-    font-size: 21px;
-    font-family: 'Source Sans Pro';
-    margin-top: 0px;
-    margin-left: -5px;
-    padding-left: 5px;
-    padding-right: 75px;
-
-    &:focus, &:active {
-      box-shadow: none;
-    }
-
-  }
-
-  .form-control::-webkit-input-placeholder {
-    color: white;
-  }
-
-  ::-webkit-input-placeholder {
-     opacity: .6;
-  }
-
-  :-moz-placeholder { /* Firefox 18- */
-     opacity: .6;  
-  }
-
-  ::-moz-placeholder {  /* Firefox 19+ */
-     opacity: .6;  
-  }
-
-  :-ms-input-placeholder {  
-     opacity: .6;  
-  }
-
-  .create-folder-submit {
-    float: right;
-    position: absolute;
-    top: 7px;
-    right: 35px;
-    padding: 8px;
-    border-radius: 36px;
-    height: 30px;
-    width: 30px;
-    padding-top: 4px;
-    padding-left: 6px;
-    border: none;
-    z-index: 10;
-  }
-
-  .create-folder-cancel {
-    float: right;
-    position: absolute;
-    top: 7px;
-    right: 0;
-    padding: 8px;
-    border-radius: 36px;
-    height: 30px;
-    width: 30px;
-    padding-top: 4px;
-    padding-left: 6px;
   }
 }
