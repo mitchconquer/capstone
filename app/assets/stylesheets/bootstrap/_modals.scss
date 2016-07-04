@@ -1,5 +1,6 @@
 .modal-container {
   position: relative;
+  z-index: 0;
 }
 .modal-container .modal, .modal-container .modal-backdrop {
   position: absolute;

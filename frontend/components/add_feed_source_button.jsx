@@ -11,7 +11,7 @@ const React = require('react'),
 const AddFeedSourceButton = React.createClass({
   getInitialState() {
       return {
-          show: false, feedUrl: "", folders: FolderStore.all()
+          show: false, feedUrl: "", folders: FolderStore.all(), selectedFolder: undefined
       };
   },
 
@@ -41,14 +41,32 @@ const AddFeedSourceButton = React.createClass({
   },
 
   clearForm() {
-    this.setState({ feedUrl: "" });
+    this.setState({ feedUrl: "", selectedFolder: "" });
   },
 
   submitForm(folderId) {
     FeedActions.createFeedSource(this.state.feedUrl, folderId);
-    console.log('AddFeedSourceButton > ' + this.state.feedUrl + ' folderId: ' + folderId)
     this.closeModal();
+  },
 
+  submitOnEnter (e) {
+    console.log(e.code);
+  },
+
+  validateForm(folderId) {
+    if (folderId) {
+      this.setState({ selectedFolder: folderId });
+      if (this.state.feedUrl.length > 0 && folderId) {
+        this.submitForm(this.state.selectedFolder);
+      }
+    }
+    if (this.state.feedUrl.length > 0 && this.state.selectedFolder.length > 0) {
+      this.submitForm(this.state.selectedFolder);
+    }
+    console.log('validateForm' + this.state.folderId)
+    // make
+    // Check that there is a URL (validated)
+    // If ok, submit form
   },
 
   feedUrlChange(e) {
@@ -58,9 +76,10 @@ const AddFeedSourceButton = React.createClass({
   render() {
     const folders = Object.keys(this.state.folders).map(id => {
       const folder = this.state.folders[id];
+      const active = this.state.selectedFolder === folder.id ? " selected" : ""
       return (
-        <li>  
-          <div className="btn btn-hollow add-to-folder-item" key={folder.id} onClick={this.submitForm.bind(null, folder.id)}>
+        <li key={folder.id}>  
+          <div className={"btn btn-hollow add-to-folder-item" + active} key={folder.id} onClick={this.validateForm.bind(null, folder.id)}>
             <div className="btn-hollow-inner">
               {folder.name}
               <span className="glyphicon-ok glyphicon"></span>
@@ -80,12 +99,17 @@ const AddFeedSourceButton = React.createClass({
           </Modal.Header>
           <Modal.Body>
             <h3><span className="big-num">1.</span>&nbsp;Enter your feed URL below:</h3>
-            <form>
+            <form onSubmit={this.validateForm}>
               <FormGroup controlId="feed-url">
+                <InputGroup>
                 <ControlLabel srOnly={true}>
                   RSS Feed URL
                 </ControlLabel>
                 <FormControl type="text" placeholder="http://..." onChange={this.feedUrlChange} value={this.state.feedUrl} />
+                <InputGroup.Button>
+                  <Button type="submit" onClick={this.validateForm}>Submit</Button>
+                </InputGroup.Button>
+                </InputGroup>
               </FormGroup>
             </form>
             <h3><span className="big-num">2.</span>&nbsp;Pick a folder:</h3>
@@ -94,7 +118,7 @@ const AddFeedSourceButton = React.createClass({
             </ul>
             <br />
             <div className="align-right">
-              <Button onClick={this.closeModal}>Cancel</Button>
+              <Button onClick={this.closeModal}>Nevermind!</Button>
             </div>
           </Modal.Body>
         </Modal>
