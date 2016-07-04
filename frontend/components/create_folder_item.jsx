@@ -38,18 +38,16 @@ const CreateFolderItem = React.createClass({
 
     if (this.state.editing) {      
       return (
-        <form onSubmit={this.validateFolderName}>
-          <div className="input-group create-folder-form">
+        <form onSubmit={this.validateFolderName} className="create-folder-form">
+          <div className="input-container">
             <input type="text" id="create-folder-input" className="form-control" onChange={this.onFolderNameChange} placeholder="CREATE FOLDER..." value={this.state.folderName} aria-label="New Folder Name" />
-            <div className="input-group-btn">
-              <button type="submit" className="btn btn-default" aria-label="Create Folder" onClick={this.validateFolderName}>
-                <span className="glyphicon glyphicon-ok" aria-hidden="true"></span>
-              </button>
-              <button type="button" className="btn btn-default" aria-label="Cancel" onClick={this.toggleEditMode}>
-                <span className="glyphicon glyphicon-remove" aria-hidden="true"></span>
-              </button>
-            </div>
           </div>
+          <button type="submit" className="btn btn-default btn-success create-folder-submit" aria-label="Create Folder" onClick={this.validateFolderName}>
+            <span className="glyphicon glyphicon-ok" aria-hidden="true"></span>
+          </button>
+          <button type="button" className="btn btn-default create-folder-cancel" aria-label="Cancel" onClick={this.toggleEditMode}>
+            <span className="glyphicon glyphicon-remove" aria-hidden="true"></span>
+          </button>
         </form>
       );
     }
