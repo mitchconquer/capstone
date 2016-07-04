@@ -22,8 +22,8 @@ const FolderIndex = React.createClass({
   },
 
   _folderStoreChange() {
-    this.setState({ folders: FolderStore.all() });
     console.log('FolderIndex#_folderStoreChange');
+    this.setState({ folders: FolderStore.all() });
   },
 
   folderListItems() {

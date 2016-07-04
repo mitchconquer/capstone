@@ -1,5 +1,6 @@
 const React = require('react'),
       FeedActions = require('../actions/feed_actions'),
+      FolderStore = require('../stores/folder_store'),
       Modal = require('react-bootstrap/lib').Modal,
       Button = require('react-bootstrap/lib').Button,
       FormGroup = require('react-bootstrap/lib').FormGroup,
@@ -10,8 +11,20 @@ const React = require('react'),
 const AddFeedSourceButton = React.createClass({
   getInitialState() {
       return {
-          show: false, feedUrl: ""
+          show: false, feedUrl: "", folders: FolderStore.all()
       };
+  },
+
+  componentDidMount() {
+    this.folderStoreListener = FolderStore.addListener(this._folderStoreChange);
+  },
+
+  componentWillUnmount() {
+    this.folderStoreListener.remove();
+  },
+
+  _folderStoreChange() {
+    this.setState({folders: FolderStore.all() });
   },
 
   closeModal(){
@@ -31,9 +44,11 @@ const AddFeedSourceButton = React.createClass({
     this.setState({ feedUrl: "" });
   },
 
-  submitForm() {
-    FeedActions.createFeedSource(this.state.feedUrl);
+  submitForm(folderId) {
+    FeedActions.createFeedSource(this.state.feedUrl, folderId);
+    console.log('AddFeedSourceButton > ' + this.state.feedUrl + ' folderId: ' + folderId)
     this.closeModal();
+
   },
 
   feedUrlChange(e) {
@@ -41,6 +56,10 @@ const AddFeedSourceButton = React.createClass({
   },
 
   render() {
+    const folders = Object.keys(this.state.folders).map(id => {
+      const folder = this.state.folders[id];
+      return <li className="add-to-folder-item" key={folder.id} onClick={this.submitForm.bind(null, folder.id)}>{folder.name}</li>;
+    });
     return (
       <span className="add-feed-source" id="add-feed-source">
         <div className="clearfix">
@@ -49,19 +68,20 @@ const AddFeedSourceButton = React.createClass({
         <Modal show={this.state.show} onHide={this.closeModal} container={this} onEntered={this.focusOnForm} >
           <Modal.Body>
             <h4>Enter your feed URL below:</h4>
-            <form onSubmit={this.submitForm}>
+            <form>
               <FormGroup controlId="feed-url">
                 <ControlLabel srOnly={true}>
                   RSS Feed URL
                 </ControlLabel>
                 <InputGroup>
                   <FormControl type="text" placeholder="http://..." onChange={this.feedUrlChange} value={this.state.feedUrl} />
-                  <InputGroup.Button>
-                    <Button type="submit" className="btn-success">Subscribe!</Button>
-                  </InputGroup.Button>
                 </InputGroup>
               </FormGroup>
             </form>
+            <br />
+            <ul className="list-unstyled">
+              {folders}
+            </ul>
             <br />
             <div className="align-right">
               <Button onClick={this.closeModal}>Cancel</Button>

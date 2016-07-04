@@ -11,7 +11,7 @@ else
     feed_source.feed_items.each do |item|
       json.set! item.id do
         json.partial! "/api/feed_items/feed_item", feed_item: item
-        json.set! :read, read_feed_items.include?(item)
+        json.set! :read, read_feed_items.include?(item) if read_feed_items
       end
     end
   end

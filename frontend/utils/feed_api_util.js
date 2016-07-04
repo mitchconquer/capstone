@@ -1,10 +1,10 @@
 module.exports = {
-  createFeedSource(feedSourceUrl, successCallback) {
+  createFeedSource(feedSourceUrl, folderId, successCallback) {
     $.ajax({
       url: 'api/feeds',
       method: 'POST',
       dataType: 'json',
-      data: { url: feedSourceUrl },
+      data: { url: feedSourceUrl, folderId: folderId },
       success: successCallback
     });
   },

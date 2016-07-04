@@ -12,16 +12,15 @@ class Subscription < ActiveRecord::Base
     foreign_key: :feed_source_id,
     class_name: :FeedSource
 
-  def self.subscribe(user, feed_source, folders)
-    return false unless feed_source.is_a?(FeedSource) && 
-      folders.is_a?(Array) && user.is_a?(User)
+  def self.subscribe(user, feed_source, folder_id)
 
-    folders.each do |folder_id|
-      Subscription.create({
-        folder_id: folder_id, 
-        feed_source_id: feed_source.id, 
-        user_id: user.id })
-    end
+    return false unless feed_source.is_a?(FeedSource) && 
+      user.is_a?(User)
+
+    Subscription.create({
+      folder_id: folder_id, 
+      feed_source_id: feed_source.id, 
+      user_id: user.id })
 
     true
   end

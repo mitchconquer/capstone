@@ -1,6 +1,8 @@
 const AppDispatcher = require('../dispatcher/dispatcher'),
       Store = require('flux/utils').Store,
-      FolderConstants = require('../constants/folder_constants');
+      FolderConstants = require('../constants/folder_constants'),
+      FolderActions = require('../actions/folder_actions'),
+      FeedConstants = require('../constants/feed_constants');
 
 let _folders = {};
 
@@ -13,8 +15,6 @@ function setFolder(folder) {
 
 function resetFolders(folders) {
   _folders = {};
-  console.log('FolderStore#resetFolders');
-  console.log(folders);
   Object.keys(folders).forEach(id => {
     _folders[id] = folders[id];
   });
@@ -44,6 +44,10 @@ FolderStore.__onDispatch = function(payload) {
       break;
     case FolderConstants.REMOVE_FOLDER:
       removeFolder(payload.folderId)
+      break;
+    case FeedConstants.RECEIVE_FEED_SOURCE:
+      console.log('FolderStore received RECEIVE_FEED_SOURCE')
+      FolderActions.fetchAll();
       break;
   }
 };

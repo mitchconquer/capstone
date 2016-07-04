@@ -6,8 +6,8 @@ const FeedActions = {
 
   /* CLIENT UI INITIATED ACTIONS */
 
-  createFeedSource(feedSourceUrl) {
-    FeedApiUtil.createFeedSource(feedSourceUrl, FeedActions.receiveFeedSource)
+  createFeedSource(feedSourceUrl, folderId) {
+    FeedApiUtil.createFeedSource(feedSourceUrl, folderId, FeedActions.receiveFeedSource);
   },
 
   fetchAll() {

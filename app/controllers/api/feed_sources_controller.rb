@@ -14,9 +14,11 @@ class Api::FeedSourcesController < ApplicationController
     end
     
     # folders = params[:folders] # folders is array of folder ID's
-    folders = [1]
+    folder = params[:folderId].to_i
 
-    Subscription.subscribe(current_user, @feed_source, folders)
+    Subscription.subscribe(current_user, @feed_source, folder)
+
+    # @read_feed_items = []
 
     render :show
   end

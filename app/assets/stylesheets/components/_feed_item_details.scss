@@ -4,6 +4,10 @@
 
   article {
     padding: 20px 10px;
+    
+    img {
+      @extend .img-responsive;
+    }
   }
 
   .continue-reading-link {
