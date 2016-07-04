@@ -29,15 +29,15 @@ const FolderActions = {
   /* SERVER RESPONSE ACTIONS */
 
   receiveFolder(folder) {
+    console.log('FolderActions#receiveFolder');
+    console.log(folder);
     AppDispatcher.dispatch({
       actionType: FolderConstants.RECEIVE_FOLDER,
-      folder: folder.folder
+      folder: folder
     });
   },
 
   removeFolder(folder) {
-    console.log('FolderActions#removeFolder');
-    console.log(folder);
     AppDispatcher.dispatch({
       actionType: FolderConstants.REMOVE_FOLDER,
       folderId: folder.id
