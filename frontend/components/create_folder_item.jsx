@@ -38,17 +38,19 @@ const CreateFolderItem = React.createClass({
 
     if (this.state.editing) {      
       return (
-        <div className="input-group create-folder-form">
-          <input type="text" id="create-folder-input" className="form-control" onChange={this.onFolderNameChange} placeholder="CREATE FOLDER..." value={this.state.folderName} aria-label="New Folder Name" />
-          <div className="input-group-btn">
-            <button type="button" className="btn btn-default" aria-label="Create Folder" onClick={this.validateFolderName}>
-              <span className="glyphicon glyphicon-ok" aria-hidden="true"></span>
-            </button>
-            <button type="button" className="btn btn-default" aria-label="Cancel" onClick={this.toggleEditMode}>
-              <span className="glyphicon glyphicon-remove" aria-hidden="true"></span>
-            </button>
+        <form onSubmit={this.validateFolderName}>
+          <div className="input-group create-folder-form">
+            <input type="text" id="create-folder-input" className="form-control" onChange={this.onFolderNameChange} placeholder="CREATE FOLDER..." value={this.state.folderName} aria-label="New Folder Name" />
+            <div className="input-group-btn">
+              <button type="submit" className="btn btn-default" aria-label="Create Folder" onClick={this.validateFolderName}>
+                <span className="glyphicon glyphicon-ok" aria-hidden="true"></span>
+              </button>
+              <button type="button" className="btn btn-default" aria-label="Cancel" onClick={this.toggleEditMode}>
+                <span className="glyphicon glyphicon-remove" aria-hidden="true"></span>
+              </button>
+            </div>
           </div>
-        </div>
+        </form>
       );
     }
     return (
