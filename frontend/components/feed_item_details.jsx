@@ -20,7 +20,6 @@ const FeedItemDetails = React.createClass({
     this.setState({
       feedItems: FeedStore.getFeedItems(this.props.feedSourceIds)
     });
-    console.log('FeedItemDetails#_FeedStoreChange');
   },
 
   componentWillReceiveProps(nextProps) {

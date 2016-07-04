@@ -5,15 +5,14 @@ const React = require('react'),
 const FeedSourceItem = React.createClass({
   unsubscribe(e) {
     e.preventDefault(); 
-    FeedActions.unsubscribe(this.props.feedSource.id, this.props.folderId)
+    FeedActions.unsubscribe(this.props.id, this.props.folderId)
   },
 
   render(){
-    const feedSource = this.props.feedSource;
-    const url = `/feeds/${feedSource.id}`;
+    const url = `/feeds/${this.props.id}`;
 
     return (
-      <li key={feedSource.id}><Link to={url}>{feedSource.title}</Link>&nbsp;<a href="#" onClick={this.unsubscribe}><span className="glyphicon glyphicon-remove-circle" aria-label="Unsubscribe"></span></a></li>
+      <li key={this.props.id}><Link to={url}>{this.props.title}</Link>&nbsp;<a href="#" onClick={this.unsubscribe}><span className="glyphicon glyphicon-remove-circle" aria-label="Unsubscribe"></span></a></li>
     );
   }
 });

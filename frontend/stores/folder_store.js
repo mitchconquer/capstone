@@ -7,14 +7,22 @@ let _folders = {};
 const FolderStore = new Store(AppDispatcher);
 
 function setFolder(folder) {
+  _folder[folder.id] = folder
   FolderStore.__emitChange();
 }
 
 function resetFolders(folders) {
+  _folders = {};
+  console.log('FolderStore#resetFolders');
+  console.log(folders);
+  Object.keys(folders).forEach(id => {
+    _folders[id] = folders[id];
+  });
   FolderStore.__emitChange();
 }
 
 function removeFolder(folderId) {
+  delete _folders[folderId];
   FolderStore.__emitChange();
 }
 
@@ -32,7 +40,7 @@ FolderStore.__onDispatch = function(payload) {
       setFolder(payload.folder);
       break;
     case FolderConstants.RECEIVE_FOLDERS:
-      resetFolders(payload.folder);
+      resetFolders(payload.folders);
       break;
     case FolderConstants.REMOVE_FOLDER:
       removeFolder(payload.folderId)
