@@ -1,0 +1,18 @@
+.add-to-folder-item {
+  width: 100%;
+  margin: 10px 0;
+
+  .btn-hollow-inner .glyphicon {
+    float: right;
+    display: none;
+  }
+
+  .btn-hollow-inner {
+    text-align: left;
+  }
+
+  &:hover .btn-hollow-inner .glyphicon {
+    display: inline-block;
+  }
+
+}

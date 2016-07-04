@@ -58,7 +58,16 @@ const AddFeedSourceButton = React.createClass({
   render() {
     const folders = Object.keys(this.state.folders).map(id => {
       const folder = this.state.folders[id];
-      return <li className="add-to-folder-item" key={folder.id} onClick={this.submitForm.bind(null, folder.id)}>{folder.name}</li>;
+      return (
+        <li>  
+          <div className="btn btn-hollow add-to-folder-item" key={folder.id} onClick={this.submitForm.bind(null, folder.id)}>
+            <div className="btn-hollow-inner">
+              {folder.name}
+              <span className="glyphicon-ok glyphicon"></span>
+            </div>
+          </div>
+        </li>
+      );
     });
     return (
       <span className="add-feed-source" id="add-feed-source">
@@ -66,19 +75,20 @@ const AddFeedSourceButton = React.createClass({
           <Button className="pull-right btn-success" onClick={this.toggleModal}>Add a Feed</Button>
         </div>
         <Modal show={this.state.show} onHide={this.closeModal} container={this} onEntered={this.focusOnForm} >
+          <Modal.Header>
+            <Modal.Title><h2>Add a New Feed</h2></Modal.Title>
+          </Modal.Header>
           <Modal.Body>
-            <h4>Enter your feed URL below:</h4>
+            <h3><span className="big-num">1.</span>&nbsp;Enter your feed URL below:</h3>
             <form>
               <FormGroup controlId="feed-url">
                 <ControlLabel srOnly={true}>
                   RSS Feed URL
                 </ControlLabel>
-                <InputGroup>
-                  <FormControl type="text" placeholder="http://..." onChange={this.feedUrlChange} value={this.state.feedUrl} />
-                </InputGroup>
+                <FormControl type="text" placeholder="http://..." onChange={this.feedUrlChange} value={this.state.feedUrl} />
               </FormGroup>
             </form>
-            <br />
+            <h3><span className="big-num">2.</span>&nbsp;Pick a folder:</h3>
             <ul className="list-unstyled">
               {folders}
             </ul>
