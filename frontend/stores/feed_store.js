@@ -57,7 +57,7 @@ FeedStore.getFeedItems = function(feedSourceIds) {
   
   let feeds = [];
   feedSourceIds.forEach(id => {
-    if (_feeds[id].feedItems){
+    if (_feeds[id] && _feeds[id].feedItems){
       Object.keys(_feeds[id].feedItems).forEach(itemId => {
         feeds.push(_feeds[id].feedItems[itemId]);
       });

@@ -1,0 +1,17 @@
+.popover {
+  .title {
+    font-size: 21px;
+    color: $brand-success;
+  }
+  .btn-hollow-inner {
+    position: relative;
+    padding-right: 40px;
+    
+    span.glyphicon {
+      position: absolute;
+      right: 6px;
+      top: 11px;
+    }
+  }
+}
+

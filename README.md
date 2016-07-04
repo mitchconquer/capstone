@@ -45,6 +45,7 @@ Handy reference for RSS XML documents: [W3.org Feed Validator][w3_validator]
 Bonus Items
 
 - [ ] Load animations for feed items and feed item content
+- [ ] Add image to feed source name
 - [ ] FeedIndex shows the feed item that's curretnly in the view as active
 - [ ] Animate dropdown menu
 - [ ] Modal transition for new feed source forms

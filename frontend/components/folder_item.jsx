@@ -31,7 +31,7 @@ const FolderItem = React.createClass({
 
   feedSourceListItems() {
     return this.state.feedSources.map(feedSource => {
-      return <FeedSourceItem key={feedSource.id} id={feedSource.id} title={feedSource.title} folderId={this.props.folderId} />;
+      return <FeedSourceItem key={feedSource.id} id={feedSource.id} title={feedSource.title} folderId={this.props.folderId} folders={this.props.folders} />;
     });
   },
 

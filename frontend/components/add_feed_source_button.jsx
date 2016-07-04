@@ -76,10 +76,10 @@ const AddFeedSourceButton = React.createClass({
   render() {
     const folders = Object.keys(this.state.folders).map(id => {
       const folder = this.state.folders[id];
-      const active = this.state.selectedFolder === folder.id ? " selected" : ""
+      const selected = this.state.selectedFolder === folder.id ? " selected" : ""
       return (
         <li key={folder.id}>  
-          <div className={"btn btn-hollow add-to-folder-item" + active} key={folder.id} onClick={this.validateForm.bind(null, folder.id)}>
+          <div className={"btn btn-hollow add-to-folder-item" + selected} key={folder.id} onClick={this.validateForm.bind(null, folder.id)}>
             <div className="btn-hollow-inner">
               {folder.name}
               <span className="glyphicon-ok glyphicon"></span>

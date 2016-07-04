@@ -30,7 +30,7 @@ const FolderIndex = React.createClass({
   folderListItems() {
     return Object.keys(this.state.folders).map(id => {
       const folder = this.state.folders[id];
-      return <FolderItem key={folder.id} folderId={folder.id} folderName={folder.name} open={false} initialFeedSources={folder.feedSources} />;
+      return <FolderItem key={folder.id} folderId={folder.id} folderName={folder.name} open={false} initialFeedSources={folder.feedSources} folders={this.state.folders} />;
     });
   },
 
