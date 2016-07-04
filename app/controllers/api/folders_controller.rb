@@ -5,7 +5,8 @@ class Api::FoldersController < ApplicationController
   end
 
   def create
-    @folder = current_user.folders.new(params[:folder][:title])
+    @folder = current_user.folders.create!(folder_params)
+    render :show
   end
 
   def show
@@ -14,7 +15,7 @@ class Api::FoldersController < ApplicationController
 
   def update
     @folder = Folder.find(params[:id])
-    if @folder.update(params[:folder][:title])
+    if @folder.update(folder_params)
       render :show
     else
       render json: { errors: @folder.errors.full_messages, form: '' }, status: 401
@@ -23,11 +24,16 @@ class Api::FoldersController < ApplicationController
 
   def destroy
     @folder = Folder.find(params[:id])
-    if @folder.dstroy(params[:folder][:title])
+    if @folder.dstroy(folder_params)
       render :show
     else
       render json: { errors: @folder.errors.full_messages, form: '' }, status: 401
     end
+  end
+
+  private
+  def folder_params
+    params.require(:folder).permit(:name)
   end
 
 end

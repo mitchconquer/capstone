@@ -2,7 +2,8 @@ const React = require('react'),
       FeedActions = require('../actions/feed_actions'),
       FolderActions = require('../actions/folder_actions'),
       FolderStore = require('../stores/folder_store'),
-      FolderItem = require('./folder_item');
+      FolderItem = require('./folder_item'),
+      CreateFolderItem = require('./create_folder_item');
 
 const FolderIndex = React.createClass({
   getInitialState(){
@@ -38,6 +39,7 @@ const FolderIndex = React.createClass({
     return (
       <section className="folder-index">
         <h4>Folderzzz yas</h4>
+        <CreateFolderItem />
         <ul className="list-unstyled folder-list">
           {folders}
         </ul>

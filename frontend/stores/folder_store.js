@@ -9,7 +9,7 @@ let _folders = {};
 const FolderStore = new Store(AppDispatcher);
 
 function setFolder(folder) {
-  _folder[folder.id] = folder
+  _folders[folder.id] = folder
   FolderStore.__emitChange();
 }
 
