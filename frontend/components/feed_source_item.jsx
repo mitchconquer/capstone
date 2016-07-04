@@ -12,7 +12,7 @@ const FeedSourceItem = React.createClass({
     const url = `/feeds/${this.props.id}`;
     // TODO: Unsubscribing should be a folder action and not a feed action
     return (
-      <li key={this.props.id}><Link to={url} className="feed-source-item-link">{this.props.title}</Link><a href="#" onClick={this.unsubscribe} className="feed-source-tools"><span className="glyphicon glyphicon-remove-circle" aria-label="Unsubscribe"></span></a></li>
+      <li key={this.props.id}><Link to={url} className="feed-source-item-link">{this.props.title}</Link><a href="#" onClick={this.unsubscribe} className="feed-source-tools"><span className="glyphicon glyphicon-remove" aria-label="Unsubscribe"></span></a></li>
     );
   }
 });

@@ -35,10 +35,12 @@ const FolderActions = {
     });
   },
 
-  removeFolder(folderId) {
+  removeFolder(folder) {
+    console.log('FolderActions#removeFolder');
+    console.log(folder);
     AppDispatcher.dispatch({
       actionType: FolderConstants.REMOVE_FOLDER,
-      folderId: folderId
+      folderId: folder.id
     });
   },
 

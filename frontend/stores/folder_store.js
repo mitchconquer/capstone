@@ -22,6 +22,8 @@ function resetFolders(folders) {
 }
 
 function removeFolder(folderId) {
+  console.log('FolderStore#removeFolder');
+  console.log(folderId);
   delete _folders[folderId];
   FolderStore.__emitChange();
 }
@@ -43,6 +45,7 @@ FolderStore.__onDispatch = function(payload) {
       resetFolders(payload.folders);
       break;
     case FolderConstants.REMOVE_FOLDER:
+      console.log('FolderStore#REMOVE_FOLDER')
       removeFolder(payload.folderId)
       break;
     case FeedConstants.RECEIVE_FEED_SOURCE:

@@ -24,7 +24,7 @@ class Api::FoldersController < ApplicationController
 
   def destroy
     @folder = Folder.find(params[:id])
-    if @folder.dstroy(folder_params)
+    if @folder.destroy
       render :show
     else
       render json: { errors: @folder.errors.full_messages, form: '' }, status: 401

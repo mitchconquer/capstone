@@ -27,7 +27,7 @@ module.exports = {
     $.ajax({
       url: `api/folders/${folderId}`,
       dataType: 'json',
-      method: 'GET',
+      method: 'DELETE',
       success: successCallback,
       error: ErrorActions.setErrors
     });
