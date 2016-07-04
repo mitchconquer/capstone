@@ -101,15 +101,11 @@ const AddFeedSourceButton = React.createClass({
             <h3><span className="big-num">1.</span>&nbsp;Enter your feed URL below:</h3>
             <form onSubmit={this.validateForm}>
               <FormGroup controlId="feed-url">
-                <InputGroup>
                 <ControlLabel srOnly={true}>
                   RSS Feed URL
                 </ControlLabel>
                 <FormControl type="text" placeholder="http://..." onChange={this.feedUrlChange} value={this.state.feedUrl} />
-                <InputGroup.Button>
-                  <Button type="submit" onClick={this.validateForm}>Submit</Button>
-                </InputGroup.Button>
-                </InputGroup>
+                
               </FormGroup>
             </form>
             <h3><span className="big-num">2.</span>&nbsp;Pick a folder:</h3>
