@@ -23,18 +23,21 @@
   display: block;
   padding: 17px 10px;
   height: 100px;
-  color: black;
-  font-size: 14px;
-  font-weight: 400;
   position: relative;
   background-color: #ececec;
   &:hover {
     background-color: lighten(#ececec, 2.5%);
   }
 
+  .feed-item-title {
+    color: black;
+    font-size: 14px;
+    font-weight: 400;
+    overflow: hidden;
+    max-height: 40px;
+  }
 
-
-  div {
+  .feed-item-meta {
     font-size: 12px;
     color: $gray-dark;
     padding-top: 10px;

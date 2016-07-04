@@ -68,10 +68,12 @@ const FeedItemIndex = React.createClass({
           Object.keys(this.state.feedSources[sourceId].feedItems).forEach(function(feedItemId) {
             const itemId = parseInt(feedItemId);
             const feedItem = this.state.feedSources[sourceId].feedItems[itemId];
+            const author = feedItem.author ? <span className="author">{feedItem.author},&nbsp;</span> : ""; 
             feedItems.push(
               <li key={itemId} className="feed-item">
-                  <a href="#" onClick={(e) => {e.preventDefault(); document.getElementById(`item-${itemId}`).scrollIntoView(true);}}>{feedItem.title}<br />
-                    <div><span className="author">{feedItem.author}</span>,&nbsp;{feedItem.pubDateAgo}&nbsp;ago</div>
+                  <a href="#" onClick={(e) => {e.preventDefault(); document.getElementById(`item-${itemId}`).scrollIntoView(true);}}>
+                    <div className="feed-item-title">{feedItem.title}</div>
+                    <div className="feed-item-meta">{author}{feedItem.pubDateAgo}&nbsp;ago</div>
                   </a>
               </li>
             );

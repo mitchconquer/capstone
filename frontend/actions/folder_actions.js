@@ -26,8 +26,6 @@ const FolderActions = {
     FolderApiUtil.fetch(folderId, FolderActions.receiveFolder);
   },
 
-  
-
   /* SERVER RESPONSE ACTIONS */
 
   receiveFolder(folder) {
@@ -45,8 +43,6 @@ const FolderActions = {
   },
 
   receiveFolders(folders) {
-    console.log('FolderActions#receiveFolders');
-    console.log(folders);
     AppDispatcher.dispatch({
       actionType: FolderConstants.RECEIVE_FOLDERS,
       folders: folders
