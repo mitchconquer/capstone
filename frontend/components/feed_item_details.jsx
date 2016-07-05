@@ -17,9 +17,11 @@ const FeedItemDetails = React.createClass({
   },
 
   _feedStoreChange() {
-    this.setState({
-      feedItems: FeedStore.getFeedItems(this.props.feedSourceIds)
-    });
+    if (this.props.feedSourceIds) {
+      this.setState({
+        feedItems: FeedStore.getFeedItems(this.props.feedSourceIds)
+      });
+    }
   },
 
   componentWillReceiveProps(nextProps) {
@@ -57,9 +59,11 @@ const FeedItemDetails = React.createClass({
     }
     
     return (
-      <div>
+      <section className="col-sm-8 app-column full-articles" id="full-articles">
         <AddFeedSourceButton />
-      </div>
+        <p>This view isn't super working yet so an RSS feed from the left-most menu or add one with the button above, plz.
+        </p>
+      </section>
     );
   }
 });

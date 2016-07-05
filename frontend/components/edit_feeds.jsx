@@ -33,7 +33,7 @@ const EditFeeds = React.createClass({
           <ul className="suggested-feeds list-unstyled">
             {category.feedSources.map(feedSource => {
               return (
-                <li className="feed-item" key={'fs' + feedSource.id}>
+                <li className="feed-item" key={category.id + 'fs' + feedSource.id}>
                   <img src="http://dummyimage.com/150x150" alt="" className="img-circle" />
                   <br />
                   <h4>{feedSource.title}</h4>
