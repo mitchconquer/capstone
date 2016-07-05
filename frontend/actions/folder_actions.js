@@ -17,6 +17,15 @@ const FolderActions = {
     FolderApiUtil.delete(folderId, FolderActions.removeFolder);
   },
 
+  moveFeedSource(originalFolderId, newFolderId, feedSourceId) {
+    FolderApiUtil.unsubscribe(originalFolderId, feedSourceId, FolderActions.receiveFolder);
+    FolderApiUtil.subscribe(newFolderId, feedSourceId, FolderActions.receiveFolder);
+  },
+
+  unsubscribe(originalFolderId, feedSourceId) {
+    FolderApiUtil.unsubscribe(originalFolderId, feedSourceId, FolderActions.receiveFolder);
+  },
+
   fetchAll() {
     console.log('FolderActions#fetchAll');
     FolderApiUtil.fetchAll(FolderActions.receiveFolders);

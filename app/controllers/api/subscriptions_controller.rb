@@ -11,11 +11,8 @@ class Api::SubscriptionsController < ApplicationController
 
     if @subscription
       @subscription.destroy
-
       @folder = Folder.includes(:feed_sources).find(params[:folder_id])
-    
       render template: "api/folders/show"
-      # render json: feed_source_ids
     else
       render json: 'null', status: 404
     end

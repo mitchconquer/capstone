@@ -3,17 +3,14 @@ const React = require('react'),
       FeedActions = require('../actions/feed_actions'),
       OverlayTrigger = require('react-bootstrap').OverlayTrigger,
       Button = require('react-bootstrap').Button,
-      Popover = require('react-bootstrap').Popover;
+      Popover = require('react-bootstrap').Popover,
+      FolderActions = require('../actions/folder_actions');
 
 const FeedSourceItem = React.createClass({
   getInitialState() {
       return {
-        active: false, selectedFolder: this.props.folderId
+        active: false, selectedFolder: this.props.folderId, show: false
       };
-  },
-  unsubscribe(e) {
-    e.preventDefault(); 
-    FeedActions.unsubscribe(this.props.id, this.props.folderId)
   },
 
   hidePopover(test) {
@@ -24,20 +21,15 @@ const FeedSourceItem = React.createClass({
     this.setState({ selectedFolder: "" });
   },
 
+  unsubscribe() {
+    unsubscribe(this.props.folderId, this.props.id);
+  },
+
   submitForm(folderId) {
-    // FeedActions.createFeedSource(this.state.feedUrl, folderId);
-  },
-
-  submitOnEnter (e) {
-    // console.log(e.code);
-  },
-
-  validateForm(folderId) {
-        
-    console.log('validateForm' + this.state.folderId);
-    // make
-    // Check that there is a URL (validated)
-    // If ok, submit form
+    console.log('submitForm');
+    console.log(folderId);
+    FolderActions.moveFeedSource(this.props.folderId, folderId, this.props.id);
+    // TODO: Close this popover after submitting / after click a "folder" (thought it is closing if you pick a different folder)
   },
 
   render(){
@@ -46,7 +38,7 @@ const FeedSourceItem = React.createClass({
       const selected = this.state.selectedFolder === folder.id ? " selected" : ""
       return (
         <li key={folder.id}>  
-          <div className={"btn btn-hollow add-to-folder-item" + selected} key={folder.id} onClick={() => {this.setState({ selectedFolder: folder.id })}}>
+          <div className={"btn btn-hollow add-to-folder-item" + selected} key={folder.id} onClick={this.submitForm.bind(this, folder.id)}>
             <div className="btn-hollow-inner">
               {folder.name}
               <span className="glyphicon-ok glyphicon"></span>
@@ -55,24 +47,26 @@ const FeedSourceItem = React.createClass({
         </li>
       );
     });
-    const url = `/feeds/${this.props.id}`;
-    // TODO: Unsubscribing should be a folder action and not a feed action
     const active = this.state.active ? "active" : "";
-    const popover = (<Popover onEntered={this.hidePopover} onHide={this.hidePopover.bind(this, 'test')} id={'popover-' + this.props.id} arrowOffsetTop={-3} >
-                      <h4 className="title">{'Edit ' + this.props.title}</h4>
-                      <h4>Move to a different folder</h4>
-                      <ul className="list-unstyled">
-                        {folders}
-                      </ul>
-                      <h4>Or</h4>
-                      <Button className="btn btn-default">Unsubscribe</Button>
-                    </Popover>);
+    const url = `/feeds/${this.props.id}`;
+    const popover = (
+      <Popover onEntered={this.hidePopover} show={this.state.show} onHide={this.hidePopover.bind(this, 'test')} id={'popover-' + this.props.id} arrowOffsetTop={-3} >
+        <h4 className="title">{'Edit ' + this.props.title}</h4>
+        <h4>Move to a different folder</h4>
+        <ul className="list-unstyled">
+          {folders}
+        </ul>
+        <h4>Or</h4>
+        <Button className="btn btn-default" onClick={this.unsubscribe}>Unsubscribe</Button>
+      </Popover>
+    );
+
     return (
       <li key={this.props.id} className={active}>
         <Link to={url} className="feed-source-item-link">{this.props.title}</Link>
         <div className="feed-source-tools">
           <OverlayTrigger trigger="click" rootClose placement="right" overlay={popover} className="feed-source-tools">
-            <span className="glyphicon glyphicon-pencil" aria-label="Unsubscribe"></span>
+            <span className="glyphicon glyphicon-pencil" aria-label={"Move or Unsubscribe from " + this.props.title}></span>
           </OverlayTrigger>  
         </div>
       </li>

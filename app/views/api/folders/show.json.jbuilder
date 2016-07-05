@@ -1,1 +1,1 @@
-json.partial! "folder", folder: @folder
+json.partial! "/api/folders/folder", folder: @folder

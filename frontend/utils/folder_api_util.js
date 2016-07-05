@@ -35,7 +35,7 @@ module.exports = {
 
   subscribe(folderId, feedSourceId, successCallback) {
     $.ajax({
-      url: `api/folders/${newFolderId}/feeds/${feedSourceId}`,
+      url: `api/folders/${folderId}/feeds/${feedSourceId}`,
       dataType: 'json',
       method: 'POST',
       success: successCallback,
