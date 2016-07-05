@@ -15,7 +15,7 @@ const FolderIndex = React.createClass({
   componentDidMount() {
     FeedActions.fetchAll();
     FolderActions.fetchAll();
-    this.folderStorelistener = FolderStore.addListener(this._folderStoreChange);
+    this.folderStoreListener = FolderStore.addListener(this._folderStoreChange);
   },
 
   componentWillUnmount() {
