@@ -12,7 +12,7 @@ const EditFeeds = React.createClass({
 
   componentDidMount() {
     RecommendedActions.fetchAll();
-    this.recomendedStoreListener = RecommendedStore.addListener(this._recommendedStoreChange);  
+    this.recommendedStoreListener = RecommendedStore.addListener(this._recommendedStoreChange);  
   },
 
   componentWillUnmount() {
