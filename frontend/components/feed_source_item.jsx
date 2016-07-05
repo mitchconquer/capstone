@@ -22,7 +22,7 @@ const FeedSourceItem = React.createClass({
   },
 
   unsubscribe() {
-    unsubscribe(this.props.folderId, this.props.id);
+    FolderActions.unsubscribe(this.props.folderId, this.props.id);
   },
 
   submitForm(folderId) {
