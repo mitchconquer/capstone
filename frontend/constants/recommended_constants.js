@@ -1,0 +1,3 @@
+module.exports = {
+  RECEIVE_RECOMMENDED: "RECEIVE_RECOMMENDED"
+};
