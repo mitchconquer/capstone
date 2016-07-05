@@ -20,16 +20,16 @@ Handy reference for RSS XML documents: [W3.org Feed Validator][w3_validator]
   - [X] Login / Logout
 - [ ] Feed Sources
   - [ ] Select feeds from pre-existing recommendations and add to folders
-  - [ ] Add own RSS feeds and add to folders
+  - [X] Add own RSS feeds and add to folders
   - [ ] Browse feeds and keep track of viewed items
-  - [ ] Delete Feed Sources
+  - [X] Delete Feed Sources
   - [ ] Smooth, bug-free navigation
   - [ ] Adequate seed data to demonstrate the site's features
   - [ ] Adequate CSS styling
 - [ ] Folders
-  - [ ] Move feed source to different folder
-  - [ ] Organize feeds in folders
-  - [ ] Create and delete feed folders
+  - [X] Move feed source to different folder
+  - [X] Organize feeds in folders
+  - [X] Create and delete feed folders
   - [ ] Display unread count in each feed
   - [ ] Smooth, bug-free navigation
   - [ ] Adequate seed data to demonstrate the site's features
@@ -123,7 +123,7 @@ user interface.
 - [X] implement each feed component, building out the flux loop as needed.
   - [X] `FeedsIndex`
   - [X] `FeedIndexItem`
-  - [ ] `FeedForm`
+  - [X] `FeedForm`
 - [X] save Feeds to the DB
 
 ### Phase 4: Start Styling (0.5 days, W2 M 12pm)
@@ -143,7 +143,7 @@ user interface.
 - build out API, Flux loop, and components for:
   - [X] Folder CRUD
   - [X] adding feeds requires a folder
-  - [ ] moving feeds to a different folder
+  - [X] moving feeds to a different folder
   - [X] viewing feeds by folder
 - Use CSS to style new views
 
