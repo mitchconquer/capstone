@@ -46,31 +46,28 @@ const AddFeedSourceButton = React.createClass({
 
   submitForm(folderId) {
     FeedActions.createFeedSource(this.state.feedUrl, folderId);
+    console.log('AddFeedSourceButton submitted with ' + this.state.feedUrl + ' and ' + folderId);
     this.closeModal();
-  },
-
-  submitOnEnter (e) {
-    console.log(e.code);
   },
 
   validateForm(folderId) {
     if (folderId) {
       this.setState({ selectedFolder: folderId });
       if (this.state.feedUrl.length > 0 && folderId) {
-        this.submitForm(this.state.selectedFolder);
+        this.submitForm(folderId);
+        return;
       }
     }
-    if (this.state.feedUrl.length > 0 && this.state.selectedFolder.length > 0) {
+
+    if (this.state.feedUrl.length > 0 && this.state.selectedFolder) {
       this.submitForm(this.state.selectedFolder);
+      return;
     }
-    console.log('validateForm' + this.state.folderId)
-    // make
-    // Check that there is a URL (validated)
-    // If ok, submit form
+    console.log('AddFeedSource form did not submit');
   },
 
   feedUrlChange(e) {
-    this.setState({feedUrl: e.target.value });
+    this.setState({ feedUrl: e.target.value });
   },
 
   render() {
