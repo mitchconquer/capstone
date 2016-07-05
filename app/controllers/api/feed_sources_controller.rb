@@ -23,6 +23,10 @@ class Api::FeedSourcesController < ApplicationController
     render :show
   end
 
+  def recommended
+    @recommended = Category.all.joins(:feed_sources).where("feed_sources.recommended = true").group("categories.id").order("categories.id")
+  end
+
   def show
     @feed_source = FeedSource.includes(:feed_items).find(params[:id])
     @feed_source.refresh
