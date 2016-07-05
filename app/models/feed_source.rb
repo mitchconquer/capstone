@@ -13,7 +13,7 @@ class FeedSource < ActiveRecord::Base
 
   has_many :categories,
     through: :categories_feed_sources,
-    source: :Category
+    source: :category
 
   has_many :categories_feed_sources,
     primary_key: :id,

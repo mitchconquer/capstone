@@ -24,7 +24,21 @@ class Api::FeedSourcesController < ApplicationController
   end
 
   def recommended
-    @recommended = Category.all.joins(:feed_sources).where("feed_sources.recommended = true").group("categories.id").order("categories.id")
+    @feed_sources = FeedSource.where(recommended: true).includes(:categories)
+    @categories = Category.all
+    @recommended = {}
+
+    @categories.each do |category|
+      @recommended[category.id] = {name: category.name, id: category.id, feed_sources: []}
+    end
+
+    @feed_sources.each do |feed_source|
+      feed_source.categories.each do |category|
+        @recommended[category.id][:feed_sources].push(feed_source)
+      end
+    end
+
+    render "/api/feed_sources/recommended"
   end
 
   def show

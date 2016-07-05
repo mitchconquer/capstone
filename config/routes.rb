@@ -5,10 +5,11 @@ Rails.application.routes.draw do
     resource :session, only: [ :create, :destroy ]
 
     resources :users, only: [ :create ]
+    
+    get '/feeds/recommended', to: 'feed_sources#recommended'
 
     resources :feed_sources, path: 'feeds', except: [ :new, :edit ]
 
-    get '/feeds/recommended', to: 'feed_sources#recommended'
 
     resources :folders, except: [ :edit, :new ]
 

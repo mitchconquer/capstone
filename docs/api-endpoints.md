@@ -23,7 +23,7 @@
 ### Feed Sources
 
 - `GET /api/feeds` - all of current user's feed sources
-  - accepts `recommended` query param to list only recommended feeds by category
+- `GET /api/feeds/recommended` - only recommended feeds by category
 - `POST /api/feeds` - new feed source
 - `GET /api/feeds/:id` - Feed Source and all feed items (called by refreshFeedSource))
 - `PATCH /api/feeds/:id`
