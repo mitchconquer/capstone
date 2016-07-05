@@ -23,6 +23,26 @@ module.exports = {
     });
   },
 
+  unsubscribe(folderId, feedSourceId, successCallback) {
+    $.ajax({
+      url: `api/folders/${folderId}/feeds/${feedSourceId}`,
+      dataType: 'json',
+      method: 'DELETE',
+      success: successCallback,
+      error: ErrorActions.setErrors
+    });
+  },
+
+  subscribe(folderId, feedSourceId, successCallback) {
+    $.ajax({
+      url: `api/folders/${newFolderId}/feeds/${feedSourceId}`,
+      dataType: 'json',
+      method: 'POST',
+      success: successCallback,
+      error: ErrorActions.setErrors
+    });
+  },
+
   delete(folderId, successCallback) {
     $.ajax({
       url: `api/folders/${folderId}`,
