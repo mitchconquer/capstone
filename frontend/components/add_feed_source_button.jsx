@@ -11,7 +11,7 @@ const React = require('react'),
 const AddFeedSourceButton = React.createClass({
   getInitialState() {
       return {
-          show: false, feedUrl: "", folders: FolderStore.all(), selectedFolder: undefined
+          show: false, feedUrl: "", folders: FolderStore.all(), selectedFolder: ""
       };
   },
 
@@ -50,15 +50,12 @@ const AddFeedSourceButton = React.createClass({
     this.closeModal();
   },
 
-  validateForm(folderId) {
-    if (folderId) {
-      this.setState({ selectedFolder: folderId });
-      if (this.state.feedUrl.length > 0 && folderId) {
-        this.submitForm(folderId);
-        return;
-      }
-    }
+  setSelectedFolder(folderId) {
+    this.setState({ selectedFolder: folderId }, this.validateForm);
+  },
 
+  validateForm(folderId) {
+    
     if (this.state.feedUrl.length > 0 && this.state.selectedFolder) {
       this.submitForm(this.state.selectedFolder);
       return;
@@ -67,6 +64,7 @@ const AddFeedSourceButton = React.createClass({
   },
 
   feedUrlChange(e) {
+    e.preventDefault();
     this.setState({ feedUrl: e.target.value });
   },
 
@@ -76,7 +74,7 @@ const AddFeedSourceButton = React.createClass({
       const selected = this.state.selectedFolder === folder.id ? " selected" : ""
       return (
         <li key={folder.id}>  
-          <div className={"btn btn-hollow add-to-folder-item" + selected} key={folder.id} onClick={this.validateForm.bind(null, folder.id)}>
+          <div className={"btn btn-hollow add-to-folder-item" + selected} key={folder.id} onClick={this.setSelectedFolder.bind(null, folder.id)}>
             <div className="btn-hollow-inner">
               {folder.name}
               <span className="glyphicon-ok glyphicon"></span>
