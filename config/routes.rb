@@ -8,6 +8,8 @@ Rails.application.routes.draw do
 
     resources :feed_sources, path: 'feeds', except: [ :new, :edit ]
 
+    get '/feeds/recommended', to: 'feed_sources#recommended'
+
     resources :folders, except: [ :edit, :new ]
 
     post 'items/:id/mark_read', to: 'feed_items#mark_read'
