@@ -41,9 +41,9 @@ SavedArticleStore.allIds = function() {
 SavedArticleStore.__onDispatch = function(payload) {
   switch (payload.actionType) {
   case SavedArticleConstants.RECEIVE_SAVED_ARTICLE:
-    setSavedArticle(payload.savedArticle.savedArticle);
+    setSavedArticle(payload.savedArticle);
     break;
-  case SavedArticleConstants.RECEVIVE_SAVED_ARTICLES:
+  case SavedArticleConstants.RECEIVE_SAVED_ARTICLES:
     resetSavedArticles(payload.savedArticles);
     break;
   case SavedArticleConstants.REMOVE_SAVED_ARTICLE:

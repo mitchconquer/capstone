@@ -35,8 +35,37 @@ const FeedItemDetails = React.createClass({
     this.setState({ savedArticles: SavedArticleStore.allIds() });
   },
 
-  toggleSave() {
+  toggleSave(feedItemId) {
+    if (this.state.savedArticles.includes(feedItemId)) {
+      // unsave
+      this.findIndex(feedItemId);
+      SavedArticleActions.deleteByOriginalId(feedItemId)
+    } else {
+      // save
+      const index = this.findIndex(feedItemId);
+      const feedItem = this.state.feedItems[index];
+      
+      SavedArticleActions.create({
+        feed_source_title: this.props.feedSourceTitle,
+        original_id: feedItem.id,
+        title: feedItem.title,
+        url: feedItem.link,
+        body: feedItem.description,
+        author: feedItem.author,
+        pub_date: feedItem.pubDate
+      });
+    }
+  },
 
+  findIndex(feedItemId) {
+    let foundIndex;
+    const feedItems = this.state.feedItems;
+    this.state.feedItems.forEach((feedItem, index) => {
+      if (feedItems[index].id === feedItemId) {
+        foundIndex = index;
+      }
+    });
+    return foundIndex;
   },
 
   componentWillReceiveProps(nextProps) {
@@ -58,7 +87,7 @@ const FeedItemDetails = React.createClass({
         const saveActive = this.state.savedArticles.includes(feedItem.id) ? " active" : "";
         const toolbar = (
           <ul className="feed-item-details-toolbar">
-            <li className={"save" + saveActive}>
+            <li className={"save" + saveActive} onClick={this.toggleSave.bind(this, feedItem.id)}>
               <span className="glyphicon glyphicon-pushpin"></span>
             </li>
             <li className="share">
@@ -66,6 +95,7 @@ const FeedItemDetails = React.createClass({
             </li>
           </ul>
         );
+
         return (
           <article id={id} key={feedItem.id} ><h2>{feedItem.title}</h2>
             

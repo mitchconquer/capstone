@@ -7,7 +7,17 @@ module.exports = {
       url: `api/saved_articles`,
       method: 'POST',
       dataType: 'json',
-      data: { saved_article: { savedArticle }},
+      data: { saved_article: savedArticle },
+      success: successCallback,
+      error: ErrorActions.setErrors
+    });
+  },
+
+  saveFeedItem(feedItemId, successCallback) {
+    $.ajax({
+      url: `api/saved_articles/feed_item/${feedItemId}`,
+      method: 'POST',
+      dataType: 'json',
       success: successCallback,
       error: ErrorActions.setErrors
     });
@@ -27,6 +37,16 @@ module.exports = {
   delete(savedArticleId, successCallback) {
     $.ajax({
       url: `api/saved_articles/${savedArticleId}`,
+      method: 'DELETE',
+      dataType: 'json',
+      success: successCallback,
+      error: ErrorActions.setErrors
+    });
+  },
+
+  deleteByOriginalId(savedArticleOriginalId, successCallback) {
+    $.ajax({
+      url: `api/saved_articles/delete_by_original_id/${savedArticleOriginalId}`,
       method: 'DELETE',
       dataType: 'json',
       success: successCallback,

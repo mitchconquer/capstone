@@ -14,6 +14,10 @@ const SavedArticleActions = {
     SavedArticleApiUtil.create(savedArticle, SavedArticleActions.receiveSavedArticle);
   },
 
+  saveFeedItem(feedItemId) {
+    SavedArticleApiUtil.saveFeedItem(feedItemId, SavedArticleActions.receiveSavedArticle);
+  },
+
   update(savedArticle) {
     SavedArticleApiUtil.update(savedArticle, SavedArticleActions.receiveSavedArticle);
   },
@@ -22,26 +26,32 @@ const SavedArticleActions = {
     SavedArticleApiUtil.delete(savedArticleId, SavedArticleActions.removeSavedArticle);
   },
 
+  deleteByOriginalId(savedArticleOriginalId) {
+    SavedArticleApiUtil.deleteByOriginalId(savedArticleOriginalId, SavedArticleActions.removeSavedArticle);
+  },
+
   /* SERVER-INITIATED ACTIONS */
 
-  receiveSavedArticle(savedArticle) {
+  receiveSavedArticle(response) {
+    console.log('SavedArticleActions#receiveSavedArticle - saved article data should be nested under savedArticle');
+    console.log(response);
     AppDispatcher.dispatch({
-      actionType: SavedArticleConstants.RECIEVE_SAVED_ARTICLE,
-      savedArticle: savedArticle
+      actionType: SavedArticleConstants.RECEIVE_SAVED_ARTICLE,
+      savedArticle: response.savedArticle
     });
   },
 
   receiveSavedArticles(savedArticles) {
     AppDispatcher.dispatch({
-      actionType: SavedArticleConstants.RECIEVE_SAVED_ARTICLES,
+      actionType: SavedArticleConstants.RECEIVE_SAVED_ARTICLES,
       savedArticles: savedArticles
     });
   },
 
-  removeSavedArticle(savedArticleId) {
+  removeSavedArticle(response) {
     AppDispatcher.dispatch({
       actionType: SavedArticleConstants.REMOVE_SAVED_ARTICLE,
-      savedArticleId: savedArticleId
+      savedArticleId: response.savedArticle.id
     });
   },
 

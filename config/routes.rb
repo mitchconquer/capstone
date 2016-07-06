@@ -10,8 +10,10 @@ Rails.application.routes.draw do
 
     resources :feed_sources, path: 'feeds', except: [ :new, :edit ]
 
-
     resources :folders, except: [ :edit, :new ]
+
+    post 'saved_articles/feed_item/:id', to: 'saved_articles#create_from_feed_item'
+    delete 'saved_articles/delete_by_original_id/:id', to: 'saved_articles#delete_by_original_id'
 
     resources :saved_articles, except: [ :new, :edit ]
 

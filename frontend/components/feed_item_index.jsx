@@ -93,7 +93,7 @@ const FeedItemIndex = React.createClass({
             {this.currentFeedItems()}
           </ul>
         </section>
-        <FeedItemDetails feedSourceIds={this.feedSourceIds()} />
+        <FeedItemDetails feedSourceIds={this.feedSourceIds()} feedSourceTitle={this.currentFeedTitle()}/>
       </span>
     );
   }
