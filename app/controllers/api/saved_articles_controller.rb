@@ -6,7 +6,8 @@ class Api::SavedArticlesController < ApplicationController
   end
 
   def create
-    @saved_article = SavedArticle.create!(saved_article_params)
+    params = saved_article_params.merge({user_id: current_user.id})
+    @saved_article = SavedArticle.create!(params)
     render :show
   end
 
@@ -15,7 +16,8 @@ class Api::SavedArticlesController < ApplicationController
   end
 
   def update
-    @saved_article = SavedArticle.find(params[:id]).update!(saved_article_params)
+    @saved_article = SavedArticle.find(params[:id])
+    @saved_article.update!(saved_article_params)
     render :show
   end
 
@@ -27,6 +29,6 @@ class Api::SavedArticlesController < ApplicationController
 
   private
   def saved_article_params
-    require(:saved_article).permit(:title, :feed_source_title, :title, :url, :body, :author, :pub_date)
+    params.require(:saved_article).permit(:title, :feed_source_title, :url, :body, :author, :pub_date)
   end
 end

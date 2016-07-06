@@ -41,11 +41,11 @@
 - `GET /api/folders/:id` - get feeds by folder
 
 ### Saved Feed Items
-- `GET /api/users/:id/items` - all saved items
-- `GET /api/users/:id/items/:id`
-- `POST /api/users/:id/items` - save new item (should be passed all info bec item may have been deleted from DB)
-- `PATCH /api/users/:id/items/:id`
-- `DELETE /api/users/:id/items/:id`
+- `GET /api/saved_articles` - all saved items
+- `GET /api/saved_articles/:id`
+- `POST /api/saved_articles` - save new item (should be passed all info bec item may have been deleted from DB)
+- `PATCH /api/saved_articles/:id`
+- `DELETE /api/saved_articles/:id`
 
 ### Folders
 
