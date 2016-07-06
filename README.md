@@ -19,7 +19,7 @@ Handy reference for RSS XML documents: [W3.org Feed Validator][w3_validator]
 - [X] User Accounts
   - [X] Login / Logout
 - [ ] Feed Sources
-  - [ ] Select feeds from pre-existing recommendations and add to folders
+  - [X] Select feeds from pre-existing recommendations and add to folders
   - [X] Add own RSS feeds and add to folders
   - [ ] Browse feeds and keep track of viewed items
   - [X] Delete Feed Sources

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160630210536) do
+ActiveRecord::Schema.define(version: 20160706004619) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -81,6 +81,20 @@ ActiveRecord::Schema.define(version: 20160630210536) do
 
   add_index "read_feed_records", ["feed_item_id"], name: "index_read_feed_records_on_feed_item_id", using: :btree
   add_index "read_feed_records", ["user_id"], name: "index_read_feed_records_on_user_id", using: :btree
+
+  create_table "saved_articles", force: :cascade do |t|
+    t.integer  "user_id",           null: false
+    t.string   "feed_source_title", null: false
+    t.string   "title",             null: false
+    t.text     "url",               null: false
+    t.text     "body",              null: false
+    t.string   "author"
+    t.time     "pub_date"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
+
+  add_index "saved_articles", ["user_id"], name: "index_saved_articles_on_user_id", using: :btree
 
   create_table "subscriptions", force: :cascade do |t|
     t.integer  "folder_id",      null: false

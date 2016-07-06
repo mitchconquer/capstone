@@ -26,6 +26,11 @@ class User < ActiveRecord::Base
     through: :subscriptions,
     source: :feed_source
 
+  has_many :saved_articles,
+    primary_key: :id,
+    foreign_key: :user_id,
+    class_name: :SavedArticle
+
   has_many :folders,
     primary_key: :id,
     foreign_key: :user_id,
