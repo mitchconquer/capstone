@@ -32,7 +32,10 @@
     display: inline-block;
     color: $gray;
     cursor: pointer;
+    text-align: center;
+
     .glyphicon {
+      display: inline-block;
       transition: transform .2s ease-in;
     }
     &:hover, &:active, &:focus {
@@ -46,15 +49,26 @@
 
     &.active {
       color: #17c9cd;
-      &.save {
+      &.save .glyphicon {
         transform: rotate(-45deg);
       }
       &:hover, &:active, &:focus {
         color: $gray;
-        .glyphicon{
+        .glyphicon {
           transform: rotate(45deg);
         }
       }
     }
+  }
+
+  .toolbar-helper-text {
+    text-transform: uppercase;
+    font-size: 8px;
+    text-align: center;
+    display: inline-block;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
   }
 }

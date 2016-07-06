@@ -84,14 +84,16 @@ const FeedItemDetails = React.createClass({
       // const description = $.parseHTML(feedItem.description);
       const feedItems = this.state.feedItems.map(feedItem => {
         const id = `item-${feedItem.id}`;
-        const saveActive = this.state.savedArticles.includes(feedItem.id) ? " active" : "";
+        let saveActive = ""
+        let saveText = "save"
+        if (this.state.savedArticles.includes(feedItem.id)) {
+          saveText = "saved"
+          saveActive = " active"
+        }
         const toolbar = (
           <ul className="feed-item-details-toolbar">
             <li className={"save" + saveActive} onClick={this.toggleSave.bind(this, feedItem.id)}>
-              <span className="glyphicon glyphicon-pushpin"></span>
-            </li>
-            <li className="share">
-              <span className="glyphicon glyphicon-send"></span>
+              <span className="glyphicon glyphicon-pushpin"></span><div className="toolbar-helper-text">{saveText}</div>
             </li>
           </ul>
         );
