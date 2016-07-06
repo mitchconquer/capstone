@@ -33,8 +33,6 @@ const SavedArticleActions = {
   /* SERVER-INITIATED ACTIONS */
 
   receiveSavedArticle(response) {
-    console.log('SavedArticleActions#receiveSavedArticle - saved article data should be nested under savedArticle');
-    console.log(response);
     AppDispatcher.dispatch({
       actionType: SavedArticleConstants.RECEIVE_SAVED_ARTICLE,
       savedArticle: response.savedArticle
