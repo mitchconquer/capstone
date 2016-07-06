@@ -4,4 +4,10 @@
   top: 0;
   z-index: 1;
   width: 100%;
+
+  .btn {
+    @extend .navbar-btn;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
 }

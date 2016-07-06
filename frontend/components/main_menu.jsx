@@ -7,7 +7,8 @@ const React = require('react'),
       NavItem = require('react-bootstrap/lib/NavItem'),
       NavDropdown = require('react-bootstrap/lib/NavDropdown'),
       UserAccountLink = require('./user_account_link'),
-      MenuItem = require('react-bootstrap/lib/MenuItem');
+      MenuItem = require('react-bootstrap/lib/MenuItem'),
+      AddFeedSourcecButton = require('./add_feed_source_button');
 
 const MainMenu = React.createClass({
   logoutButton(e) {
@@ -30,6 +31,7 @@ const MainMenu = React.createClass({
 
         <Navbar.Collapse>
           <Nav pullRight className="nav navbar-nav pull-right">
+            <li><AddFeedSourcecButton /></li>
             <NavItem eventKey={1} href="#" onClick={ () => { hashHistory.push('/') } }>Home</NavItem>
             <NavItem eventKey={2} href="#" onClick={ () => { hashHistory.push('/edit') } }>Browse Feeds</NavItem>
             <NavDropdown eventKey={3} title={username} id="basic-nav-dropdown">
