@@ -18,11 +18,11 @@ const ReactApp = React.createClass({
           <FolderIndex />
         </section>
 
-        <div className="col-sm-10 right-pane">
+        <div className="col-sm-10 right-pane" id="right-pane" ref="rightPane">
 
           <MainMenu />
 
-          <MainContent children={this.props.children}/>
+          {this.props.children}
 
         </div>
 

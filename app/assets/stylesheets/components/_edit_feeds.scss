@@ -1,3 +1,17 @@
 .app-column.edit-feeds {
   padding: 15px;
+
+  .feed-item {
+    cursor: pointer;
+  }
+
+  img {
+    max-width: 150px;
+    display: inline-block;
+  }
+
+  .add-recommended-modal-header {
+    text-align: center;
+  }
+
 }

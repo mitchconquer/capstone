@@ -1,12 +1,12 @@
 const React = require('react'),
       RecommendedActions = require('../actions/recommended_actions'),
       RecommendedStore = require('../stores/recommended_store'),
-      AddFeedSourceButton = require('./add_feed_source_button');
+      AddRecommendedFeedModal = require('./add_recommended_feed_modal');
 
 const EditFeeds = React.createClass({
   getInitialState() {
     return {
-      recommended: []    
+      recommended: [], showModal: false, feedSourceId: "", feedSourceTitle: "", feedSourceImageUrl: ""
     };
   },
 
@@ -23,6 +23,18 @@ const EditFeeds = React.createClass({
     this.setState({ recommended: RecommendedStore.all() });
   },
 
+  showModal() {
+    this.setState({ showModal: true });
+  },
+
+  closeModal() {
+    this.setState({ showModal: false });
+  },
+
+  intializeModal(feedSourceId, feedSourceTitle, feedSourceImageUrl) {
+    this.setState({ feedSourceId: feedSourceId, feedSourceTitle: feedSourceTitle, feedSourceImageUrl: feedSourceImageUrl }, this.showModal);
+  },
+
   render() {
     const categories = [];
     const feedSourceItems = [];
@@ -33,8 +45,8 @@ const EditFeeds = React.createClass({
           <ul className="suggested-feeds list-unstyled">
             {category.feedSources.map(feedSource => {
               return (
-                <li className="feed-item" key={category.id + 'fs' + feedSource.id}>
-                  <img src="http://dummyimage.com/150x150" alt="" className="img-circle" />
+                <li className="feed-item" key={category.id + 'fs' + feedSource.id} onClick={this.intializeModal.bind(this, feedSource.id, feedSource.title, feedSource.imageUrl)} >
+                  <img src={feedSource.imageUrl} alt="" className="img-circle img-responsive" />
                   <br />
                   <h4>{feedSource.title}</h4>
                 </li>
@@ -47,7 +59,7 @@ const EditFeeds = React.createClass({
     
     return (
         <section className="app-column edit-feeds" id="edit-feeds">
-          <AddFeedSourceButton />
+          <AddRecommendedFeedModal show={this.state.showModal} closeModal={() => this.setState({showModal: false})} feedSourceId={this.state.feedSourceId} feedSourceTitle={this.state.feedSourceTitle} feedSourceImageUrl={this.state.feedSourceImageUrl} />
           {categories}
         </section>
     );

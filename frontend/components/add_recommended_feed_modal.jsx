@@ -1,5 +1,5 @@
 const React = require('react'),
-      FeedActions = require('../actions/feed_actions'),
+      FolderActions = require('../actions/folder_actions'),
       FolderStore = require('../stores/folder_store'),
       Modal = require('react-bootstrap/lib').Modal,
       Button = require('react-bootstrap/lib').Button,
@@ -8,10 +8,10 @@ const React = require('react'),
       FormControl = require('react-bootstrap/lib').FormControl,
       ControlLabel = require('react-bootstrap/lib').ControlLabel;
 
-const AddFeedSourceButton = React.createClass({
+const AddRecommendedFeedModal = React.createClass({
   getInitialState() {
       return {
-          show: false, feedUrl: "", folders: FolderStore.all(), selectedFolder: ""
+          show: false, feedSourceId: "", folders: FolderStore.all(), selectedFolder: ""
       };
   },
 
@@ -27,26 +27,21 @@ const AddFeedSourceButton = React.createClass({
     this.setState({folders: FolderStore.all() });
   },
 
-  closeModal(){
-    this.setState({ show: false });
-    this.clearForm();
-  },
-
-  focusOnForm() {
-    document.getElementById('feed-url').focus();
-  },
-
   toggleModal() {
     this.setState({ show: !this.state.show });
   },
 
-  clearForm() {
-    this.setState({ feedUrl: "", selectedFolder: "" });
+  componentWillReceiveProps(nextProps) {
+    this.setState({ feedSourceId: nextProps.feedSourceId })  
   },
 
-  submitForm(folderId) {
-    FeedActions.createFeedSource(this.state.feedUrl, folderId);
-    console.log('AddFeedSourceButton submitted with ' + this.state.feedUrl + ' and ' + folderId);
+  closeModal() {
+    this.setState({ feedSourceId: "", selectedFolder: "" });
+    this.props.closeModal();
+  },
+
+  submitForm() {
+    FolderActions.subscribe(this.state.selectedFolder, this.state.feedSourceId);
     this.closeModal();
   },
 
@@ -54,18 +49,12 @@ const AddFeedSourceButton = React.createClass({
     this.setState({ selectedFolder: folderId }, this.validateForm);
   },
 
-  validateForm(folderId) {
+  validateForm() {
     
-    if (this.state.feedUrl.length > 0 && this.state.selectedFolder) {
-      this.submitForm(this.state.selectedFolder);
+    if (this.state.feedSourceId && this.state.selectedFolder) {
+      this.submitForm();
       return;
     }
-    console.log('AddFeedSource form did not submit');
-  },
-
-  feedUrlChange(e) {
-    e.preventDefault();
-    this.setState({ feedUrl: e.target.value });
   },
 
   render() {
@@ -83,27 +72,15 @@ const AddFeedSourceButton = React.createClass({
         </li>
       );
     });
-
     return (
-      <span className="add-feed-source" id="add-feed-source">
-        <div className="clearfix">
-          <Button className="pull-right btn-success" onClick={this.toggleModal}>Add a Feed</Button>
-        </div>
-        <Modal show={this.state.show} onHide={this.closeModal} onEntered={this.focusOnForm} >
-          <Modal.Header>
-            <Modal.Title><h2>Add a New RSS Feed</h2></Modal.Title>
-          </Modal.Header>
+      <span className="add-feed-source recommended" id="add-recommended-feed-source">
+        <Modal show={this.props.show} onHide={this.closeModal} container={this} >
           <Modal.Body>
-            <h3><span className="big-num">1.</span>&nbsp;Enter feed URL below:</h3>
-            <form onSubmit={this.validateForm}>
-              <FormGroup controlId="feed-url">
-                <ControlLabel srOnly={true}>
-                  RSS Feed URL
-                </ControlLabel>
-                <FormControl type="text" placeholder="http://..." onChange={this.feedUrlChange} value={this.state.feedUrl} />
-              </FormGroup>
-            </form>
-            <h3><span className="big-num">2.</span>&nbsp;Pick a folder:</h3>
+            <div className="add-recommended-modal-header">
+              <img src={this.props.feedSourceImageUrl} className="img-circle img-responsive"/>
+              <h3>{this.props.feedSourceTitle}</h3>
+            </div>
+            <h3>Pick a folder:</h3>
             <ul className="list-unstyled">
               {folders}
             </ul>
@@ -118,4 +95,4 @@ const AddFeedSourceButton = React.createClass({
   }
 });
 
-module.exports = AddFeedSourceButton;
+module.exports = AddRecommendedFeedModal;

@@ -56,3 +56,4 @@ window.SessionActions = SessionActions;
 window.SessionStore = SessionStore;
 window.ErrorStore = ErrorStore;
 window.FeedStore = FeedStore;
+window.ReactDOM = ReactDOM;

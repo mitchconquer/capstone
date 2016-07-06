@@ -9,8 +9,6 @@ let _folders = {};
 const FolderStore = new Store(AppDispatcher);
 
 function setFolder(folder) {
-  console.log('FolderStore#setFolder');
-  console.log(folder);
   _folders[folder.id] = folder
   FolderStore.__emitChange();
 }
@@ -39,7 +37,6 @@ FolderStore.find = function(folderId) {
 FolderStore.__onDispatch = function(payload) {
   switch (payload.actionType) {
     case FolderConstants.RECEIVE_FOLDER:
-      console.log(payload);
       setFolder(payload.folder);
       break;
     case FolderConstants.RECEIVE_FOLDERS:

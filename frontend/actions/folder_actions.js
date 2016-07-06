@@ -26,8 +26,11 @@ const FolderActions = {
     FolderApiUtil.unsubscribe(originalFolderId, feedSourceId, FolderActions.receiveFolder);
   },
 
+  subscribe(folderId, feedSourceId) {
+    FolderApiUtil.subscribe(folderId, feedSourceId, FolderActions.receiveFolder);
+  },
+
   fetchAll() {
-    console.log('FolderActions#fetchAll');
     FolderApiUtil.fetchAll(FolderActions.receiveFolders);
   },
 
@@ -38,8 +41,6 @@ const FolderActions = {
   /* SERVER RESPONSE ACTIONS */
 
   receiveFolder(folder) {
-    console.log('FolderActions#receiveFolder');
-    console.log(folder);
     AppDispatcher.dispatch({
       actionType: FolderConstants.RECEIVE_FOLDER,
       folder: folder
