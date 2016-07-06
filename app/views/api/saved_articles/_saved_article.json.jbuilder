@@ -7,4 +7,5 @@ else
   json.set! :pubDateAgo, ""
 end
 json.set! :link, saved_article.url
+json.set! :originalId, saved_article.original_id
 json.set! :read, false

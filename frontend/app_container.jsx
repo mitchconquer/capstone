@@ -14,6 +14,8 @@ const FeedItemIndex = require('./components/feed_item_index');
 const NotFound = require('./components/not_found');
 const MainContent = require('./components/main_content');
 const FeedStore = require('./stores/feed_store');
+const SavedArticleStore = require('./stores/saved_article_store');
+const SavedArticleActions = require('./actions/saved_article_actions');
 
 const AppContainer = React.createClass({
   render() {
@@ -57,3 +59,5 @@ window.SessionStore = SessionStore;
 window.ErrorStore = ErrorStore;
 window.FeedStore = FeedStore;
 window.ReactDOM = ReactDOM;
+window.SavedArticleStore = SavedArticleStore;
+window.SavedArticleActions = SavedArticleActions;

@@ -1,19 +1,26 @@
 const React = require('react'),
-      AddFeedSourceButton = require('./add_feed_source_button');
+      AddFeedSourceButton = require('./add_feed_source_button'),
+      FeedStore = require('../stores/feed_store'),
+      SavedArticleStore = require('../stores/saved_article_store'),
+      SavedArticleActions = require('../actions/saved_article_actions');
 
 const FeedItemDetails = React.createClass({
   getInitialState() {
       return {
-          feedItems: [] 
+          feedItems: [],
+          savedArticles: []
       };
   },
 
   componentDidMount() {
-      this.feedStoreListener = FeedStore.addListener(this._feedStoreChange);  
+      this.feedStoreListener = FeedStore.addListener(this._feedStoreChange); 
+      SavedArticleActions.fetchAll();
+      this.savedArticleStoreListener = SavedArticleStore.addListener(this._savedArticleStoreChange); 
   },
 
   componentWillUnmount() {
       this.feedStoreListener.remove();  
+      this.savedArticleStoreListener.remove();  
   },
 
   _feedStoreChange() {
@@ -22,6 +29,14 @@ const FeedItemDetails = React.createClass({
         feedItems: FeedStore.getFeedItems(this.props.feedSourceIds)
       });
     }
+  },
+
+  _savedArticleStoreChange() {
+    this.setState({ savedArticles: SavedArticleStore.allIds() });
+  },
+
+  toggleSave() {
+
   },
 
   componentWillReceiveProps(nextProps) {
@@ -40,8 +55,22 @@ const FeedItemDetails = React.createClass({
       // const description = $.parseHTML(feedItem.description);
       const feedItems = this.state.feedItems.map(feedItem => {
         const id = `item-${feedItem.id}`;
+        const saveActive = this.state.savedArticles.includes(feedItem.id) ? " active" : "";
+        const toolbar = (
+          <ul className="feed-item-details-toolbar">
+            <li className={"save" + saveActive}>
+              <span className="glyphicon glyphicon-pushpin"></span>
+            </li>
+            <li className="share">
+              <span className="glyphicon glyphicon-send"></span>
+            </li>
+          </ul>
+        );
         return (
           <article id={id} key={feedItem.id} ><h2>{feedItem.title}</h2>
+            
+            {toolbar}
+
             <div dangerouslySetInnerHTML={this.parseHTML(feedItem.description)}></div>
             <div className="clearfix continue-reading-link">
               <a href={feedItem.link} target="_blank" className="btn btn-hollow pull-right"><div className="btn-hollow-inner">Continue Reading ></div></a>

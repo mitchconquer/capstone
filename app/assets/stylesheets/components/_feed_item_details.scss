@@ -20,3 +20,41 @@
     display: block;
   }
 }
+
+.feed-item-details-toolbar {
+  list-style: none;
+  padding: 0px;
+
+  li {
+    padding: 7px 15px;
+    position: relative;
+    font-size: 20px;
+    display: inline-block;
+    color: $gray;
+    cursor: pointer;
+    .glyphicon {
+      transition: transform .2s ease-in;
+    }
+    &:hover, &:active, &:focus {
+      color: #17c9cd;
+    }
+    &.save:hover, &.save:active, &.save:focus {
+      .glyphicon {
+        transform: rotate(-45deg);
+      }
+    }
+
+    &.active {
+      color: #17c9cd;
+      &.save {
+        transform: rotate(-45deg);
+      }
+      &:hover, &:active, &:focus {
+        color: $gray;
+        .glyphicon{
+          transform: rotate(45deg);
+        }
+      }
+    }
+  }
+}
