@@ -1,5 +1,6 @@
 class SavedArticle < ActiveRecord::Base
   validates :user_id, :feed_source_title, :original_id, :title, :url, :body, presence: true
+  validates :user_id, uniqueness: { scope: [ :original_id ]}
 
   belongs_to :user,
     primary_key: :id,
