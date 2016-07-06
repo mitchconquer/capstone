@@ -91,7 +91,7 @@ const AddFeedSourceButton = React.createClass({
         </div>
         <Modal show={this.state.show} onHide={this.closeModal} onEntered={this.focusOnForm} >
           <Modal.Header>
-            <Modal.Title><h2>Add a New RSS Feed</h2></Modal.Title>
+            <Modal.Title><div className="h2">Add a New RSS Feed</div></Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <h3><span className="big-num">1.</span>&nbsp;Enter feed URL below:</h3>
