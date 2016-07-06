@@ -21,6 +21,13 @@ const FeedActions = {
     });
   },
 
+  filter(filterText) {
+    AppDispatcher.dispatch({
+      actionType: FeedConstants.FILTER_FEEDS,
+      filterText: filterText
+    });
+  },
+
   /* SERVER RESPONSE ACTIONS */
 
   receiveFeedSource(feedSource) {
