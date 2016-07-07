@@ -1,4 +1,5 @@
-json.extract! saved_article, :id, :title, :body, :author, :feed_source_title
+json.extract! saved_article, :id, :title, :body, :author
+json.set! :feedSourceTitle, saved_article.feed_source_title
 json.set! :pubDate, saved_article.pub_date
 unless saved_article.pub_date.nil?
   json.set! :pubDateAgo, time_ago_in_words(saved_article.pub_date)

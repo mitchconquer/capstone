@@ -15,6 +15,7 @@ const NotFound = require('./components/not_found');
 const FeedStore = require('./stores/feed_store');
 const SavedArticleStore = require('./stores/saved_article_store');
 const SavedArticleActions = require('./actions/saved_article_actions');
+const SavedArticleIndex = require('./components/saved_article_index');
 
 const AppContainer = React.createClass({
   render() {
@@ -36,9 +37,10 @@ const routes = (
   <Route path="/" component={AppContainer}>
     <Route onEnter={_ensureLoggedIn} component={ReactApp} >
       <IndexRoute onEnter={_ensureLoggedIn} component={FeedItemIndex} />
+      <Route onEnter={_ensureLoggedIn} path="edit" component={EditFeeds} />
+      <Route onEnter={_ensureLoggedIn} path="saved" component={SavedArticleIndex} />
       <Route onEnter={_ensureLoggedIn} path="feeds/:feedId" component={FeedItemIndex} />
       <Route onEnter={_ensureLoggedIn} path="folders/:folderId" component={FeedItemIndex} />
-      <Route onEnter={_ensureLoggedIn} path="edit" component={EditFeeds} />
     </Route>
     <Route path="login" component={LoginForm} />
     <Route path="signup" component={SignupForm} />

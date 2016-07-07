@@ -39,9 +39,12 @@ const FolderIndex = React.createClass({
     return (
       <section className="folder-index">
         <CreateFolderItem />
-        <ul className="list-unstyled folder-list all-feeds">
-          <li>
+        <ul className="list-unstyled folder-list">
+          <li className="all-feeds">
             <h3 className="folder-name"><Link to="/">All Feeds</Link></h3>
+          </li>
+          <li>
+            <h3 className="folder-name"><Link to="/saved">Saved Articles</Link></h3>
           </li>
         </ul>
         <ul className="list-unstyled folder-list">
