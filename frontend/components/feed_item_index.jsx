@@ -63,6 +63,8 @@ const FeedItemIndex = React.createClass({
       urlParams = [nextProps.params.feedId];
     } else if (nextProps.params.folderId) {
       urlParams = FolderStore.feedSourceIdsByFolder(nextProps.params.folderId);
+    } else {
+      urlParams = FeedStore.allIds();
     }
     console.log('FeedItemIndex#nextFeedSourceIds: ');
     console.log(urlParams);
