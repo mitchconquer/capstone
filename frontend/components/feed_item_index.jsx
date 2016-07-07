@@ -19,6 +19,13 @@ const FeedItemIndex = React.createClass({
       this.feedStoreListener.remove();  
   },
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      feedSources: FeedStore.getFeeds([parseInt(nextProps.params.id)])
+    });
+    FeedActions.refreshFeedSources([nextProps.params.id]);
+  },
+
   feedSourceIds() {
     return Object.keys(this.state.feedSources).map(id => parseInt(id));
   },
@@ -42,13 +49,6 @@ const FeedItemIndex = React.createClass({
     this.setState({
       feedSources: FeedStore.getFeeds(this.feedSourceIds())
     });
-  },
-
-  componentWillReceiveProps(nextProps) {
-      this.setState({
-        feedSources: FeedStore.getFeeds([parseInt(nextProps.params.id)])
-      });
-    FeedActions.refreshFeedSources([nextProps.params.id]);
   },
 
   currentFeedTitle() {

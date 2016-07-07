@@ -72,8 +72,6 @@ function containsMatch(feedItem) {
   let titleHas = false,
       descriptionHas = false;
 
-
-
   if (title.search(_filterText) != -1) {
     titleHas = true;
   }

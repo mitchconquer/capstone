@@ -41,8 +41,15 @@ class FeedSource < ActiveRecord::Base
   end
 
   def refresh
+    if self.last_refreshed < 15.minutes.ago
+      return refresh!
+    end
+  end
+
+  def refresh!
     feed = Feedjira::Feed.fetch_and_parse self.feed_url
     params = update_params(feed)
+    params.merge({last_refreshed: Time.now})
     self.update(params)
     FeedItem.reset_source_items!(self.id, feed.entries)
   end
