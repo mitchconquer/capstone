@@ -119,8 +119,9 @@ const FeedItemDetails = React.createClass({
     
     return (
       <section className="col-sm-8 app-column full-articles" id="full-articles">
-        <p>This view isn't super working yet so an RSS feed from the left-most menu or add one with the button above, plz.
-        </p>
+        <div className="loading">
+          <div className="loader">Loading...</div>
+        </div>
       </section>
     );
   }
