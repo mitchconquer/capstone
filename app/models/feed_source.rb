@@ -41,15 +41,14 @@ class FeedSource < ActiveRecord::Base
   end
 
   def refresh
-    if self.last_refreshed < 15.minutes.ago
-      return refresh!
+    if self.updated_at < 15.minutes.ago
+      refresh!
     end
   end
 
   def refresh!
     feed = Feedjira::Feed.fetch_and_parse self.feed_url
     params = update_params(feed)
-    params.merge({last_refreshed: Time.now})
     self.update(params)
     FeedItem.reset_source_items!(self.id, feed.entries)
   end
@@ -66,12 +65,20 @@ class FeedSource < ActiveRecord::Base
   end
 
   def update_params(feed)
-    {
+    updated_params = {
       title: feed.respond_to?(:title) ? feed.title : 'No Title ¯\_(ツ)_/¯',
       url: feed.respond_to?(:url) ? feed.url : nil,
       feed_url: feed.respond_to?(:feed_url) ? feed.feed_url : nil,
-      image_url: feed.respond_to?(:image_url) ? feed.image_url : nil
+      last_refreshed: Time.now
     }
+
+    # Don't update the image if the feed is recommended
+    # this way admins can set an optimal image
+    unless self.recommended
+      updated_params.merge({image_url: feed.respond_to?(:image_url) ? feed.image_url : nil})
+    end
+
+    updated_params
   end
 
   def self.set_params(feed)

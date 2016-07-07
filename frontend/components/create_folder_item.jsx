@@ -19,7 +19,8 @@ const CreateFolderItem = React.createClass({
     }
   },
 
-  validateFolderName() {
+  validateFolderName(e) {
+    e.preventDefault();
     if (this.state.folderName.length > 0) {
       this.submitForm();
     }

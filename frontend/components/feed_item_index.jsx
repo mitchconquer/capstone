@@ -1,75 +1,94 @@
 const React = require('react'),
       FeedItemDetails = require('./feed_item_details'),
       FeedStore = require('../stores/feed_store'),
-      FeedActions = require('../actions/feed_actions');
+      FeedActions = require('../actions/feed_actions'),
+      FolderStore = require('../stores/folder_store');
 
 const FeedItemIndex = React.createClass({
   getInitialState(){
     return ({
-      feedSources: FeedStore.getFeeds([this.props.params.id])
+      feedData: FeedStore.getFeeds(this.currentFeedSourceIds())
     });
   },
 
   componentDidMount() {
-    console.log('FeedItemIndex this.state.feedSources = ');
-    console.log(this.props.params.id);
-    FeedActions.refreshFeedSources(this.feedSourceIds());
-    this.feedStoreListener = FeedStore.addListener(this._feedStoreChange);
+    if (this.currentFeedSourceIds().length > 0) {
+      FeedActions.refreshFeedSources(this.currentFeedSourceIds());
+    }
+    this.feedStoreListener = FeedStore.addListener(this._storeChange);
+    this.folderStoreListener = FolderStore.addListener(this._storeChange);
   },
 
   componentWillUnmount() {
-      this.feedStoreListener.remove();  
+    this.feedStoreListener.remove();
+    this.folderStoreListener.remove();
   },
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      feedSources: FeedStore.getFeeds([parseInt(nextProps.params.id)])
+      feedData: FeedStore.getFeeds(this.nextFeedSourceIds(nextProps))
     });
-    FeedActions.refreshFeedSources([nextProps.params.id]);
+    FeedActions.refreshFeedSources(this.nextFeedSourceIds(nextProps));
   },
 
-  feedSourceIds() {
-    return Object.keys(this.state.feedSources).map(id => parseInt(id));
-  },
-
-  scrollToFeedItem(e, id) {
-    e.preventDefault();
-    document.getElementById(`item-${id}`).scrollIntoView(true);
-  },
-
-  feedItemIds() {
-    const nestedIds = [];
-    this.feedSourceIds().forEach(id => {
-      if (this.state.feedSources[id].feedItems) {
-        nestedIds.concat(Object.keys(this.state.feedSources[id].feedItems));
-      }
-    });
-    return nestedIds.reduce((prev, current) => {return prev.concat(current)}, []);
-  },
-
-  _feedStoreChange(){
+  _storeChange(){
+    console.log('FeedItemIndex#_storeChange');
+    console.log(this.currentFeedSourceIds());
     this.setState({
-      feedSources: FeedStore.getFeeds(this.feedSourceIds())
+      feedData: FeedStore.getFeeds(this.currentFeedSourceIds())
     });
+  },
+
+  currentFeedSourceIds() {
+    let urlParams;
+    console.log(this.props.params)
+    if (this.props.params.feedId) {
+      urlParams = [parseInt(this.props.params.feedId)];
+    } else if (this.props.params.folderId) {
+      urlParams = FolderStore.feedSourcesByFolder(parseInt(this.props.params.folderId));
+    }
+    console.log('FeedItemIndex#currentFeedSourceIds: ');
+    console.log(urlParams);
+    // First get to work with feeds and folders, then add All
+    return urlParams
+  },
+
+  nextFeedSourceIds(nextProps) {
+    let urlParams;
+    if (nextProps.params.feedId) {
+      urlParams = [nextProps.params.feedId];
+    } else if (nextProps.params.folderId) {
+      urlParams = FolderStore.feedSourcesByFolder(nextProps.params.folderId);
+    }
+    console.log('FeedItemIndex#nextFeedSourceIds: ');
+    console.log(urlParams);
+    // First get to work with feeds and folders, then add All
+    return urlParams
   },
 
   currentFeedTitle() {
-    return Object.keys(this.state.feedSources).map(id => {
-      if (this.state.feedSources[id]) {
-        return this.state.feedSources[id].title;
-      }
-    }).join(", ");
+    // if (this.props.params.feedId) {
+    //   const urlParams = [this.props.params.feedId];
+    // } else if (this.props.params.folderId) {
+    //   const urlParams = FolderStore.feedSourcesByFolder(this.props.params.folderId);
+    // }
+    // return Object.keys(this.state.feedData).map(id => {
+    //   if (this.state.feedData[id]) {
+    //     return this.state.feedData[id].title;
+    //   }
+    // }).join(", ");
+    return 'Title Goes Here FeedItemIndex#currentFeedTitle()'
   },
 
   currentFeedItems() {
     const feedItems = [];
-    if (Object.keys(this.state.feedSources).length > 0) {
-      Object.keys(this.state.feedSources).forEach(function(feedSourceId) {
+    if (Object.keys(this.state.feedData).length > 0) {
+      Object.keys(this.state.feedData).forEach(function(feedSourceId) {
         const sourceId = parseInt(feedSourceId);
-        if ((this.state.feedSources[sourceId]) && (Object.keys(this.state.feedSources[sourceId].feedItems).length > 0)) {
-          Object.keys(this.state.feedSources[sourceId].feedItems).forEach(function(feedItemId) {
+        if ((this.state.feedData[sourceId]) && (this.state.feedData[sourceId].feedItems) && (Object.keys(this.state.feedData[sourceId].feedItems).length > 0)) {
+          Object.keys(this.state.feedData[sourceId].feedItems).forEach(function(feedItemId) {
             const itemId = parseInt(feedItemId);
-            const feedItem = this.state.feedSources[sourceId].feedItems[itemId];
+            const feedItem = this.state.feedData[sourceId].feedItems[itemId];
             const author = feedItem.author ? <span className="author">{feedItem.author},&nbsp;</span> : ""; 
             feedItems.push(
               <li key={itemId} className="feed-item">
@@ -95,7 +114,7 @@ const FeedItemIndex = React.createClass({
             {this.currentFeedItems()}
           </ul>
         </section>
-        <FeedItemDetails feedSourceIds={this.feedSourceIds()} feedSourceTitle={this.currentFeedTitle()}/>
+        <FeedItemDetails feedSourceIds={this.currentFeedSourceIds()} feedSourceTitle={this.currentFeedTitle()}/>
       </span>
     );
   }

@@ -34,6 +34,16 @@ FolderStore.find = function(folderId) {
   return Object.assign({}, _folders[folderId]);
 };
 
+FolderStore.feedSourcesByFolder = function(folderId) {
+  // In case _folders is empty when called
+  if (_folders[folderId]) {
+    return _folders[folderId].feedSources.map(feedSource => {
+      return feedSource.id
+    });   
+  }
+  return [];
+};
+
 FolderStore.__onDispatch = function(payload) {
   switch (payload.actionType) {
     case FolderConstants.RECEIVE_FOLDER:

@@ -1,6 +1,5 @@
+import { Link, hashHistory } from 'react-router';
 const React = require('react'),
-      // FeedStore = require('../stores/feed_store'),
-      // FeedActions = require('../actions/feed_actions'),
       FeedSourceItem = require('./feed_source_item'),
       FolderStore = require('../stores/folder_store'),
       FolderActions = require('../actions/folder_actions');
@@ -36,9 +35,10 @@ const FolderItem = React.createClass({
   },
 
   render() {
+    const url = `/folders/${this.props.folderId}`;
     return (
       <li>
-        <h3 className="folder-name">{this.props.folderName}<div className="folder-menu"><span className="glyphicon glyphicon-remove" onClick={this.removeFolder}></span></div></h3>
+      <h3 className="folder-name"><Link to={url}>{this.props.folderName}</Link><div className="folder-menu"><span className="glyphicon glyphicon-remove" onClick={this.removeFolder}></span></div></h3>
         <ul className="list-unstyled feed-source-list">
           {this.feedSourceListItems()}
         </ul>

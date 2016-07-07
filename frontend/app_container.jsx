@@ -12,7 +12,6 @@ const ReactApp = require('./components/react_app');
 const EditFeeds = require('./components/edit_feeds');
 const FeedItemIndex = require('./components/feed_item_index');
 const NotFound = require('./components/not_found');
-const MainContent = require('./components/main_content');
 const FeedStore = require('./stores/feed_store');
 const SavedArticleStore = require('./stores/saved_article_store');
 const SavedArticleActions = require('./actions/saved_article_actions');
@@ -37,7 +36,8 @@ const routes = (
   <Route path="/" component={AppContainer}>
     <Route onEnter={_ensureLoggedIn} component={ReactApp} >
       <IndexRoute onEnter={_ensureLoggedIn} component={FeedItemIndex} />
-      <Route onEnter={_ensureLoggedIn} path="feeds/:id" component={FeedItemIndex} />
+      <Route onEnter={_ensureLoggedIn} path="feeds/:feedId" component={FeedItemIndex} />
+      <Route onEnter={_ensureLoggedIn} path="folders/:folderId" component={FeedItemIndex} />
       <Route onEnter={_ensureLoggedIn} path="edit" component={EditFeeds} />
     </Route>
     <Route path="login" component={LoginForm} />

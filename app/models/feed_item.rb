@@ -18,17 +18,17 @@ class FeedItem < ActiveRecord::Base
 
   def self.reset_source_items!(feed_source_id, new_feed_items)
     # Delete items if they aren't in this list
-    current_source_items = FeedItem.where(feed_source_id: feed_source_id)
+    current_feed_items = FeedItem.where(feed_source_id: feed_source_id)
     current_item_ids = []
     new_feed_items.each do |feed_item|
       params = FeedItem.set_params(feed_item).merge({feed_source_id: feed_source_id})
-      id = FeedItem.update_or_create(current_source_items, params)
+      id = FeedItem.update_or_create(current_feed_items, params)
       id.is_a?(Array) ? current_item_ids.concat(id) : current_item_ids.push(id)
     end
     
     # Only remove items that are more than 1.5 days old
-    old_current_source_items = current_source_items.where("created_at > ?", 1.5.days.ago)
-    FeedItem.remove_old_items(current_item_ids, old_current_source_items.map(&:id))
+    old_feed_items = current_feed_items.where("created_at > ?", 1.5.days.ago)
+    FeedItem.remove_old_items(current_item_ids, old_feed_items.map(&:id))
   end
 
   def self.get_identifier(feed_item)

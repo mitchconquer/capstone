@@ -1,8 +1,7 @@
 const React = require('react'),
       FolderIndexUtils = require('./folder_index_utils'),
       FolderIndex = require('./folder_index'),
-      MainMenu = require('./main_menu'),
-      MainContent = require('./main_content');
+      MainMenu = require('./main_menu');
 
 const ReactApp = React.createClass({
   render() {

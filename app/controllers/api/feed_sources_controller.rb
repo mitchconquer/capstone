@@ -1,10 +1,12 @@
 class Api::FeedSourcesController < ApplicationController
 
+  # #
+  # Just gathers the existing records and returns them asap 
+  # 
+  # #
   def index
-    # Get all of current user's feeds
-    # TODO: Way to include feed_items with feed sources and get all read feed items as array or something
-    @feed_sources = current_user.feed_sources
-    @read_feed_items = []
+    @feed_sources = FeedSource.includes(:feed_items).find(current_user.feed_sources.map { |source| source.id })
+    @read_feed_items = @feed_sources.map{ |src| src.read_feed_items(current_user) }.flatten
     render :index
   end
 
@@ -42,8 +44,8 @@ class Api::FeedSourcesController < ApplicationController
   end
 
   def show
+    FeedSource.find(params[:id]).refresh
     @feed_source = FeedSource.includes(:feed_items).find(params[:id])
-    @feed_source.refresh
     @read_feed_items = @feed_source.read_feed_items(current_user)
 
     render :show
