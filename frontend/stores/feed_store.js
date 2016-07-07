@@ -37,21 +37,16 @@ function removeFeeds(feedSourceIds) {
 function filter(filterText) {
   _filterText = filterText.trim().toLowerCase();
   if (_filterText) {
-    const filteredItems = filteredFeedItems().slice();
+    const filteredItems = filteredFeedItems();
     _filteredFeeds = createFilteredStore(filteredItems);
   } else {
     _filteredFeeds = Object.assign({}, _feeds);
-    console.log('FeedStore reset to _feeds :D  Next two numbers should be same');
-    console.log(FeedStore.getFeedItems(Object.keys(_filteredFeeds)).length + " === " + getUnfilteredFeedItems(Object.keys(_feeds)).length);
   }
-  // console.log('Total feed item count, filtered vs unfiltered of _filteredFeeds');
   FeedStore.__emitChange();
 }
 
 function filteredFeedItems() {
-  // console.log('filtering with ' + _filterText);
   let filteredItems = [];
-  // console.log('FeedStore#filteredFeedItems _feeds has ' + Object.keys(_feeds).length + ' items');
   Object.keys(_feeds).forEach(feedSourceId => {
     const feedItems = getUnfilteredFeedItems([feedSourceId]);
     if (feedItems.length > 0) {
@@ -62,7 +57,7 @@ function filteredFeedItems() {
       });
     }
   });
-  return filteredItems.slice();
+  return filteredItems;
 }
 
 function containsMatch(feedItem) {
@@ -72,11 +67,11 @@ function containsMatch(feedItem) {
   let titleHas = false,
       descriptionHas = false;
 
-  if (title.search(_filterText) != -1) {
+  if (title.indexOf(_filterText) != -1) {
     titleHas = true;
   }
 
-  if (description.search(_filterText) != -1) {
+  if (description.indexOf(_filterText) != -1) {
     descriptionHas = true;
   }
 
@@ -120,13 +115,14 @@ function createFilteredStore(feedItems) {
   }
 
   let filteredFeedStore = {};
-  feedItems.forEach(feedItem => {
+  feedItems.forEach((feedItem) => {
     const sourceId = feedItem.feedSourceId;
     if (filteredFeedStore[sourceId]) {
       filteredFeedStore[sourceId].feedItems[feedItem.id] = feedItem;
     } else {
       let feedSource = Object.assign({}, _feeds[sourceId]);
       feedSource.feedItems = {};
+      feedSource.feedItems[feedItem.id] = feedItem;
       filteredFeedStore[sourceId] = feedSource;
     }
   });

@@ -11,6 +11,8 @@ const FeedItemIndex = React.createClass({
   },
 
   componentDidMount() {
+    console.log('FeedItemIndex this.state.feedSources = ');
+    console.log(this.props.params.id);
     FeedActions.refreshFeedSources(this.feedSourceIds());
     this.feedStoreListener = FeedStore.addListener(this._feedStoreChange);
   },
