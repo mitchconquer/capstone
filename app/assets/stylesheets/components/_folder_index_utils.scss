@@ -1,7 +1,10 @@
-.filter-feeds-form span.glyphicon.glyphicon-search {
+.filter-feeds-form span.glyphicon {
   position: absolute;
   right: 15px;
   font-size: 26px;
   opacity: .4;
   top: 18px;
+  &.glyphicon-remove {
+    cursor: pointer;
+  }
 }

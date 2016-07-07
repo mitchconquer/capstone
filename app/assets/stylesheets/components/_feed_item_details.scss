@@ -43,7 +43,7 @@
     }
     &.save:hover, &.save:active, &.save:focus {
       .glyphicon {
-        transform: rotate(-45deg);
+        // transform: rotate(-45deg);
       }
     }
 
@@ -55,7 +55,7 @@
       &:hover, &:active, &:focus {
         color: $gray;
         .glyphicon {
-          transform: rotate(45deg);
+          // transform: rotate(5deg);
         }
       }
     }
