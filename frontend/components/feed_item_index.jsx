@@ -67,17 +67,17 @@ const FeedItemIndex = React.createClass({
   },
 
   currentFeedTitle() {
-    // if (this.props.params.feedId) {
-    //   const urlParams = [this.props.params.feedId];
-    // } else if (this.props.params.folderId) {
-    //   const urlParams = FolderStore.feedSourcesByFolder(this.props.params.folderId);
-    // }
-    // return Object.keys(this.state.feedData).map(id => {
-    //   if (this.state.feedData[id]) {
-    //     return this.state.feedData[id].title;
-    //   }
-    // }).join(", ");
-    return 'Title Goes Here FeedItemIndex#currentFeedTitle()'
+    let title;
+    if (this.props.params.feedId) {
+      const feedId = parseInt(this.props.params.feedId);
+      if (this.state.feedData[feedId]) {
+        title = this.state.feedData[feedId].title;
+      }
+    } else if (this.props.params.folderId) {
+      title = FolderStore.find(this.props.params.folderId).name;
+    }
+
+    return title;
   },
 
   currentFeedItems() {
