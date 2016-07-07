@@ -30,6 +30,7 @@ const FeedItemIndex = React.createClass({
       feedData: FeedStore.getFeeds(this.nextFeedSourceIds(nextProps))
     });
     FeedActions.refreshFeedSources(this.nextFeedSourceIds(nextProps));
+    document.getElementById('feed').scrollTop = 0;
   },
 
   _storeChange(){
