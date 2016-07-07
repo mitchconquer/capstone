@@ -75,6 +75,9 @@ const FeedItemIndex = React.createClass({
       }
     } else if (this.props.params.folderId) {
       title = FolderStore.find(this.props.params.folderId).name;
+      if (typeof title === "string") {
+        title = title.toUpperCase();
+      }
     }
 
     return title;
