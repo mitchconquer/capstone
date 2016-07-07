@@ -12,7 +12,8 @@ const FeedItemIndex = React.createClass({
   },
 
   componentDidMount() {
-    if (this.currentFeedSourceIds().length > 0) {
+    const currentFeedSourceIds = this.currentFeedSourceIds();
+    if ( currentFeedSourceIds && currentFeedSourceIds.length > 0) {
       FeedActions.refreshFeedSources(this.currentFeedSourceIds());
     }
     this.feedStoreListener = FeedStore.addListener(this._storeChange);
@@ -45,7 +46,9 @@ const FeedItemIndex = React.createClass({
     if (this.props.params.feedId) {
       urlParams = [parseInt(this.props.params.feedId)];
     } else if (this.props.params.folderId) {
-      urlParams = FolderStore.feedSourcesByFolder(parseInt(this.props.params.folderId));
+      urlParams = FolderStore.feedSourceIdsByFolder(parseInt(this.props.params.folderId));
+    } else {
+      urlParams = FeedStore.allIds();
     }
     console.log('FeedItemIndex#currentFeedSourceIds: ');
     console.log(urlParams);
@@ -58,7 +61,7 @@ const FeedItemIndex = React.createClass({
     if (nextProps.params.feedId) {
       urlParams = [nextProps.params.feedId];
     } else if (nextProps.params.folderId) {
-      urlParams = FolderStore.feedSourcesByFolder(nextProps.params.folderId);
+      urlParams = FolderStore.feedSourceIdsByFolder(nextProps.params.folderId);
     }
     console.log('FeedItemIndex#nextFeedSourceIds: ');
     console.log(urlParams);
@@ -78,6 +81,8 @@ const FeedItemIndex = React.createClass({
       if (typeof title === "string") {
         title = title.toUpperCase();
       }
+    } else {
+      title = 'ALL FEEDS';
     }
 
     return title;

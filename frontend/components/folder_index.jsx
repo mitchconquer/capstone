@@ -1,3 +1,4 @@
+import { Link, hashHistory } from 'react-router';
 const React = require('react'),
       FeedActions = require('../actions/feed_actions'),
       FolderActions = require('../actions/folder_actions'),
@@ -38,6 +39,11 @@ const FolderIndex = React.createClass({
     return (
       <section className="folder-index">
         <CreateFolderItem />
+        <ul className="list-unstyled folder-list all-feeds">
+          <li>
+            <h3 className="folder-name"><Link to="/">All Feeds</Link></h3>
+          </li>
+        </ul>
         <ul className="list-unstyled folder-list">
           {folders}
         </ul>

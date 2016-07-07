@@ -137,11 +137,19 @@ FeedStore.all = function() {
   return Object.assign({}, _filteredFeeds);
 };
 
+FeedStore.allIds = function() {
+  return Object.keys(_feeds);
+};
+
 /*
 * Return an object of specific feedSource items
 * feedSourceIds {Array}
 */
 FeedStore.getFeeds = function(feedSourceIds) {
+  //  Return empty object if feedSourceIds not defined   
+  if (!feedSourceIds) {
+    return {};
+  }
   let feedSources = {};
   feedSourceIds.forEach(id =>{
     feedSources[id] = _filteredFeeds[id];
@@ -154,7 +162,8 @@ FeedStore.getFeeds = function(feedSourceIds) {
 * feedSourceIds {Array}
 */
 FeedStore.getFeedItems = function(feedSourceIds) {
-  if (feedSourceIds.length === 0) {
+  // Return empty array if feedSourceIds not defined or empty
+  if (!feedSourceIds || feedSourceIds.length === 0) {
     return [];
   }
   
