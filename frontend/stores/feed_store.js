@@ -6,12 +6,14 @@ const Store = require('flux/utils').Store,
 const FeedStore = new Store(AppDispatcher);
 
 let _feeds = {};
-let _filteredFeeds = _feeds;
+let _filteredFeeds = {};
 let _filterText = "";
 
 function setFeed(newFeed) {
   // _feeds[newFeed]
   _feeds[parseInt(newFeed.id)] = newFeed
+  _filteredFeeds = Object.assign({}, _feeds);
+  filter(_filterText);
   FeedStore.__emitChange();
 }
 
@@ -20,7 +22,7 @@ function resetFeeds(feedSources) {
   Object.keys(feedSources).map(id => {
     _feeds[id] = feedSources[id];
   });
-  _filteredFeeds = _feeds;
+  _filteredFeeds = Object.assign({}, _feeds);
   filter(_filterText);
   FeedStore.__emitChange();
 }
@@ -33,34 +35,81 @@ function removeFeeds(feedSourceIds) {
 }
 
 function filter(filterText) {
-  _filterText = filterText.trim();
-  console.log('FeedStore._filterText is ' + _filterText);
+  _filterText = filterText.trim().toLowerCase();
   if (_filterText) {
-    const filteredItems = filteredFeedItems(_filterText);
-    console.log('FeedStores filteredFeedItems has ' + filteredItems.length + ' items');
+    const filteredItems = filteredFeedItems().slice();
     _filteredFeeds = createFilteredStore(filteredItems);
   } else {
-    _filteredFeeds = _feeds;
-    console.log('FeedStore reset to _feeds :D');
+    _filteredFeeds = Object.assign({}, _feeds);
+    console.log('FeedStore reset to _feeds :D  Next two numbers should be same');
+    console.log(FeedStore.getFeedItems(Object.keys(_filteredFeeds)).length + " === " + getUnfilteredFeedItems(Object.keys(_feeds)).length);
   }
+  // console.log('Total feed item count, filtered vs unfiltered of _filteredFeeds');
   FeedStore.__emitChange();
 }
 
-function filteredFeedItems(filterText) {
+function filteredFeedItems() {
+  // console.log('filtering with ' + _filterText);
   let filteredItems = [];
-  console.log('FeedStore#filteredFeedItems _feeds has ' + Object.keys(_feeds).length + ' items');
+  // console.log('FeedStore#filteredFeedItems _feeds has ' + Object.keys(_feeds).length + ' items');
   Object.keys(_feeds).forEach(feedSourceId => {
-    const feedItems = FeedStore.getFeedItems([feedSourceId]);
+    const feedItems = getUnfilteredFeedItems([feedSourceId]);
     if (feedItems.length > 0) {
       feedItems.forEach(feedItem => {
-        // const feedItem = _feeds[feedSourceId].feedItems[feedItemId];
-        if (feedItem.title.search(filterText) != -1 || feedItem.description.search(filterText) != -1) {
-          filteredItems.push(feedItem);
+        if (containsMatch(feedItem)) {
+          filteredItems.push(Object.assign({}, feedItem));
         }
       });
     }
   });
-  return filteredItems;
+  return filteredItems.slice();
+}
+
+function containsMatch(feedItem) {
+  const title = feedItem.title.toLowerCase(),
+        description = feedItem.description.toLowerCase();
+
+  let titleHas = false,
+      descriptionHas = false;
+
+
+
+  if (title.search(_filterText) != -1) {
+    titleHas = true;
+  }
+
+  if (description.search(_filterText) != -1) {
+    descriptionHas = true;
+  }
+
+  if (titleHas || descriptionHas) {
+    return true;
+  }
+
+  return false;
+}
+
+/*
+* Return array of feed items based on feedSource id's
+* feedSourceIds {Array}
+*/
+function getUnfilteredFeedItems(feedSourceIds) {
+
+  if (feedSourceIds.length === 0) {
+    return [];
+  }
+  
+  let feeds = [];
+  feedSourceIds.forEach(id => {
+    if (_feeds[id] && _feeds[id].feedItems){
+      Object.keys(_feeds[id].feedItems).forEach(itemId => {
+        let feedItem = Object.assign({}, (_feeds[id].feedItems[itemId]));
+        feedItem.feedSourceId = id;
+        feeds.push(feedItem);
+      });
+    }
+  });
+  return feeds;
 }
 
 /*
@@ -78,13 +127,17 @@ function createFilteredStore(feedItems) {
     if (filteredFeedStore[sourceId]) {
       filteredFeedStore[sourceId].feedItems[feedItem.id] = feedItem;
     } else {
-      let feedSource = _feeds[sourceId];
+      let feedSource = Object.assign({}, _feeds[sourceId]);
       feedSource.feedItems = {};
       filteredFeedStore[sourceId] = feedSource;
     }
   });
   return filteredFeedStore;
 }
+
+FeedStore.unfiltered = function() {
+  return Object.assign({}, _feeds);
+};
 
 FeedStore.all = function() {
   return Object.assign({}, _filteredFeeds);
@@ -116,13 +169,10 @@ FeedStore.getFeedItems = function(feedSourceIds) {
     if (_filteredFeeds[id] && _filteredFeeds[id].feedItems){
       Object.keys(_filteredFeeds[id].feedItems).forEach(itemId => {
         let feedItem = _filteredFeeds[id].feedItems[itemId];
-        feedItem.feedSourceId = id;
         feeds.push(feedItem);
       });
     }
   });
-  console.log('FeedStore#getFeedItems count:');
-  console.log(feeds.length);
   return feeds;
 };
 
