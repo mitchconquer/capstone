@@ -1,0 +1,2 @@
+module Api::ReadFeedRecordsHelper
+end

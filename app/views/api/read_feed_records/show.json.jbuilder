@@ -1,0 +1,1 @@
+json.partial! "read_feed_record", read_feed_record: @read_feed_record

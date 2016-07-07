@@ -47,6 +47,11 @@
 - `PATCH /api/saved_articles/:id`
 - `DELETE /api/saved_articles/:id`
 
+### Read Items
+- `GET /api/read_items` - all read items
+- `POST /api/read_items` - save new item (should be passed all info bec item may have been deleted from DB)
+- `DELETE /api/read_items/:id`
+
 ### Folders
 
 - `GET /api/folders`
