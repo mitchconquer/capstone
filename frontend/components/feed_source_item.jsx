@@ -14,7 +14,6 @@ const FeedSourceItem = React.createClass({
   },
 
   hidePopover(test) {
-    console.log('onHide ' + test);
   },
 
   clearForm() {
@@ -26,8 +25,6 @@ const FeedSourceItem = React.createClass({
   },
 
   submitForm(folderId) {
-    console.log('submitForm');
-    console.log(folderId);
     FolderActions.moveFeedSource(this.props.folderId, folderId, this.props.id);
     // TODO: Close this popover after submitting / after click a "folder" (thought it is closing if you pick a different folder)
   },

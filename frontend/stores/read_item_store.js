@@ -52,8 +52,6 @@ ReadItemStore.__onDispatch = function(payload) {
     removeReadItem(payload.readItemId);
     break;
   case ReadItemConstants.REMOVE_READ_ITEMS:
-    console.log('unread');
-    console.log(payload.readItemId);
     removeReadItems(payload.readItemId);
     break;
   default:

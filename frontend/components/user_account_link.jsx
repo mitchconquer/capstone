@@ -24,8 +24,6 @@ const UserAccountLink = React.createClass({
 
   changeLoginState() {
     this.setState({ loggedIn: SessionStore.isUserLoggedIn() });
-    console.log("Changing login state");
-    console.log(SessionStore.isUserLoggedIn());
   },
 
   render() {

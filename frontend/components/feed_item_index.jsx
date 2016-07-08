@@ -40,17 +40,14 @@ const FeedItemIndex = React.createClass({
   },
 
   _storeChange(){
-    console.log('FeedItemIndex#_storeChange');
     this.setState({
       feedData: FeedStore.getFeeds(this.currentFeedSourceIds())
     });
   },
 
   _readItemStoreChange(){
-    console.log('FeedItemIndex#_readItemStoreChange');
     this.setState({
       readItems: ReadItemStore.all()
-    }, function(){ console.log(Object.keys(this.state.readItems))});
   },
 
   viewFeedItem(itemId) {
