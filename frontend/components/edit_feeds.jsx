@@ -60,6 +60,7 @@ const EditFeeds = React.createClass({
     return (
         <section className="app-column edit-feeds" id="edit-feeds">
           <AddRecommendedFeedModal show={this.state.showModal} closeModal={() => this.setState({showModal: false})} feedSourceId={this.state.feedSourceId} feedSourceTitle={this.state.feedSourceTitle} feedSourceImageUrl={this.state.feedSourceImageUrl} />
+          <h2>Explore Recommended Feeds</h2>
           {categories}
         </section>
     );

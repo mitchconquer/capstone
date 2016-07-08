@@ -10,7 +10,7 @@ const LoginForm = React.createClass({
 
   getInitialState() {
       return {
-          username: "sillygoose", password: "sillygoose", errors: {} 
+          username: "demo", password: "demouser", errors: {} 
       };
   },
 
@@ -62,10 +62,10 @@ const LoginForm = React.createClass({
           </div>
           <form className="login-form" onSubmit={this.onFormSubmit}>
             <label for="username">Username:</label><br />
-            <input type="text" onChange={this.usernameChange} value="sillygoose" id="username" className="form-control transparent login-form" />
+            <input type="text" onChange={this.usernameChange} value={this.state.username} id="username" className="form-control transparent login-form" />
 
             <label for="password">Password:</label><br />
-            <input type="password" onChange={this.passwordChange} value="sillygoose" id="password" className="form-control transparent login-form" />
+            <input type="password" onChange={this.passwordChange} value={this.state.password} id="password" className="form-control transparent login-form" />
             <br />
             <input type="submit" value="Login" className="form-control btn btn-success" />
           </form>
