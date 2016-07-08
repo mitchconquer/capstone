@@ -52,21 +52,24 @@ const LoginForm = React.createClass({
         });
 
     return(
-      <section className="login form">
-        <UserAccountLink />
-        <h2>Log In!</h2>
-        <div>
-          {errors}
+      <section className="login-signup-container">
+        <div className="login-signup-form">
+          <h1 className="site-title">AggreGreater &gt;</h1>
+          <h3 className="site-description">A simple RSS reader and news aggregator.</h3>
+          <UserAccountLink />
+          <div>
+            {errors}
+          </div>
+          <form className="login-form" onSubmit={this.onFormSubmit}>
+            <label for="username">Username:</label><br />
+            <input type="text" onChange={this.usernameChange} value="sillygoose" id="username" className="form-control transparent login-form" />
+
+            <label for="password">Password:</label><br />
+            <input type="password" onChange={this.passwordChange} value="sillygoose" id="password" className="form-control transparent login-form" />
+            <br />
+            <input type="submit" value="Login" className="form-control btn btn-success" />
+          </form>
         </div>
-        <form onSubmit={this.onFormSubmit}>
-          <label for="username">Username:</label>
-          <input type="text" onChange={this.usernameChange} value="sillygoose" id="username" />
-
-          <label for="password">Password:</label>
-          <input type="password" onChange={this.passwordChange} value="sillygoose" id="password" />
-
-          <input type="submit" value="Login" />
-        </form>
       </section>
   );
   }

@@ -53,23 +53,26 @@ const SignupForm = React.createClass({
       return (<li key={key}>{this.state.errors[key]}</li>);
     });
     return(
-      <section className="signup">
-        <UserAccountLink />
-        <h2>Sign Up!</h2>
-        <div>
-          <ul>
-            {errors}
-          </ul>
+      <section className="signup login-signup-container">
+      <div className="login-signup-form">
+        <h1 className="site-title">AggreGreater &gt;</h1>
+        <h3 className="site-description">A simple RSS reader and news aggregator.</h3>
+          <UserAccountLink />
+          <div>
+            <ul>
+              {errors}
+            </ul>
+          </div>
+          <form className="login-form" onSubmit={this.onFormSubmit}>
+            <label for="username">Username:</label>
+            <input type="text" onChange={this.usernameChange} id="username" className="form-control transparent login-form" />
+
+            <label for="password">Password:</label>
+            <input type="password" onChange={this.passwordChange} id="password" className="form-control transparent login-form" />
+            <br />
+            <input type="submit" value="Sign Up" className="form-control btn btn-success" />
+          </form>
         </div>
-        <form onSubmit={this.onFormSubmit}>
-          <label for="username">Username:</label>
-          <input type="text" onChange={this.usernameChange} id="username" />
-
-          <label for="password">Password:</label>
-          <input type="password" onChange={this.passwordChange} id="password" />
-
-          <input type="submit" value="Login" />
-        </form>
       </section>
   );
   }
