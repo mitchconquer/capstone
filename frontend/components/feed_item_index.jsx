@@ -48,6 +48,7 @@ const FeedItemIndex = React.createClass({
   _readItemStoreChange(){
     this.setState({
       readItems: ReadItemStore.all()
+    });
   },
 
   viewFeedItem(itemId) {

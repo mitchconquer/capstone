@@ -7,4 +7,8 @@ else
   json.set! :pubDateAgo, ""
 end
 json.set! :link, feed_item.url
-json.set! :read, @read_feed_items.include?(feed_item) if @read_feed_items
+if ((defined? @read_feed_items) && (@read_feed_items != nil))
+  json.set! :read, @read_feed_items.include?(feed_item)
+else
+  json.set! :read, ""
+end

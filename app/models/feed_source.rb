@@ -37,11 +37,13 @@ class FeedSource < ActiveRecord::Base
 
     params = self.set_params(feed)
 
-    FeedSource.create(params)
+    new_feed_source = FeedSource.create(params)
+    new_feed_source.refresh!
+    new_feed_source
   end
 
   def refresh
-    if self.updated_at < 15.minutes.ago
+    if (self.updated_at < 15.minutes.ago) || (self.feed_items.count < 1)
       refresh!
     end
   end
