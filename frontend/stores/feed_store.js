@@ -147,6 +147,10 @@ FeedStore.allIds = function() {
   return Object.keys(_feeds);
 };
 
+FeedStore.filtering = function() {
+  return _filterText.length > 0;
+}
+
 /*
 * Return an object of specific feedSource items
 * feedSourceIds {Array}

@@ -85,3 +85,12 @@
     left: 0;
   }
 }
+
+.no-content {
+  text-align: center;
+  
+  .no-results {
+    display: inline-block;
+    margin-top: 60px;
+  }
+}

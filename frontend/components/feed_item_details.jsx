@@ -7,7 +7,8 @@ const FeedItemDetails = React.createClass({
   getInitialState() {
       return {
           feedItems: [],
-          savedArticles: []
+          savedArticles: [],
+          filtering: false
       };
   },
 
@@ -25,7 +26,8 @@ const FeedItemDetails = React.createClass({
   _feedStoreChange() {
     if (this.props.feedSourceIds) {
       this.setState({
-        feedItems: FeedStore.getFeedItems(this.props.feedSourceIds)
+        feedItems: FeedStore.getFeedItems(this.props.feedSourceIds),
+        filtering: FeedStore.filtering()
       });
     }
   },
@@ -130,8 +132,8 @@ const FeedItemDetails = React.createClass({
     
     return (
       <section className="col-sm-8 app-column full-articles" id="full-articles">
-        <div className="loading">
-          <div className="loader">Loading...</div>
+        <div className="no-content">
+          {this.state.filtering ? <h3 className="no-results">Sorry. No results found.  <br /><br /> <img className="ui-gif" src="https://s3-us-west-1.amazonaws.com/aggregreater/table_flip.gif" /></h3> : <div className="loader">Loading...</div>}
         </div>
       </section>
     );
