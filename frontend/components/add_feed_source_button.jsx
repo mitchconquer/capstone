@@ -53,8 +53,10 @@ const AddFeedSourceButton = React.createClass({
     this.setState({ selectedFolder: folderId }, this.validateForm);
   },
 
-  validateForm(folderId) {
-    
+  validateForm(e) {
+    if (e) {
+      e.preventDefault();
+    }
     if (this.state.feedUrl.length > 0 && this.state.selectedFolder) {
       this.submitForm(this.state.selectedFolder);
       return;

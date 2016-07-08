@@ -4,6 +4,8 @@ const ErrorConstants = require('../constants/error_constants');
 
 const ErrorActions = {
   setErrors(xhrResponse) {
+    console.log('ErrorActions#setErrors');
+    console.log(xhrResponse);
     AppDispatcher.dispatch({
       actionType: ErrorConstants.SET_ERRORS,
       errors: xhrResponse.responseJSON.errors,

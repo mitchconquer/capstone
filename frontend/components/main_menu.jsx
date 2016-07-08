@@ -39,7 +39,6 @@ const MainMenu = React.createClass({
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
-
       </nav>
     );
   }

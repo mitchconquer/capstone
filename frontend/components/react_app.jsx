@@ -1,7 +1,8 @@
 const React = require('react'),
       FolderIndexUtils = require('./folder_index_utils'),
       FolderIndex = require('./folder_index'),
-      MainMenu = require('./main_menu');
+      MainMenu = require('./main_menu'),
+      ErrorMessages = require('./error_messages');
 
 const ReactApp = React.createClass({
   render() {
@@ -20,6 +21,8 @@ const ReactApp = React.createClass({
         <div className="col-sm-10 right-pane" id="right-pane" ref="rightPane">
 
           <MainMenu />
+
+          <ErrorMessages />
 
           {this.props.children}
 

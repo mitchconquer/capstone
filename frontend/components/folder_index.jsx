@@ -49,6 +49,7 @@ const FolderIndex = React.createClass({
             <h3 className="folder-name"><Link to="/saved">Saved Articles</Link></h3>
           </li>
         </ul>
+        <br />
         <ul className="list-unstyled folder-list">
           {folders}
         </ul>

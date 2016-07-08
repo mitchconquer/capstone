@@ -1,0 +1,11 @@
+.all-alerts {
+  position: absolute;
+  right: 10px;
+  top: 80px;
+  z-index: 100;
+  .alert {
+    -webkit-box-shadow: 1px 1px 20px -1px rgba(0,0,0,0.35);
+    -moz-box-shadow: 1px 1px 20px -1px rgba(0,0,0,0.35);
+    box-shadow: 1px 1px 20px -1px rgba(0,0,0,0.35);
+  }
+}

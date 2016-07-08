@@ -11,6 +11,7 @@ const ErrorStore = new Store(AppDispatcher);
 ErrorStore.formErrors = function(form) {
   if (form === _form) {
     return Object.assign({}, _errors);
+    clearErrors();
   }
 };
 

@@ -21,8 +21,13 @@ class Api::FeedSourcesController < ApplicationController
     Subscription.subscribe(current_user, @feed_source, folder)
 
     # @read_feed_items = []
-
-    render :show
+    if @feed_source.errors.any?
+      render json: { errors: @feed_source.errors.full_messages, form: 'general'}, status: 401
+    else
+      render :show
+    end
+  rescue => error
+    render json: { errors: [error.message], form: 'general'}, status: 401
   end
 
   def recommended

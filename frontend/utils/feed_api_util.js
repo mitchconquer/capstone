@@ -1,3 +1,5 @@
+const ErrorActions = require('../actions/error_actions');
+
 module.exports = {
   createFeedSource(feedSourceUrl, folderId, successCallback) {
     $.ajax({
@@ -5,7 +7,8 @@ module.exports = {
       method: 'POST',
       dataType: 'json',
       data: { url: feedSourceUrl, folderId: folderId },
-      success: successCallback
+      success: successCallback,
+      error: ErrorActions.setErrors
     });
   },
 
@@ -14,7 +17,8 @@ module.exports = {
       url: 'api/feeds',
       method: 'GET',
       dataType: 'json',
-      success: successCallback
+      success: successCallback,
+      error: ErrorActions.setErrors
     });
   },
 
@@ -24,7 +28,8 @@ module.exports = {
       url: `api/feeds/${feedSourceId}`,
       method: 'GET',
       dataType: 'json',
-      success: successCallback
+      success: successCallback,
+      error: ErrorActions.setErrors
     });
   },
 
@@ -33,7 +38,8 @@ module.exports = {
       url: `api/folders/${folderId}/feeds/${feedSourceId}`,
       method: 'DELETE',
       dataType: 'json',
-      success: successCallback
+      success: successCallback,
+      error: ErrorActions.setErrors
     });
   }
 };

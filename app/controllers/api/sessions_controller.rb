@@ -19,7 +19,7 @@ class Api::SessionsController < ApplicationController
       logout_user!(current_user)
       render json: {}
     else
-      render json: { base: ['User already logged out'] }, status: 404
+      render json: { errors: ['User already logged out'] }, status: 404
     end
   end
 
