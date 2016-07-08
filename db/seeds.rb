@@ -6,25 +6,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-categories = [
- { name: "News"},
- { name: "Tech"},
- { name: "Sports"},
- { name: "Local"},
- { name: "Foreign"}
-]
-
-users = [
-  { username: "sillygoose", password: "sillygoose" },
-  { username: "demo", password: "demouser" }
-]
-
-users.each do |user|
-  User.create!(user)
-end
-categories.each do |cat|
-  Category.create!(cat)
-endCategoriesFeedSource.create!([
+CategoriesFeedSource.create!([
   {feed_source_id: 22, category_id: 5},
   {feed_source_id: 23, category_id: 5},
   {feed_source_id: 10, category_id: 2},
