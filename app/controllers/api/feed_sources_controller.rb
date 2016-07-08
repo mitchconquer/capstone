@@ -27,7 +27,8 @@ class Api::FeedSourcesController < ApplicationController
       render :show
     end
   rescue => error
-    render json: { errors: [error.message], form: 'general'}, status: 401
+    message = error.message.to_s + "; MsgId: " + rand(1000).to_s
+    render json: { errors: [message], form: 'general'}, status: 401
   end
 
   def recommended

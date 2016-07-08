@@ -11,7 +11,7 @@ const ErrorMessages = React.createClass({
   },
 
   componentDidMount() {
-    this.errorStoreListener = ErrorStore.addListener(this._errorStoreChange);  
+    this.errorStoreListener = ErrorStore.addListener(this._errorStoreChange);
   },
 
   componentWillUnmount() {
@@ -32,7 +32,7 @@ const ErrorMessages = React.createClass({
   errorItems() {
     if (Object.keys(this.state.errorMessages).length > 0) {
       return Object.keys(this.state.errorMessages).map(msgId => {
-        return <ErrorMessageItem key={this.state.errorMessages[msgId] + Math.random()} msg={this.state.errorMessages[msgId]} />;
+        return <ErrorMessageItem key={this.state.errorMessages[msgId]} msg={this.state.errorMessages[msgId]} dismissAfter={10000} />;
       });
     }
   },
