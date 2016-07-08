@@ -97,12 +97,23 @@ const FeedItemDetails = React.createClass({
           </ul>
         );
 
+        const metaData = (
+          <div className="feed-item-meta-data">
+            <div className="source-title">{feedItem.sourceTitle ? feedItem.sourceTitle + "," : ""}</div>
+            <div className="author">{feedItem.author ? feedItem.author + "," : ""}</div>
+            <div className="pub-date">{feedItem.pubDateReadable ? feedItem.pubDateReadable + "," : ""}</div>
+            <div className="pub-date-ago">{feedItem.pubDateAgo ? feedItem.pubDateAgo + " ago" : ""}</div>
+          </div>
+        );
+
         return (
           <article id={id} key={feedItem.id} ><h2>{feedItem.title}</h2>
             
+            {metaData}
+
             {toolbar}
 
-            <div dangerouslySetInnerHTML={this.parseHTML(feedItem.description)}></div>
+            <div className="feed-item-body" dangerouslySetInnerHTML={this.parseHTML(feedItem.description)}></div>
             <div className="clearfix continue-reading-link">
               <a href={feedItem.link} target="_blank" className="btn btn-hollow pull-right"><div className="btn-hollow-inner">Continue Reading ></div></a>
             </div>

@@ -177,7 +177,8 @@ FeedStore.getFeedItems = function(feedSourceIds) {
   feedSourceIds.forEach(id => {
     if (_filteredFeeds[id] && _filteredFeeds[id].feedItems){
       Object.keys(_filteredFeeds[id].feedItems).forEach(itemId => {
-        let feedItem = _filteredFeeds[id].feedItems[itemId];
+        let feedItem = Object.assign({}, _filteredFeeds[id].feedItems[itemId]);
+        feedItem.sourceTitle = _filteredFeeds[id].title;
         feeds.push(feedItem);
       });
     }

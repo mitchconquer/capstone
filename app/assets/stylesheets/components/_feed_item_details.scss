@@ -21,6 +21,19 @@
   }
 }
 
+.feed-item-meta-data div {
+  font-size: 14px;
+  font-weight: 400;
+  overflow: hidden;
+  display: inline-block;
+  color: $gray-dark;
+  margin-right: 5px;
+
+  .pub-date-ago:first-letter {
+    text-transform: capitalize;
+  }
+}
+
 .feed-item-details-toolbar {
   list-style: none;
   padding: 0px;
@@ -30,7 +43,7 @@
     position: relative;
     font-size: 20px;
     display: inline-block;
-    color: $gray;
+    color: $gray-dark;
     cursor: pointer;
     text-align: center;
 
