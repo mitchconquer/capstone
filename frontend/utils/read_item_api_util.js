@@ -30,5 +30,27 @@ module.exports = {
       success: successCallback,
       error: ErrorActions.setErrors
     });
+  },
+
+  markAllRead(readItemIds, successCallback) {
+    $.ajax({
+      url: `api/items/read`,
+      method: 'POST',
+      dataType: 'json',
+      data: { feed_items: readItemIds },
+      success: successCallback,
+      error: ErrorActions.setErrors
+    });
+  },
+
+  markAllUnread(readItemIds, successCallback) {
+    $.ajax({
+      url: `api/items/unread`,
+      method: 'DELETE',
+      dataType: 'json',
+      data: { feed_items: readItemIds },
+      success: successCallback,
+      error: ErrorActions.setErrors
+    });
   }
 };

@@ -18,7 +18,8 @@ Rails.application.routes.draw do
     resources :saved_articles, except: [ :new, :edit ]
 
     resources :read_feed_records, path: 'items/read', only: [ :index ]
-
+    post 'items/read', to: 'read_feed_records#mark_all_read'
+    delete 'items/unread', to: 'read_feed_records#mark_all_unread'
     post 'items/:id/mark_read', to: 'read_feed_records#create'
     delete 'items/:id/mark_unread', to: 'read_feed_records#destroy'
 

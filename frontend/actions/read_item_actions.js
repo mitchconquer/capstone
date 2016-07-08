@@ -18,6 +18,14 @@ const ReadItemActions = {
     ReadItemApiUtil.delete(readItemId, ReadItemActions.removeReadItem);
   },
 
+  markAllRead(readItemIds) {
+    ReadItemApiUtil.markAllRead(readItemIds, ReadItemActions.receiveReadItems);
+  },
+
+  markAllUnread(readItemIds) {
+    ReadItemApiUtil.markAllRead(readItemIds, ReadItemActions.removeReadItems);
+  },
+
   /* SERVER-INITIATED ACTIONS */
 
   receiveReadItem(readItem) {
@@ -37,6 +45,13 @@ const ReadItemActions = {
   removeReadItem(response) {
     AppDispatcher.dispatch({
       actionType: ReadItemConstants.REMOVE_READ_ITEM,
+      readItemId: response
+    });
+  },
+
+  removeReadItems(response) {
+    AppDispatcher.dispatch({
+      actionType: ReadItemConstants.REMOVE_READ_ITEMS,
       readItemId: response
     });
   }
