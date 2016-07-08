@@ -61,8 +61,14 @@ function filteredFeedItems() {
 }
 
 function containsMatch(feedItem) {
-  const title = feedItem.title.toLowerCase(),
-        description = feedItem.description.toLowerCase();
+  const title = feedItem.title.toLowerCase();
+  let description;
+  
+  if (feedItem.description) {
+    description = feedItem.description.toLowerCase();
+  } else {
+    description = "";
+  }
 
   let titleHas = false,
       descriptionHas = false;
