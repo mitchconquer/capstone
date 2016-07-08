@@ -6,7 +6,7 @@ const React = require('react'),
 const ErrorMessages = React.createClass({
   getInitialState() {
     return ({
-          errorMessages: {}
+          errorMessages: []
         });
   },
 
@@ -19,18 +19,26 @@ const ErrorMessages = React.createClass({
   },
 
   _errorStoreChange() {
-    this.setState({ errorMessages: ErrorStore.formErrors('general') });
+    console.log('ErrorMessages#_errorStoreChange()');
+    let errors = ErrorStore.formErrors('general');
+    if (Object.keys(errors).length > 0) {
+      let error_msgs = Object.keys(errors).map(id => {
+        return errors[id];
+      });
+      this.setState({ errorMessages: this.state.errorMessages.concat(error_msgs) });
+    }
   },
 
   errorItems() {
     if (Object.keys(this.state.errorMessages).length > 0) {
       return Object.keys(this.state.errorMessages).map(msgId => {
-        return <ErrorMessageItem key={this.state.errorMessages[msgId]} msg={this.state.errorMessages[msgId]} />;
+        return <ErrorMessageItem key={this.state.errorMessages[msgId] + Math.random()} msg={this.state.errorMessages[msgId]} />;
       });
     }
   },
 
   render() {
+    console.log('ErrorMessages rerendering');
     return (
       <div className="all-alerts">
         {this.errorItems()}
