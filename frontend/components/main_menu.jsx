@@ -33,12 +33,8 @@ const MainMenu = React.createClass({
           <Nav pullRight className="nav navbar-nav pull-right">
             <li><AddFeedSourcecButton /></li>
             <NavItem eventKey={1} href="#" onClick={ () => { hashHistory.push('/') } }>Home</NavItem>
-            <NavItem eventKey={2} href="#" onClick={ () => { hashHistory.push('/edit') } }>Browse Feeds</NavItem>
+            <NavItem eventKey={2} href="#" onClick={ () => { hashHistory.push('/edit') } }>Explore Feeds</NavItem>
             <NavDropdown eventKey={3} title={username} id="basic-nav-dropdown">
-              <MenuItem eventKey={3.1}>Profile</MenuItem>
-              <MenuItem eventKey={3.2}>Settings</MenuItem>
-              <MenuItem eventKey={3.3}>Comments</MenuItem>
-              <MenuItem divider />
               <MenuItem eventKey={3.3} onClick={this.logoutButton}>Logout</MenuItem>
             </NavDropdown>
           </Nav>

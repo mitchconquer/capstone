@@ -2,6 +2,12 @@
   float: left;
 }
 
+ul.dropdown-menu {
+  position: absolute;
+  right: 0;
+  left: auto;
+}
+
 .navbar-text {
   margin-top: 12.5px;
   margin-bottom: 12.5px;
