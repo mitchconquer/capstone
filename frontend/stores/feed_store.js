@@ -182,8 +182,22 @@ FeedStore.getFeedItems = function(feedSourceIds) {
       });
     }
   });
-  return feeds;
+  return feeds.sort(sortFeedItems);
 };
+
+
+function sortFeedItems(item1, item2) {
+  const a = Date.parse(item1.pubDate);
+  const b = Date.parse(item2.pubDate);
+
+  if (a > b) {
+    return -1;
+  }
+  if (b > a) {
+    return 1;
+  }
+  return 0;
+}
 
 FeedStore.__onDispatch = function(payload) {
   switch (payload.actionType) {
