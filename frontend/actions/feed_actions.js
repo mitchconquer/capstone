@@ -31,6 +31,8 @@ const FeedActions = {
   /* SERVER RESPONSE ACTIONS */
 
   receiveFeedSource(feedSource) {
+    console.log('feedactions#receiveFeedSouce got');
+    console.log(feedSource);
     AppDispatcher.dispatch({
       actionType: FeedConstants.RECEIVE_FEED_SOURCE,
       feedSource: feedSource

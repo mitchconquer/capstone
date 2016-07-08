@@ -40,6 +40,7 @@ const FeedItemIndex = React.createClass({
   },
 
   _storeChange(){
+    console.log('FeedItemIndex#_storeChange');
     this.setState({
       feedData: FeedStore.getFeeds(this.currentFeedSourceIds())
     });
@@ -123,29 +124,49 @@ const FeedItemIndex = React.createClass({
     return feedItems;
   },
 
-  currentFeedItems() {
+  currentFeedItemObjects() {
     const feedItems = [];
     if (Object.keys(this.state.feedData).length > 0) {
-      Object.keys(this.state.feedData).forEach(function(feedSourceId) {
+      Object.keys(this.state.feedData).forEach((feedSourceId) => {
         const sourceId = parseInt(feedSourceId);
         if ((this.state.feedData[sourceId]) && (this.state.feedData[sourceId].feedItems) && (Object.keys(this.state.feedData[sourceId].feedItems).length > 0)) {
-          Object.keys(this.state.feedData[sourceId].feedItems).forEach(function(feedItemId) {
-            const itemId = parseInt(feedItemId);
-            const read = this.state.readItems[itemId] ? " read" : "";
-            const feedItem = this.state.feedData[sourceId].feedItems[itemId];
-            const author = feedItem.author ? <span className="author">{feedItem.author},&nbsp;</span> : ""; 
-            feedItems.push(
-              <li key={itemId} className={"feed-item" + read}>
-                  <a href="#" onClick={ (e) => {e.preventDefault(); this.viewFeedItem(itemId);} }>
-                    <div className="feed-item-title">{feedItem.title}</div>
-                    <div className="feed-item-meta">{author}{feedItem.pubDateAgo}&nbsp;ago</div>
-                  </a>
-              </li>
-            );
-          }.bind(this));
-        }  
-      }.bind(this));    
+          Object.keys(this.state.feedData[sourceId].feedItems).forEach((feedItemId) => {
+            feedItems.push(this.state.feedData[sourceId].feedItems[parseInt(feedItemId)]);
+          });
+        }
+      });
     }
+    const sortedFeedItems = feedItems.sort(this.sortFeedItems);
+    return sortedFeedItems;
+  },
+
+  sortFeedItems(item1, item2) {
+    const a = Date.parse(item1.pubDate);
+    const b = Date.parse(item2.pubDate);
+
+    if (a > b) {
+      return -1;
+    }
+    if (b > a) {
+      return 1;
+    }
+    return 0;
+  },
+
+  currentFeedItems() {
+    const feedItems = [];
+    this.currentFeedItemObjects().forEach((feedItem) => {
+      const read = this.state.readItems[feedItem.id] ? " read" : "";
+      const author = feedItem.author ? <span className="author">{feedItem.author},&nbsp;</span> : ""; 
+      feedItems.push(
+        <li key={feedItem.id} className={"feed-item" + read}>
+            <a href="#" onClick={ (e) => {e.preventDefault(); this.viewFeedItem(feedItem.id);} }>
+              <div className="feed-item-title">{feedItem.title}</div>
+              <div className="feed-item-meta">{author}{feedItem.pubDateAgo}&nbsp;ago</div>
+            </a>
+        </li>
+      );
+    });
     return feedItems;
   },
 
