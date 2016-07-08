@@ -2,12 +2,15 @@ const React = require('react'),
       FeedItemDetails = require('./feed_item_details'),
       FeedStore = require('../stores/feed_store'),
       FeedActions = require('../actions/feed_actions'),
-      FolderStore = require('../stores/folder_store');
+      FolderStore = require('../stores/folder_store'),
+      ReadItemStore = require('../stores/read_item_store'),
+      ReadItemActions = require('../actions/read_item_actions');
 
 const FeedItemIndex = React.createClass({
   getInitialState(){
     return ({
-      feedData: FeedStore.getFeeds(this.currentFeedSourceIds())
+      feedData: FeedStore.getFeeds(this.currentFeedSourceIds()),
+      readItems: ReadItemStore.all()
     });
   },
 
@@ -18,10 +21,12 @@ const FeedItemIndex = React.createClass({
     }
     this.feedStoreListener = FeedStore.addListener(this._storeChange);
     this.folderStoreListener = FolderStore.addListener(this._storeChange);
+    this.readItemStoreListener = ReadItemStore.addListener(this._readItemStoreChange);
   },
 
   componentWillUnmount() {
     this.feedStoreListener.remove();
+    this.readItemStoreListener.remove();
     this.folderStoreListener.remove();
   },
 
@@ -34,16 +39,25 @@ const FeedItemIndex = React.createClass({
   },
 
   _storeChange(){
-    console.log('FeedItemIndex#_storeChange');
-    console.log(this.currentFeedSourceIds());
     this.setState({
       feedData: FeedStore.getFeeds(this.currentFeedSourceIds())
     });
   },
 
+  _readItemStoreChange(){
+    console.log('FeedItemIndex#_readItemStoreChange');
+    this.setState({
+      readItems: ReadItemStore.all()
+    }, function(){ console.log(Object.keys(this.state.readItems))});
+  },
+
+  viewFeedItem(itemId) {
+    document.getElementById(`item-${itemId}`).scrollIntoView(true);
+    ReadItemActions.create(itemId);
+  },
+
   currentFeedSourceIds() {
     let urlParams;
-    console.log(this.props.params)
     if (this.props.params.feedId) {
       urlParams = [parseInt(this.props.params.feedId)];
     } else if (this.props.params.folderId) {
@@ -51,9 +65,6 @@ const FeedItemIndex = React.createClass({
     } else {
       urlParams = FeedStore.allIds();
     }
-    console.log('FeedItemIndex#currentFeedSourceIds: ');
-    console.log(urlParams);
-    // First get to work with feeds and folders, then add All
     return urlParams
   },
 
@@ -66,9 +77,6 @@ const FeedItemIndex = React.createClass({
     } else {
       urlParams = FeedStore.allIds();
     }
-    console.log('FeedItemIndex#nextFeedSourceIds: ');
-    console.log(urlParams);
-    // First get to work with feeds and folders, then add All
     return urlParams
   },
 
@@ -99,11 +107,12 @@ const FeedItemIndex = React.createClass({
         if ((this.state.feedData[sourceId]) && (this.state.feedData[sourceId].feedItems) && (Object.keys(this.state.feedData[sourceId].feedItems).length > 0)) {
           Object.keys(this.state.feedData[sourceId].feedItems).forEach(function(feedItemId) {
             const itemId = parseInt(feedItemId);
+            const read = this.state.readItems[itemId] ? " read" : "";
             const feedItem = this.state.feedData[sourceId].feedItems[itemId];
             const author = feedItem.author ? <span className="author">{feedItem.author},&nbsp;</span> : ""; 
             feedItems.push(
-              <li key={itemId} className="feed-item">
-                  <a href="#" onClick={(e) => {e.preventDefault(); document.getElementById(`item-${itemId}`).scrollIntoView(true);}}>
+              <li key={itemId} className={"feed-item" + read}>
+                  <a href="#" onClick={ (e) => {e.preventDefault(); this.viewFeedItem(itemId);} }>
                     <div className="feed-item-title">{feedItem.title}</div>
                     <div className="feed-item-meta">{author}{feedItem.pubDateAgo}&nbsp;ago</div>
                   </a>

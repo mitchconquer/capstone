@@ -12,6 +12,6 @@ class Api::ReadFeedRecordsController < ApplicationController
   def destroy
     @read_feed_record = ReadFeedRecord.find_by(user_id: current_user.id, feed_item_id: params[:id])
     @read_feed_record.destroy
-    render :show
+    render json: @read_feed_record.feed_item_id
   end
 end

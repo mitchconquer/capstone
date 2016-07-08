@@ -13,7 +13,8 @@ function resetReadItems(readItems) {
 }
 
 function setReadItem(readItem) {
-  _readItems[readItem.id] = readItem;
+  let feedItemId = Object.keys(readItem)[0];
+  _readItems[feedItemId] = readItem;
   ReadItemStore.__emitChange();
 }
 
@@ -34,13 +35,13 @@ ReadItemStore.find = function(id) {
 
 ReadItemStore.__onDispatch = function(payload) {
   switch (payload.actionType) {
-  case ReadItemConstants.RECEIVE_SAVED_ARTICLE:
+  case ReadItemConstants.RECEIVE_READ_ITEM:
     setReadItem(payload.readItem);
     break;
-  case ReadItemConstants.RECEIVE_SAVED_ARTICLES:
+  case ReadItemConstants.RECEIVE_READ_ITEMS:
     resetReadItems(payload.readItems);
     break;
-  case ReadItemConstants.REMOVE_SAVED_ARTICLE:
+  case ReadItemConstants.REMOVE_READ_ITEM:
     removeReadItem(payload.readItemId)
     break;
   default:

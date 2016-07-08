@@ -4,7 +4,8 @@ const React = require('react'),
       FolderActions = require('../actions/folder_actions'),
       FolderStore = require('../stores/folder_store'),
       FolderItem = require('./folder_item'),
-      CreateFolderItem = require('./create_folder_item');
+      CreateFolderItem = require('./create_folder_item'),
+      ReadItemActions = require('../actions/read_item_actions');
 
 const FolderIndex = React.createClass({
   getInitialState(){
@@ -16,6 +17,7 @@ const FolderIndex = React.createClass({
   componentDidMount() {
     FeedActions.fetchAll();
     FolderActions.fetchAll();
+    ReadItemActions.fetchAll();
     this.folderStoreListener = FolderStore.addListener(this._folderStoreChange);
   },
 

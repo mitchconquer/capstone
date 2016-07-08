@@ -4,10 +4,9 @@ const ReadItemActions = require('../actions/read_item_actions'),
 module.exports = {
   create(readItem, successCallback) {
     $.ajax({
-      url: `api/read_items`,
+      url: `api/items/${readItem}/mark_read`,
       method: 'POST',
       dataType: 'json',
-      data: { read_item: readItem },
       success: successCallback,
       error: ErrorActions.setErrors
     });
@@ -15,7 +14,7 @@ module.exports = {
 
   delete(readItemId, successCallback) {
     $.ajax({
-      url: `api/read_items/${readItemId}`,
+      url: `api/items/${readItemId}/mark_unread`,
       method: 'DELETE',
       dataType: 'json',
       success: successCallback,
@@ -25,7 +24,7 @@ module.exports = {
 
   fetchAll(successCallback) {
     $.ajax({
-      url: `api/read_items`,
+      url: `api/items/read`,
       method: 'GET',
       dataType: 'json',
       success: successCallback,

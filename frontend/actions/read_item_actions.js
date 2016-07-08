@@ -20,10 +20,10 @@ const ReadItemActions = {
 
   /* SERVER-INITIATED ACTIONS */
 
-  receiveReadItem(response) {
+  receiveReadItem(readItem) {
     AppDispatcher.dispatch({
       actionType: ReadItemConstants.RECEIVE_READ_ITEM,
-      readItem: response.readItem
+      readItem: readItem
     });
   },
 
@@ -37,7 +37,7 @@ const ReadItemActions = {
   removeReadItem(response) {
     AppDispatcher.dispatch({
       actionType: ReadItemConstants.REMOVE_READ_ITEM,
-      readItemId: response.readItem.id
+      readItemId: response
     });
   }
 
