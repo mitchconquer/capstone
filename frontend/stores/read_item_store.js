@@ -22,6 +22,7 @@ function removeReadItems(readItems) {
   Object.keys(readItems).forEach(readItemId =>{
     delete _readItems[readItemId];
   });
+  ReadItemStore.__emitChange();
 }
 
 function removeReadItem(readItemId) {
@@ -48,10 +49,12 @@ ReadItemStore.__onDispatch = function(payload) {
     resetReadItems(payload.readItems);
     break;
   case ReadItemConstants.REMOVE_READ_ITEM:
-    removeReadItem(payload.readItemId)
+    removeReadItem(payload.readItemId);
     break;
   case ReadItemConstants.REMOVE_READ_ITEMS:
-    removeReadItems(payload.readItemId)
+    console.log('unread');
+    console.log(payload.readItemId);
+    removeReadItems(payload.readItemId);
     break;
   default:
     break;

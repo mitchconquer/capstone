@@ -24,9 +24,10 @@ class Api::ReadFeedRecordsController < ApplicationController
     @read_feed_records = []
 
     feed_item_ids.each do |feed_item_id|
-      read_feed_record = ReadFeedRecord.find_by(user_id: current_user.id, feed_item_id: feed_item_id)
-      @read_feed_records.push read_feed_record
-      read_feed_record.destroy
+      if read_feed_record = ReadFeedRecord.find_by(user_id: current_user.id, feed_item_id: feed_item_id)
+        @read_feed_records.push read_feed_record
+        read_feed_record.destroy
+      end
     end
     render :index
   end

@@ -4,7 +4,8 @@ const React = require('react'),
       FeedActions = require('../actions/feed_actions'),
       FolderStore = require('../stores/folder_store'),
       ReadItemStore = require('../stores/read_item_store'),
-      ReadItemActions = require('../actions/read_item_actions');
+      ReadItemActions = require('../actions/read_item_actions'),
+      Button = require('react-bootstrap').Button;
 
 const FeedItemIndex = React.createClass({
   getInitialState(){
@@ -99,6 +100,29 @@ const FeedItemIndex = React.createClass({
     return title;
   },
 
+  markAllRead() {
+    ReadItemActions.markAllRead(this.currentFeedItemIds());
+  },
+
+  markAllUnread() {
+    ReadItemActions.markAllUnread(this.currentFeedItemIds());
+  },
+
+  currentFeedItemIds() {
+    const feedItems = [];
+    if (Object.keys(this.state.feedData).length > 0) {
+      Object.keys(this.state.feedData).forEach((feedSourceId) => {
+        const sourceId = parseInt(feedSourceId);
+        if ((this.state.feedData[sourceId]) && (this.state.feedData[sourceId].feedItems) && (Object.keys(this.state.feedData[sourceId].feedItems).length > 0)) {
+          Object.keys(this.state.feedData[sourceId].feedItems).forEach((feedItemId) => {
+            feedItems.push(parseInt(feedItemId));
+          });
+        }
+      });
+    }
+    return feedItems;
+  },
+
   currentFeedItems() {
     const feedItems = [];
     if (Object.keys(this.state.feedData).length > 0) {
@@ -129,7 +153,11 @@ const FeedItemIndex = React.createClass({
     return (
       <span>
         <section className="col-sm-4 app-column feed" id="feed">
-          <header><h3 className="color-bg-heading">{this.currentFeedTitle()}</h3></header>
+          <header className="">
+            <h3 className="color-bg-heading">{this.currentFeedTitle()}</h3>
+            <a className="btn btn-sm btn-success mark-read" onClick={this.markAllRead} >Mark All Read <span className="glyphicon glyphicon-ok"></span></a>
+            <a className="btn btn-sm btn-success mark-unread" onClick={this.markAllUnread} >Mark All Unread</a>
+          </header>
           <ul className="list-unstyled">
             {this.currentFeedItems()}
           </ul>

@@ -3,6 +3,19 @@
   background-color: #ececec;
 }
 
+.feed header a.btn {
+  width: 50%;
+  border-radius: 0;
+  // &.mark-read {
+  //   background-color: #61dadd;
+  //   border-color: #61dadd;
+  //   &:hover, &:active, &:focus {
+  //     background-color: lighten(#61dadd, 5%);
+  //     border-color: lighten(#61dadd, 5%);
+  //   }
+  // }
+}
+
 .color-bg-heading {
   background-color: $brand-success;
   font-size: 25px;

@@ -19,11 +19,13 @@ const ReadItemActions = {
   },
 
   markAllRead(readItemIds) {
+    console.log('read all items')
     ReadItemApiUtil.markAllRead(readItemIds, ReadItemActions.receiveReadItems);
   },
 
   markAllUnread(readItemIds) {
-    ReadItemApiUtil.markAllRead(readItemIds, ReadItemActions.removeReadItems);
+    console.log('unread all items')
+    ReadItemApiUtil.markAllUnread(readItemIds, ReadItemActions.removeReadItems);
   },
 
   /* SERVER-INITIATED ACTIONS */
