@@ -177,12 +177,13 @@ const FeedItemIndex = React.createClass({
     const feedItems = [];
     this.currentFeedItemObjects().forEach((feedItem) => {
       const read = this.state.readItems[feedItem.id] ? " read" : "";
-      const author = feedItem.author ? <span className="author">{feedItem.author},&nbsp;</span> : ""; 
+      const author = feedItem.author ? <span className="author">{feedItem.author},&nbsp;</span> : "";
+      const authorText = feedItem.author ? feedItem.author + ", " : "";
       feedItems.push(
         <li key={feedItem.id} className={"feed-item" + read}>
             <a href="#" onClick={ (e) => {e.preventDefault(); this.viewFeedItem(feedItem.id);} }>
               <div className="feed-item-title">{feedItem.title}</div>
-              <div className="feed-item-meta">{author}{feedItem.pubDateAgo}&nbsp;ago</div>
+              <div className="feed-item-meta" title={authorText + feedItem.pubDateAgo + " ago"}>{author}{feedItem.pubDateAgo}&nbsp;ago</div>
             </a>
         </li>
       );

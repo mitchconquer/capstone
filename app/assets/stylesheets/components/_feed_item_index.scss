@@ -60,6 +60,11 @@
     padding-top: 10px;
     position: absolute;
     bottom: 20px;
+    white-space: nowrap;
+    max-width: calc(100% - 20px);
+    bottom: 20px;
+    margin-right: 10px;
+    overflow-x: hidden;
   }
 
   span.author {

@@ -41,15 +41,22 @@ class FeedItem < ActiveRecord::Base
   end
 
   def self.set_params(feed_item)
+    optimizedDescription = FeedItem.chooseDescription(feed_item)
     {
       title: feed_item.respond_to?(:title) ? feed_item.title : 'No Title!!!?? (╯°□°)╯︵ ┻━┻',
       url: feed_item.respond_to?(:url) ? feed_item.url : nil,
       pub_date: feed_item.respond_to?(:published) ? feed_item.published : nil,
-      description: feed_item.respond_to?(:summary) ? feed_item.summary : nil,
+      description: optimizedDescription,
       author: feed_item.respond_to?(:author) ? feed_item.author : nil,
       enclosure: feed_item.respond_to?(:enclosure) ? feed_item.summary : nil,
       identifier: FeedItem.get_identifier(feed_item)
     }
+  end
+
+  def self.chooseDescription(feed_item)
+      summary = (feed_item.respond_to?(:summary) && !feed_item.summary.nil?) ? feed_item.summary : ""
+      content = (feed_item.respond_to?(:content) && !feed_item.content.nil?) ? feed_item.content : ""
+      summary.length > content.length ? summary : content
   end
 
   def self.update_or_create(current_source_items, params)
