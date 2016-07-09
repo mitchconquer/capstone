@@ -21,6 +21,7 @@ const ErrorMessages = React.createClass({
   _errorStoreChange() {
     console.log('ErrorMessages#_errorStoreChange()');
     let errors = ErrorStore.formErrors('general');
+    console.log(errors);
     if (Object.keys(errors).length > 0) {
       let error_msgs = Object.keys(errors).map(id => {
         return errors[id];
@@ -32,7 +33,8 @@ const ErrorMessages = React.createClass({
   errorItems() {
     if (Object.keys(this.state.errorMessages).length > 0) {
       return Object.keys(this.state.errorMessages).map(msgId => {
-        return <ErrorMessageItem key={this.state.errorMessages[msgId]} msg={this.state.errorMessages[msgId]} dismissAfter={10000} />;
+        const error = this.state.errorMessages[msgId];
+        return <ErrorMessageItem key={error.errorMsg + error.errorBatch} msg={error.errorMsg} dismissAfter={10000} />;
       });
     }
   },

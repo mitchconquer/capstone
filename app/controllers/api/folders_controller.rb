@@ -18,7 +18,7 @@ class Api::FoldersController < ApplicationController
     if @folder.update(folder_params)
       render :show
     else
-      render json: { errors: @folder.errors.full_messages, form: '' }, status: 401
+      render json: { errors: @folder.errors.full_messages, errorCode: rand(1000).to_s, form: 'general' }, status: 401
     end
   end
 
@@ -27,7 +27,7 @@ class Api::FoldersController < ApplicationController
     if @folder.destroy
       render :show
     else
-      render json: { errors: @folder.errors.full_messages, form: '' }, status: 401
+      render json: { errors: @folder.errors.full_messages, errorCode: rand(1000).to_s, form: 'general' }, status: 401
     end
   end
 

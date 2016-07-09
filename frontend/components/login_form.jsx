@@ -58,7 +58,8 @@ const LoginForm = React.createClass({
   },
 
   errorChange() {
-    this.setState({ errors: ErrorStore.formErrors('LoginForm'), loggingIn: false });
+    const errors = ErrorStore.formErrors('LoginForm');
+    this.setState({ errors: errors, loggingIn: false }, () => {console.log(this.state.loggingIn)});
   },
 
   redirectIfLoggedIn() {
@@ -77,8 +78,10 @@ const LoginForm = React.createClass({
 
   render() {
     const errors = Object.keys(this.state.errors).map(key => {
-          return (<li key={key}>{this.state.errors[key]}</li>);
-        });
+      const error = this.state.errors[key];
+      return (<li key={error.errorMsg + error.errorBatch}>{error.errorMsg}</li>);
+    });
+  // const errors = ['hi'];
 
     const defaultSubmit = <input type="submit" value="Login" className="form-control btn btn-success" />;
     const loadingSubmit = (<a className="form-control btn btn-success"><div className="btn-spinner-text">Logging in...</div><div className="spinner"><div className="double-bounce1"></div> <div className="double-bounce2"></div> </div></a>);

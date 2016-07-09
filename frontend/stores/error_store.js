@@ -5,6 +5,7 @@ const ErrorConstants = require('../constants/error_constants');
 
 let _errors = [];
 let _form;
+let _errorBatch;
 
 const ErrorStore = new Store(AppDispatcher);
 
@@ -19,22 +20,26 @@ ErrorStore.form = function() {
   return `${_form}`;
 };
 
-function setErrors(form, errors) {
+function setErrors(form, errors, errorBatch) {
   _form = form;
-  _errors = errors;
+  _errors = errors.map(errorMsg => {
+    return { errorMsg: errorMsg, errorBatch: errorBatch }
+  });
+  _errorBatch = errorBatch;
   ErrorStore.__emitChange();
 }
 
 function clearErrors() {
   _form = "";
   _errors = [];
-  ErrorStore.__emitChange();
+  _errorBatch = "";
+  // ErrorStore.__emitChange();
 }
 
 ErrorStore.__onDispatch = function(payload) {
   switch (payload.actionType) {
     case ErrorConstants.SET_ERRORS:
-      setErrors(payload.form, payload.errors);
+      setErrors(payload.form, payload.errors, payload.errorBatch);
       break;
     case ErrorConstants.CLEAR_ERRORS:
       clearErrors();

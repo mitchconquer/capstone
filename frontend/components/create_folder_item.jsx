@@ -41,7 +41,7 @@ const CreateFolderItem = React.createClass({
       return (
         <form onSubmit={this.validateFolderName} className="create-folder-form">
           <div className="input-container">
-            <input type="text" id="create-folder-input" className="form-control" onChange={this.onFolderNameChange} placeholder="CREATE FOLDER..." value={this.state.folderName} aria-label="New Folder Name" />
+            <input type="text" id="create-folder-input" className="form-control" onChange={this.onFolderNameChange} placeholder="NEW FOLDER..." value={this.state.folderName} aria-label="New Folder Name" />
           </div>
           <button type="submit" className="btn btn-default btn-success create-folder-submit" aria-label="Create Folder" onClick={this.validateFolderName}>
             <span className="glyphicon glyphicon-ok" aria-hidden="true"></span>
@@ -53,7 +53,7 @@ const CreateFolderItem = React.createClass({
       );
     }
     return (
-      <h3 className="folder-name create-folder" onClick={this.toggleEditMode}>Create Folder...</h3>
+      <h3 className="folder-name create-folder" onClick={this.toggleEditMode}>NEW FOLDER...</h3>
     );
   }
 });

@@ -23,7 +23,6 @@ module.exports = {
   },
 
   refreshFeedSource(feedSourceId, successCallback) {
-    console.log('FeedApiUtil#refreshFeedSource called on ' + feedSourceId);
     $.ajax({
       url: `api/feeds/${feedSourceId}`,
       method: 'GET',

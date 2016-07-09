@@ -10,7 +10,7 @@ class Api::SessionsController < ApplicationController
       render :show
     else
       @user = User.new(username: login_params[:username])
-      render json: { errors: ['Invalid username or password'], form: 'LoginForm'}, status: 401
+      render json: { errors: ['Invalid username or password'], errorBatch: rand(1000).to_s, form: 'LoginForm'}, status: 401
     end
   end
 
@@ -19,7 +19,7 @@ class Api::SessionsController < ApplicationController
       logout_user!(current_user)
       render json: {}
     else
-      render json: { errors: ['User already logged out'] }, status: 404
+      render json: { errors: ['User already logged out'], errorBatch: rand(1000).to_s, form: 'LoginForm' }, status: 404
     end
   end
 

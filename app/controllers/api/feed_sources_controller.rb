@@ -28,7 +28,7 @@ class Api::FeedSourcesController < ApplicationController
     end
   rescue => error
     message = error.message.to_s + "; MsgId: " + rand(1000).to_s
-    render json: { errors: [message], form: 'general'}, status: 401
+    render json: { errors: [" >_< Doh! Couldn't subscribe to the feed! Could the URL be wrong?"], errorBatch: rand(1000).to_s, form: 'general'}, status: 401
   end
 
   def recommended
