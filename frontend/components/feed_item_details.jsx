@@ -73,7 +73,9 @@ const FeedItemDetails = React.createClass({
       this.setState({
         feedItems: FeedStore.getFeedItems(nextProps.feedSourceIds)
       }) ;
-      document.getElementById('full-articles').scrollTop = 0;
+      if (nextProps.feedSourceTitle !== this.props.feedSourceTitle) {
+        document.getElementById('full-articles').scrollTop = 0;
+      }
   },
 
   parseHTML(inputHtml) {
