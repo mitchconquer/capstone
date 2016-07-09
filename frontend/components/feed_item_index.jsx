@@ -66,12 +66,14 @@ const FeedItemIndex = React.createClass({
   viewFeedItem(itemId) {
     // document.getElementById(`item-${itemId}`).scrollIntoView(true);
 
-    const targetTop = $(`#item-${itemId}`).offset().top;
+    const targetTop = document.getElementById(`item-${itemId}`).offsetTop;
     // if () {
-      console.log('hi')
+    console.log(targetTop);
+    // document.getElementById('full-articles').scrollTop = targetTop;  
+      // console.log('hi')
       $('#full-articles').animate({
-        scrollTop: targetTop - 65
-      }, 800);
+        scrollTop: targetTop
+      }, 500);
     // }
     console.log(targetTop);
         
