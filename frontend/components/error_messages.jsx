@@ -19,9 +19,7 @@ const ErrorMessages = React.createClass({
   },
 
   _errorStoreChange() {
-    console.log('ErrorMessages#_errorStoreChange()');
     let errors = ErrorStore.formErrors('general');
-    console.log(errors);
     if (Object.keys(errors).length > 0) {
       let error_msgs = Object.keys(errors).map(id => {
         return errors[id];
@@ -40,7 +38,6 @@ const ErrorMessages = React.createClass({
   },
 
   render() {
-    console.log('ErrorMessages rerendering');
     return (
       <div className="all-alerts">
         {this.errorItems()}

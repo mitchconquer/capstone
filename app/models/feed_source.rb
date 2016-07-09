@@ -49,10 +49,16 @@ class FeedSource < ActiveRecord::Base
   end
 
   def refresh!
+    old_updated = self.updated_at
     feed = Feedjira::Feed.fetch_and_parse self.feed_url
     params = update_params(feed)
     self.update(params)
     FeedItem.reset_source_items!(self.id, feed.entries)
+    puts "***************************************************************"
+    puts %Q(FeedSource#refresh! for #{self.title} (id: #{self.id}))
+    puts %Q(Previous Last updated: #{old_updated})
+    puts %Q(Feed Items Count: #{self.feed_items.count})
+    puts "***************************************************************"
   end
 
   private

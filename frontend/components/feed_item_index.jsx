@@ -16,13 +16,18 @@ const FeedItemIndex = React.createClass({
   },
 
   componentDidMount() {
-    const currentFeedSourceIds = this.currentFeedSourceIds();
-    if ( currentFeedSourceIds && currentFeedSourceIds.length > 0) {
-      FeedActions.refreshFeedSources(this.currentFeedSourceIds());
-    }
+    this.refreshFeedSources();
     this.feedStoreListener = FeedStore.addListener(this._storeChange);
     this.folderStoreListener = FolderStore.addListener(this._storeChange);
     this.readItemStoreListener = ReadItemStore.addListener(this._readItemStoreChange);
+    this.initialFeedItemFetch = false;
+  },
+
+  refreshFeedSources() {
+    const currentFeedSourceIds = this.currentFeedSourceIds();
+    if (currentFeedSourceIds && currentFeedSourceIds.length > 0) {
+      FeedActions.refreshFeedSources(this.currentFeedSourceIds());
+    }
   },
 
   componentWillUnmount() {
@@ -40,9 +45,16 @@ const FeedItemIndex = React.createClass({
   },
 
   _storeChange(){
+    const currentFeedSourceIds = this.currentFeedSourceIds();
     this.setState({
-      feedData: FeedStore.getFeeds(this.currentFeedSourceIds())
+      feedData: FeedStore.getFeeds(currentFeedSourceIds)
     });
+
+    // If there are no feed items in the DB, the initial page will hang unless you force refresh feeds
+    if (!this.initialFeedItemFetch && FeedStore.getFeedItems(currentFeedSourceIds).length === 0) {
+      this.initialFeedItemFetch = true;
+      this.refreshFeedSources(currentFeedSourceIds);
+    }
   },
 
   _readItemStoreChange(){
@@ -52,7 +64,17 @@ const FeedItemIndex = React.createClass({
   },
 
   viewFeedItem(itemId) {
-    document.getElementById(`item-${itemId}`).scrollIntoView(true);
+    // document.getElementById(`item-${itemId}`).scrollIntoView(true);
+
+    const target = $(`#item-${itemId}`);
+    if (target.length) {
+      $('#full-articles').animate({
+        scrollTop: target.offsetParent().position().top + 500
+      }, 800);
+    }
+    console.log(target.offsetParent().position().top + 500);
+    console.log(target.offsetParent());
+        
     ReadItemActions.create(itemId);
   },
 
