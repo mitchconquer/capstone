@@ -1,3 +1,5 @@
+require 'sanitize'
+
 class FeedItem < ActiveRecord::Base
   validates :feed_source_id, :identifier, :title, presence: true
   validates :identifier, uniqueness: {scope: [ :feed_source_id ] }
@@ -41,7 +43,7 @@ class FeedItem < ActiveRecord::Base
   end
 
   def self.set_params(feed_item)
-    optimizedDescription = FeedItem.chooseDescription(feed_item)
+    optimizedDescription = FeedItem.custom_sanitize(FeedItem.chooseDescription(feed_item))
     {
       title: feed_item.respond_to?(:title) ? feed_item.title : 'No Title!!!?? (╯°□°)╯︵ ┻━┻',
       url: feed_item.respond_to?(:url) ? feed_item.url : nil,
@@ -51,6 +53,15 @@ class FeedItem < ActiveRecord::Base
       enclosure: feed_item.respond_to?(:enclosure) ? feed_item.summary : nil,
       identifier: FeedItem.get_identifier(feed_item)
     }
+  end
+
+  def self.custom_sanitize(html_string)
+    Sanitize.fragment(html_string, Sanitize::Config.merge(
+      Sanitize::Config::RELAXED, 
+      :add_attributes => {
+        'a' => {'target' => '_blank'}
+      }
+    ))
   end
 
   def self.chooseDescription(feed_item)

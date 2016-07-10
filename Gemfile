@@ -28,6 +28,8 @@ gem 'feedjira', '~> 2.0'
 
 gem 'bootstrap-sass'
 
+gem 'sanitize'
+
 # Use Unicorn as the app server
 # gem 'unicorn'
 
