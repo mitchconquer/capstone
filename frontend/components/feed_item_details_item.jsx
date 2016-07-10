@@ -8,7 +8,7 @@ const FeedItemDetailsItem = React.createClass({
   getInitialState() {
     return {
       savedArticles: [],
-      active: false
+      active: this.props.feedItem.read
     };
   },
 
@@ -17,6 +17,7 @@ const FeedItemDetailsItem = React.createClass({
     document.getElementById('full-articles').addEventListener('scroll', this.onScroll);
     this.element = ReactDOM.findDOMNode(this);
     this.parentDiv = document.getElementById('full-articles');
+    this.prevOffsetTop = 0;
   },
 
   componentWillUnmount() {
@@ -29,13 +30,31 @@ const FeedItemDetailsItem = React.createClass({
   },
 
   onScroll(e) {
-    // When item scrolls into 'currently reading' position
-    if (this.state.active !== true && this.parentDiv.scrollTop  > this.element.offsetTop - 150) {
-      console.log(this.props.feedItem.id + ' is activating');
-      this.setState({ active: true });
-      this.props.setActiveFeedItem(this.props.feedItem.id);
-      ReadItemActions.create(this.props.feedItem.id);
+
+    const scrollTop = this.parentDiv.scrollTop;
+
+
+    // Scrolling Up
+    if (this.prevOffsetTop < scrollTop) {
+      // When item scrolls into 'currently reading' position
+      if (this.state.read !== true && this.parentDiv.scrollTop  > this.element.offsetTop - 150) {
+        this.setState({ read: true });
+        this.props.setActiveFeedItem(this.props.feedItem.id);
+        ReadItemActions.create(this.props.feedItem.id);
+      }
     }
+
+    // Scrolling Down
+    if (this.prevOffsetTop > scrollTop) {
+      // When item scrolls into 'currently reading' position
+      if (this.props.activeFeedItem != this.props.feedItem.id && 
+          this.element.offsetTop + this.element.offsetHeight < scrollTop - 100 && 
+          this.element.offsetTop + this.element.offsetHeight > scrollTop - 150 ) {
+        this.props.setActiveFeedItem(this.props.feedItem.id);
+      }
+    }
+
+    this.prevOffsetTop = scrollTop;
   },
 
   // TODO: check that save is still working
@@ -68,7 +87,6 @@ const FeedItemDetailsItem = React.createClass({
   render() {
     const feedItem = this.props.feedItem;
     const htmlId = `item-${feedItem.id}`;
-    const activeClass = this.state.active ? "read" : "";
 
     let saveActive = "";
     let saveText = "save";
@@ -95,7 +113,7 @@ const FeedItemDetailsItem = React.createClass({
     );
 
     return (
-      <article id={htmlId} key={feedItem.id} ref="article" className={activeClass} ><h2>{feedItem.title}</h2>
+      <article id={htmlId} key={feedItem.id} ref="article" ><h2>{feedItem.title}</h2>
         
         {metaData}
 

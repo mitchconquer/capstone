@@ -22,6 +22,7 @@ const FeedItemIndex = React.createClass({
     this.folderStoreListener = FolderStore.addListener(this._storeChange);
     this.readItemStoreListener = ReadItemStore.addListener(this._readItemStoreChange);
     this.initialFeedItemFetch = false;
+    this.targeting = undefined; // A flag to prevent the div from scrolling around if the user clicked a link
   },
 
   componentWillUnmount() {
@@ -68,25 +69,29 @@ const FeedItemIndex = React.createClass({
     // document.getElementById(`item-${itemId}`).scrollIntoView(true);
 
     this.setState({ activeFeedItem: itemId });
+    this.targeting = itemId;
 
     const detailsTargetTop = document.getElementById(`item-${itemId}`).offsetTop;
-    console.log(detailsTargetTop);
       $('#full-articles').animate({
         scrollTop: detailsTargetTop
       }, 500);
-    console.log(detailsTargetTop);
         
     ReadItemActions.create(itemId);
   },
 
   setActiveFeedItem(feedItemId) {
-    console.log('FeedItemIndex#setActiveFeedItem with ' + feedItemId);
-    this.setState({ activeFeedItem: feedItemId });
-    const indexTargetTop = document.getElementById(`feedindex-${feedItemId}`).offsetTop;
-    console.log(indexTargetTop);
-    $('#feed').animate({
-      scrollTop: indexTargetTop - 300
-    }, 500);
+    if (this.targeting && this.targeting === feedItemId) {
+      this.targeting = undefined;
+    }
+
+    if (!this.targeting) {
+      this.setState({ activeFeedItem: feedItemId });
+      const indexTargetTop = document.getElementById(`feedindex-${feedItemId}`).offsetTop;
+      $('#feed').animate({
+        scrollTop: indexTargetTop - 300
+      }, 200); 
+    }
+
   },
 
   currentFeedSourceIds() {
@@ -216,7 +221,7 @@ const FeedItemIndex = React.createClass({
             {this.currentFeedItems()}
           </ul>
         </section>
-        <FeedItemDetails setActiveFeedItem={this.setActiveFeedItem} feedSourceIds={this.currentFeedSourceIds()} feedSourceTitle={this.currentFeedTitle()}/>
+        <FeedItemDetails setActiveFeedItem={this.setActiveFeedItem} activeFeedItem={this.state.activeFeedItem} feedSourceIds={this.currentFeedSourceIds()} feedSourceTitle={this.currentFeedTitle()}/>
       </span>
     );
   }
