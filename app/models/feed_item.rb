@@ -65,7 +65,7 @@ class FeedItem < ActiveRecord::Base
   def self.set_params(feed_item)
     optimizedDescription = FeedItem.custom_sanitize(FeedItem.chooseDescription(feed_item))
     {
-      title: feed_item.respond_to?(:title) ? feed_item.title : 'No Title!!!?? (╯°□°)╯︵ ┻━┻',
+      title: feed_item.respond_to?(:title) ? Sanitize.fragment(feed_item.title, Sanitize::Config::RESTRICTED) : 'No Title!!!?? (╯°□°)╯︵ ┻━┻',
       url: feed_item.respond_to?(:url) ? feed_item.url : nil,
       pub_date: feed_item.respond_to?(:published) ? feed_item.published : nil,
       description: optimizedDescription,

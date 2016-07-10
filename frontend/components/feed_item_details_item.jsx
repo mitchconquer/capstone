@@ -1,26 +1,44 @@
 const React = require('react'),
+      ReactDOM = require('react-dom'),
+      ReadItemActions = require('../actions/read_item_actions'),
       SavedArticleStore = require('../stores/saved_article_store'),
       SavedArticleActions = require('../actions/saved_article_actions');
 
 const FeedItemDetailsItem = React.createClass({
   getInitialState() {
     return {
-      savedArticles: []
+      savedArticles: [],
+      active: false
     };
   },
 
   componentDidMount() {
     this.savedArticleStoreListener = SavedArticleStore.addListener(this._savedArticleStoreChange); 
+    document.getElementById('full-articles').addEventListener('scroll', this.onScroll);
+    this.element = ReactDOM.findDOMNode(this);
+    this.parentDiv = document.getElementById('full-articles');
   },
 
   componentWillUnmount() {
     this.savedArticleStoreListener.remove(); 
+    document.getElementById('full-articles').removeEventListener('scroll', this.onScroll);
   },
 
   _savedArticleStoreChange() {
     this.setState({ savedArticles: SavedArticleStore.allIds() });
   },
 
+  onScroll(e) {
+    // When item scrolls into 'currently reading' position
+    if (this.state.active !== true && this.parentDiv.scrollTop  > this.element.offsetTop - 150) {
+      console.log(this.props.feedItem.id + ' is activating');
+      this.setState({ active: true });
+      this.props.setActiveFeedItem(this.props.feedItem.id);
+      ReadItemActions.create(this.props.feedItem.id);
+    }
+  },
+
+  // TODO: check that save is still working
   toggleSave(feedItemId) {
     if (this.state.savedArticles.includes(this.props.feedItem.id)) {
       // unsave
@@ -48,15 +66,17 @@ const FeedItemDetailsItem = React.createClass({
   },
 
   render() {
-    // const description = $.parseHTML(feedItem.description);
     const feedItem = this.props.feedItem;
     const htmlId = `item-${feedItem.id}`;
+    const activeClass = this.state.active ? "read" : "";
+
     let saveActive = "";
     let saveText = "save";
     if (this.state.savedArticles.includes(feedItem.id)) {
       saveText = "saved";
       saveActive = " active";
     }
+
     const toolbar = (
       <ul className="feed-item-details-toolbar">
         <li className={"save" + saveActive} onClick={this.toggleSave.bind(this, feedItem.id)}>
@@ -75,7 +95,7 @@ const FeedItemDetailsItem = React.createClass({
     );
 
     return (
-      <article id={htmlId} key={feedItem.id} ><h2>{feedItem.title}</h2>
+      <article id={htmlId} key={feedItem.id} ref="article" className={activeClass} ><h2>{feedItem.title}</h2>
         
         {metaData}
 

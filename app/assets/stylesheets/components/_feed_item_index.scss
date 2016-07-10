@@ -36,6 +36,16 @@
   color: $gray-dark;
 }
 
+.feed-item.active a {
+  background-color: $brand-warning;
+  div {
+    color: black;
+  }
+  &:hover, &:active, &:focus {
+    background-color: $brand-warning;
+  }
+}
+
 .feed-item a {
   display: block;
   padding: 17px 10px;

@@ -11,7 +11,8 @@ const FeedItemIndex = React.createClass({
   getInitialState(){
     return ({
       feedData: FeedStore.getFeeds(this.currentFeedSourceIds()),
-      readItems: ReadItemStore.all()
+      readItems: ReadItemStore.all(),
+      activeFeedItem: 0
     });
   },
 
@@ -21,13 +22,6 @@ const FeedItemIndex = React.createClass({
     this.folderStoreListener = FolderStore.addListener(this._storeChange);
     this.readItemStoreListener = ReadItemStore.addListener(this._readItemStoreChange);
     this.initialFeedItemFetch = false;
-  },
-
-  refreshFeedSources() {
-    const currentFeedSourceIds = this.currentFeedSourceIds();
-    if (currentFeedSourceIds && currentFeedSourceIds.length > 0) {
-      FeedActions.refreshFeedSources(this.currentFeedSourceIds());
-    }
   },
 
   componentWillUnmount() {
@@ -63,6 +57,13 @@ const FeedItemIndex = React.createClass({
     });
   },
 
+  refreshFeedSources() {
+    const currentFeedSourceIds = this.currentFeedSourceIds();
+    if (currentFeedSourceIds && currentFeedSourceIds.length > 0) {
+      FeedActions.refreshFeedSources(this.currentFeedSourceIds());
+    }
+  },
+
   viewFeedItem(itemId) {
     // document.getElementById(`item-${itemId}`).scrollIntoView(true);
 
@@ -78,6 +79,11 @@ const FeedItemIndex = React.createClass({
     console.log(targetTop);
         
     ReadItemActions.create(itemId);
+  },
+
+  setActiveFeedItem(feedItemId) {
+    console.log('FeedItemIndex#setActiveFeedItem with ' + feedItemId);
+    this.setState({ activeFeedItem: feedItemId });
   },
 
   currentFeedSourceIds() {
@@ -179,10 +185,11 @@ const FeedItemIndex = React.createClass({
     const feedItems = [];
     this.currentFeedItemObjects().forEach((feedItem) => {
       const read = this.state.readItems[feedItem.id] ? " read" : "";
+      const active = this.state.activeFeedItem === feedItem.id ? " active" : "";
       const author = feedItem.author ? <span className="author">{feedItem.author},&nbsp;</span> : "";
       const authorText = feedItem.author ? feedItem.author + ", " : "";
       feedItems.push(
-        <li key={feedItem.id} className={"feed-item" + read}>
+        <li key={feedItem.id} className={"feed-item" + read + active}>
             <a href="#" onClick={ (e) => {e.preventDefault(); this.viewFeedItem(feedItem.id);} }>
               <div className="feed-item-title">{feedItem.title}</div>
               <div className="feed-item-meta" title={authorText + feedItem.pubDateAgo + " ago"}>{author}{feedItem.pubDateAgo}&nbsp;ago</div>
@@ -206,7 +213,7 @@ const FeedItemIndex = React.createClass({
             {this.currentFeedItems()}
           </ul>
         </section>
-        <FeedItemDetails feedSourceIds={this.currentFeedSourceIds()} feedSourceTitle={this.currentFeedTitle()}/>
+        <FeedItemDetails setActiveFeedItem={this.setActiveFeedItem} feedSourceIds={this.currentFeedSourceIds()} feedSourceTitle={this.currentFeedTitle()}/>
       </span>
     );
   }
