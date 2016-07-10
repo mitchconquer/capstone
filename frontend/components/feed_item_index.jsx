@@ -67,16 +67,14 @@ const FeedItemIndex = React.createClass({
   viewFeedItem(itemId) {
     // document.getElementById(`item-${itemId}`).scrollIntoView(true);
 
-    const targetTop = document.getElementById(`item-${itemId}`).offsetTop;
-    // if () {
-    console.log(targetTop);
-    // document.getElementById('full-articles').scrollTop = targetTop;  
-      // console.log('hi')
+    this.setState({ activeFeedItem: itemId });
+
+    const detailsTargetTop = document.getElementById(`item-${itemId}`).offsetTop;
+    console.log(detailsTargetTop);
       $('#full-articles').animate({
-        scrollTop: targetTop
+        scrollTop: detailsTargetTop
       }, 500);
-    // }
-    console.log(targetTop);
+    console.log(detailsTargetTop);
         
     ReadItemActions.create(itemId);
   },
@@ -84,6 +82,11 @@ const FeedItemIndex = React.createClass({
   setActiveFeedItem(feedItemId) {
     console.log('FeedItemIndex#setActiveFeedItem with ' + feedItemId);
     this.setState({ activeFeedItem: feedItemId });
+    const indexTargetTop = document.getElementById(`feedindex-${feedItemId}`).offsetTop;
+    console.log(indexTargetTop);
+    $('#feed').animate({
+      scrollTop: indexTargetTop - 300
+    }, 500);
   },
 
   currentFeedSourceIds() {
@@ -189,7 +192,7 @@ const FeedItemIndex = React.createClass({
       const author = feedItem.author ? <span className="author">{feedItem.author},&nbsp;</span> : "";
       const authorText = feedItem.author ? feedItem.author + ", " : "";
       feedItems.push(
-        <li key={feedItem.id} className={"feed-item" + read + active}>
+        <li key={feedItem.id} className={"feed-item" + read + active} id={`feedindex-${feedItem.id}`}>
             <a href="#" onClick={ (e) => {e.preventDefault(); this.viewFeedItem(feedItem.id);} }>
               <div className="feed-item-title">{feedItem.title}</div>
               <div className="feed-item-meta" title={authorText + feedItem.pubDateAgo + " ago"}>{author}{feedItem.pubDateAgo}&nbsp;ago</div>
