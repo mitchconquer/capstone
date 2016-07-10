@@ -18,19 +18,39 @@ class FeedItem < ActiveRecord::Base
     through: :read_feed_records,
     source: :User
 
+  # TODO: only update if not the same
+  # TODO: delete expired items in one query
+
+  def ==(another_feed_item)
+    [ :identifier, :url, :description, :title ].all? do |param|
+      self.send(param) == another_feed_item.send(param)
+    end
+  end
+
+  def same_params?(params)
+    [ :identifier, :url, :description, :title ].all? do |param|
+      self.send(param) == params[param]
+    end
+  end
+
   def self.reset_source_items!(feed_source_id, new_feed_items)
-    # Delete items if they aren't in this list
-    current_feed_items = FeedItem.where(feed_source_id: feed_source_id)
+    
+    current_feed_items = {}
+    FeedItem.where(feed_source_id: feed_source_id).each do |item|
+      current_feed_items[item.identifier] = item
+    end
+
     current_item_ids = []
+
     new_feed_items.each do |feed_item|
       params = FeedItem.set_params(feed_item).merge({feed_source_id: feed_source_id})
       id = FeedItem.update_or_create(current_feed_items, params)
-      id.is_a?(Array) ? current_item_ids.concat(id) : current_item_ids.push(id)
+      current_item_ids.push(id)
     end
     
     # Only remove items that are more than 1.5 days old
-    old_feed_items = current_feed_items.where("created_at > ?", 1.5.days.ago)
-    FeedItem.remove_old_items(current_item_ids, old_feed_items.map(&:id))
+    old_feed_item_ids = current_feed_items.values.select { |item| item.created_at > 1.5.days.ago }.map(&:id)
+    FeedItem.remove_old_items(current_item_ids, old_feed_item_ids)
   end
 
   def self.get_identifier(feed_item)
@@ -71,10 +91,13 @@ class FeedItem < ActiveRecord::Base
   end
 
   def self.update_or_create(current_source_items, params)
-    if current_source_items.where(identifier: params[:identifier]).count > 0
-      # already exists, udpate
-      updated = current_source_items.where(identifier: params[:identifier]).each { |item| item.update(params) }
-      return updated.map(&:id)
+    if current_source_items[params[:identifier]]
+      # update unless params are same
+      to_update = current_source_items[params[:identifier]]
+
+      to_update.update(params) unless to_update.same_params?(params)
+
+      return to_update.id
     else
       # doesn't exist, create
       feed_item = FeedItem.create(params)
@@ -83,10 +106,7 @@ class FeedItem < ActiveRecord::Base
   end
 
   def self.remove_old_items(current_item_ids, old_item_ids)
-    old_item_ids.each do |id|
-      unless current_item_ids.include?(id)
-        FeedItem.destroy(id)
-      end
-    end
+    # TOOD: do this in 1 query
+    FeedItem.destroy((old_item_ids - current_item_ids))
   end
 end
