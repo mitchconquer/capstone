@@ -12,9 +12,19 @@ Aggregreater (like "feed aggregrator", but "greater") is a full-stack web applic
 
 ### Feed Sources
 
+RSS feeds (feed sources) can be added by users either from the button in the main menu or by exploring and added Aggregreater's recommended feed sources.
+
+
+
 ### Folders
 
+Feeds are organized by folders.  Folders can be freely created and deleted by users and feeds can be easily moved between them by clicking the 'edit' pencil icon that appears when users mouse-over the feed source name.
+
+Users can also view a version of all the feeds in a folder combined together in one feed stream by clicking the folder name.  This makes browsing by topic more convenient and is aided by the ability to filter.
+
 ### Feed Filtering
+
+Users can filter articles by using the feed filter in the upper left hand corner of Aggregreater.  With each keypress, the app instantly starts filtering the feed stream to only show articles in which the title or body contain the filter query.
 
 ### Saved Articles
 
