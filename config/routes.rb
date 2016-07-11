@@ -8,6 +8,9 @@ Rails.application.routes.draw do
     
     get '/feeds/recommended', to: 'feed_sources#recommended'
 
+    get '/feed_items/', to: 'feed_items#index'
+    get '/feeds/:feed_source_id/refresh', to: 'feed_items#refresh'
+
     resources :feed_sources, path: 'feeds', except: [ :new, :edit ]
 
     resources :folders, except: [ :edit, :new ]

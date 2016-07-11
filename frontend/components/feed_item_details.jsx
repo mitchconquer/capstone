@@ -2,35 +2,34 @@ const React = require('react'),
       FeedStore = require('../stores/feed_store'),
       SavedArticleStore = require('../stores/saved_article_store'),
       SavedArticleActions = require('../actions/saved_article_actions'),
+      FeedItemStore = require('../stores/feed_item_store'),
       FeedItemDetailsItem = require('./feed_item_details_item');
 
 const FeedItemDetails = React.createClass({
   getInitialState() {
       return {
-          feedItems: [],
+          feedItems: FeedItemStore.all(),
           savedArticles: [],
           filtering: false
       };
   },
 
   componentDidMount() {
-      this.feedStoreListener = FeedStore.addListener(this._feedStoreChange); 
+      this.feedItemStoreListener = FeedStore.addListener(this._feedItemStoreChange); 
       SavedArticleActions.fetchAll();
       this.savedArticleStoreListener = SavedArticleStore.addListener(this._savedArticleStoreChange); 
   },
 
   componentWillUnmount() {
-      this.feedStoreListener.remove();  
+      this.feedItemStoreListener.remove();  
       this.savedArticleStoreListener.remove();  
   },
 
-  _feedStoreChange() {
-    if (this.props.feedSourceIds) {
-      this.setState({
-        feedItems: FeedStore.getFeedItems(this.props.feedSourceIds),
-        filtering: FeedStore.filtering()
-      });
-    }
+  _feedItemStoreChange() {
+    this.setState({
+      feedItems: FeedItemStore.all(),
+      filtering: FeedStore.filtering()
+    });
   },
 
   _savedArticleStoreChange() {
@@ -71,9 +70,9 @@ const FeedItemDetails = React.createClass({
   },
 
   componentWillReceiveProps(nextProps) {
-      this.setState({
-        feedItems: FeedStore.getFeedItems(nextProps.feedSourceIds)
-      }) ;
+      // this.setState({
+      //   feedItems: FeedItemStore.all()
+      // }) ;
       if (nextProps.feedSourceTitle !== this.props.feedSourceTitle) {
         document.getElementById('full-articles').scrollTop = 0;
       }
@@ -84,10 +83,11 @@ const FeedItemDetails = React.createClass({
   },
 
   render() {
-    if (this.state.feedItems && this.state.feedItems.length > 0) {
+    if (this.state.feedItems.size > 0) {
 
-      const feedItems = this.state.feedItems.map(feedItem => {
-        return (
+      const feedItems = [];
+      this.state.feedItems.forEach(feedItem => {
+        feedItems.push(
           <FeedItemDetailsItem 
             setActiveFeedItem={this.props.setActiveFeedItem} 
             activeFeedItem={this.props.activeFeedItem} 

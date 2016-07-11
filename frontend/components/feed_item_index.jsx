@@ -4,7 +4,9 @@ const React = require('react'),
       FeedActions = require('../actions/feed_actions'),
       FolderStore = require('../stores/folder_store'),
       ReadItemStore = require('../stores/read_item_store'),
-      ReadItemActions = require('../actions/read_item_actions'),
+      ReadItemActions = require('../actions/read_item_actions'),      
+      FeedItemStore = require('../stores/feed_item_store'),
+      FeedItemActions = require('../actions/feed_item_actions'),
       Button = require('react-bootstrap').Button;
 
 const FeedItemIndex = React.createClass({
@@ -12,13 +14,15 @@ const FeedItemIndex = React.createClass({
     return ({
       feedData: FeedStore.getFeeds(this.currentFeedSourceIds()),
       readItems: ReadItemStore.all(),
-      activeFeedItem: 0
+      activeFeedItem: 0,
+      feedItems: FeedItemStore.all()
     });
   },
 
   componentDidMount() {
     this.refreshFeedSources();
     this.feedStoreListener = FeedStore.addListener(this._storeChange);
+    this.feedItemStoreListener = FeedStore.addListener(this._feedItemStoreChange);
     this.folderStoreListener = FolderStore.addListener(this._storeChange);
     this.readItemStoreListener = ReadItemStore.addListener(this._readItemStoreChange);
     this.initialFeedItemFetchFlag = false;
@@ -28,6 +32,7 @@ const FeedItemIndex = React.createClass({
 
   componentWillUnmount() {
     this.feedStoreListener.remove();
+    this.feedItemStoreListener.remove();
     this.readItemStoreListener.remove();
     this.folderStoreListener.remove();
     document.removeEventListener('DOMContentLoaded', this.initialFeedItemFetch);
@@ -37,7 +42,8 @@ const FeedItemIndex = React.createClass({
     this.setState({
       feedData: FeedStore.getFeeds(this.nextFeedSourceIds(nextProps))
     });
-    FeedActions.refreshFeedSources(this.nextFeedSourceIds(nextProps));
+    // FeedActions.refreshFeedSources(this.nextFeedSourceIds(nextProps));
+    FeedItemActions.refreshFeedSources(this.nextFeedSourceIds(nextProps));
     document.getElementById('feed').scrollTop = 0;
   },
 
@@ -54,6 +60,12 @@ const FeedItemIndex = React.createClass({
     });
   },
 
+  _feedItemStoreChange(){
+    this.setState({
+      feedItems: FeedItemStore.all()
+    });
+  },
+
   initialFeedItemFetch() {
     // If there are no feed items in the DB, the initial page will hang unless you force refresh feeds
     if (!this.initialFeedItemFetchFlag && FeedStore.getFeedItems(currentFeedSourceIds).length === 0) {
@@ -65,7 +77,7 @@ const FeedItemIndex = React.createClass({
   refreshFeedSources() {
     const currentFeedSourceIds = this.currentFeedSourceIds();
     if (currentFeedSourceIds && currentFeedSourceIds.length > 0) {
-      FeedActions.refreshFeedSources(this.currentFeedSourceIds());
+      FeedItemActions.refreshFeedSources(this.currentFeedSourceIds());
     }
   },
 
@@ -212,6 +224,27 @@ const FeedItemIndex = React.createClass({
     return feedItems;
   },
 
+  currentFeedItems_FeedItemStore() {
+    let feedItems = [];
+    if (this.state.feedItems.size > 0) {
+      this.state.feedItems.forEach(feedItem => {
+        const read = this.state.readItems[feedItem.id] ? " read" : "";
+        const active = this.state.activeFeedItem === feedItem.id ? " active" : "";
+        const author = feedItem.author ? <span className="author">{feedItem.author},&nbsp;</span> : "";
+        const authorText = feedItem.author ? feedItem.author + ", " : "";
+        feedItems.push(
+          <li key={feedItem.id} className={"feed-item" + read + active} id={`feedindex-${feedItem.id}`}>
+              <a href="#" onClick={ (e) => {e.preventDefault(); this.viewFeedItem(feedItem.id);} }>
+                <div className="feed-item-title">{feedItem.title}</div>
+                <div className="feed-item-meta" title={authorText + feedItem.pubDateAgo + " ago"}>{author}{feedItem.pubDateAgo}&nbsp;ago</div>
+              </a>
+          </li>
+        );
+      });
+    }
+    return feedItems;
+  },
+
   render() {
     return (
       <span>
@@ -222,7 +255,7 @@ const FeedItemIndex = React.createClass({
             <a className="btn btn-sm btn-success mark-unread" onClick={this.markAllUnread} >Mark All Unread</a>
           </header>
           <ul className="list-unstyled">
-            {this.currentFeedItems()}
+            {this.currentFeedItems_FeedItemStore()}
           </ul>
         </section>
         <FeedItemDetails setActiveFeedItem={this.setActiveFeedItem} activeFeedItem={this.state.activeFeedItem} feedSourceIds={this.currentFeedSourceIds()} feedSourceTitle={this.currentFeedTitle()}/>

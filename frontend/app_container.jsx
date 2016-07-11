@@ -17,6 +17,7 @@ const SavedArticleStore = require('./stores/saved_article_store');
 const SavedArticleActions = require('./actions/saved_article_actions');
 const SavedArticleIndex = require('./components/saved_article_index');
 const ReadItemStore = require('./stores/read_item_store');
+const FeedItemStore = require('./stores/feed_item_store');
 
 const AppContainer = React.createClass({
   render() {
@@ -65,3 +66,4 @@ window.ReactDOM = ReactDOM;
 window.SavedArticleStore = SavedArticleStore;
 window.SavedArticleActions = SavedArticleActions;
 window.ReadItemStore = ReadItemStore;
+window.FeedItemStore = FeedItemStore;
