@@ -22,12 +22,12 @@ const FeedItemIndex = React.createClass({
   componentDidMount() {
     this.refreshFeedSources();
     this.feedStoreListener = FeedStore.addListener(this._storeChange);
-    this.feedItemStoreListener = FeedStore.addListener(this._feedItemStoreChange);
+    this.feedItemStoreListener = FeedItemStore.addListener(this._feedItemStoreChange);
     this.folderStoreListener = FolderStore.addListener(this._storeChange);
     this.readItemStoreListener = ReadItemStore.addListener(this._readItemStoreChange);
     this.initialFeedItemFetchFlag = false;
     this.targeting = undefined; // A flag to prevent the div from scrolling around if the user clicked a link
-    document.addEventListener('DOMContentLoaded', this.initialFeedItemFetch);
+    this.initialFeedItemFetch();
   },
 
   componentWillUnmount() {
@@ -35,7 +35,7 @@ const FeedItemIndex = React.createClass({
     this.feedItemStoreListener.remove();
     this.readItemStoreListener.remove();
     this.folderStoreListener.remove();
-    document.removeEventListener('DOMContentLoaded', this.initialFeedItemFetch);
+    // document.removeEventListener('DOMContentLoaded', this.initialFeedItemFetch);
   },
 
   componentWillReceiveProps(nextProps) {
@@ -67,17 +67,22 @@ const FeedItemIndex = React.createClass({
   },
 
   initialFeedItemFetch() {
+    console.log('called initialFeedItemFetch');
     // If there are no feed items in the DB, the initial page will hang unless you force refresh feeds
-    if (!this.initialFeedItemFetchFlag && FeedStore.getFeedItems(currentFeedSourceIds).length === 0) {
+    if (!this.initialFeedItemFetchFlag && FeedItemStore.all().size < 1) {
+      if (this.currentFeedSourceIds().length < 1) {
+        window.setTimeout(this.initialFeedItemFetch, 100);
+        return;
+      }
       this.initialFeedItemFetchFlag = true;
-      this.refreshFeedSources(currentFeedSourceIds);
+      this.refreshFeedSources();
     }
   },
 
   refreshFeedSources() {
     const currentFeedSourceIds = this.currentFeedSourceIds();
     if (currentFeedSourceIds && currentFeedSourceIds.length > 0) {
-      FeedItemActions.refreshFeedSources(this.currentFeedSourceIds());
+      FeedItemActions.refreshFeedSources(currentFeedSourceIds);
     }
   },
 
