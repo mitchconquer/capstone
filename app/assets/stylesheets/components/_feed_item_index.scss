@@ -38,6 +38,7 @@
 
 .feed-item.active a {
   background-color: $brand-warning;
+  transition: background-color .2s;
   div {
     color: black;
   }

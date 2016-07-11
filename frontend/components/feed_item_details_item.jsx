@@ -37,20 +37,32 @@ const FeedItemDetailsItem = React.createClass({
     // Scrolling Up
     if (this.prevOffsetTop < scrollTop) {
       // When item scrolls into 'currently reading' position
-      if (this.state.read !== true && this.parentDiv.scrollTop  > this.element.offsetTop - 150) {
-        this.setState({ read: true });
-        this.props.setActiveFeedItem(this.props.feedItem.id);
-        ReadItemActions.create(this.props.feedItem.id);
-      }
-    }
+      const screenTop = this.parentDiv.scrollTop;
+      const elementTop = this.element.offsetTop;
+      if (screenTop > elementTop - 150 && screenTop < elementTop) {
 
-    // Scrolling Down
-    if (this.prevOffsetTop > scrollTop) {
-      // When item scrolls into 'currently reading' position
-      if (this.props.activeFeedItem != this.props.feedItem.id && 
-          this.element.offsetTop + this.element.offsetHeight < scrollTop - 100 && 
-          this.element.offsetTop + this.element.offsetHeight > scrollTop - 150 ) {
         this.props.setActiveFeedItem(this.props.feedItem.id);
+
+        if (this.state.read !== true ) {
+          this.setState({ read: true });
+          ReadItemActions.create(this.props.feedItem.id);
+        }
+      }
+    // Scrolling Down
+    } else if (this.prevOffsetTop > scrollTop) {
+      // When item scrolls into 'currently reading' position
+      const elementBottom = this.element.offsetTop + this.element.offsetHeight;
+      const screenBottom = scrollTop + window.outerHeight;
+      if (elementBottom < screenBottom - 200 && elementBottom > screenBottom - 250 ) {
+
+        // if (this.props.activeFeedItem && this.props.activeFeedItem === this.props.feedItem.id) {
+        //   this.props.setActiveFeedItem(this.props.feedItem.id);
+        // } else if (!this.props.activeFeedItem) {
+        //   this.props.setActiveFeedItem(this.props.feedItem.id);
+        // }
+        
+        this.props.setActiveFeedItem(this.props.feedItem.id);
+
       }
     }
 
