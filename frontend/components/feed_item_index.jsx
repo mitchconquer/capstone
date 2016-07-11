@@ -21,14 +21,16 @@ const FeedItemIndex = React.createClass({
     this.feedStoreListener = FeedStore.addListener(this._storeChange);
     this.folderStoreListener = FolderStore.addListener(this._storeChange);
     this.readItemStoreListener = ReadItemStore.addListener(this._readItemStoreChange);
-    this.initialFeedItemFetch = false;
+    this.initialFeedItemFetchFlag = false;
     this.targeting = undefined; // A flag to prevent the div from scrolling around if the user clicked a link
+    document.addEventListener('DOMContentLoaded', this.initialFeedItemFetch);
   },
 
   componentWillUnmount() {
     this.feedStoreListener.remove();
     this.readItemStoreListener.remove();
     this.folderStoreListener.remove();
+    document.removeEventListener('DOMContentLoaded', this.initialFeedItemFetch);
   },
 
   componentWillReceiveProps(nextProps) {
@@ -44,18 +46,20 @@ const FeedItemIndex = React.createClass({
     this.setState({
       feedData: FeedStore.getFeeds(currentFeedSourceIds)
     });
-
-    // If there are no feed items in the DB, the initial page will hang unless you force refresh feeds
-    if (!this.initialFeedItemFetch && FeedStore.getFeedItems(currentFeedSourceIds).length === 0) {
-      this.initialFeedItemFetch = true;
-      this.refreshFeedSources(currentFeedSourceIds);
-    }
   },
 
   _readItemStoreChange(){
     this.setState({
       readItems: ReadItemStore.all()
     });
+  },
+
+  initialFeedItemFetch() {
+    // If there are no feed items in the DB, the initial page will hang unless you force refresh feeds
+    if (!this.initialFeedItemFetchFlag && FeedStore.getFeedItems(currentFeedSourceIds).length === 0) {
+      this.initialFeedItemFetchFlag = true;
+      this.refreshFeedSources(currentFeedSourceIds);
+    }
   },
 
   refreshFeedSources() {
