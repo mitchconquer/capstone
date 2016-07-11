@@ -6,6 +6,8 @@
 
 Aggregreater (like "feed aggregrator", but "greater") is a full-stack web application inspired by NewsBlur.  It is served by a Ruby on Rails API backend with PostgreSQL database and a React.js/Flux frontend.
 
+![aggregreater main screen](https://s3-us-west-1.amazonaws.com/aggregreater/screenshots/Screen+Shot+2016-07-11+at+09.06.32.png)
+
 ## Features & Implementation
 
 ### Single-Page App
