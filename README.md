@@ -10,11 +10,11 @@ Aggregreater (like "feed aggregrator", but "greater") is a full-stack web applic
 
 ### Single-Page App
 
+Aggregreater is single page app.  Authentication is handled both by React and Ruby on Rails to ensure users can see their content and that it is kept private.
+
 ### Feed Sources
 
 RSS feeds (feed sources) can be added by users either from the button in the main menu or by exploring and added Aggregreater's recommended feed sources.
-
-
 
 ### Folders
 
@@ -27,6 +27,10 @@ Users can also view a version of all the feeds in a folder combined together in 
 Users can filter articles by using the feed filter in the upper left hand corner of Aggregreater.  With each keypress, the app instantly starts filtering the feed stream to only show articles in which the title or body contain the filter query.
 
 ### Saved Articles
+
+Users can save articles for future reference by clicking the 'save' pin icon that appears under the title of each article.  Saving the article will persist it in the database until the users unsaves it by clicking the 'save' pin again.
+
+Aggregreater routinely deletes old articles that are no longer referenced by a feed source, however if a user left their screen hopened and saved the article even after the original feed item has been removed from the database, they will still be able to save the article as long as it's visible on their screen.
 
 ## Features to add
 
