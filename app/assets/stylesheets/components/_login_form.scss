@@ -1,7 +1,6 @@
 section.login-signup-container {
   background: linear-gradient(175deg, #9d5c9f 0%, #5156ac 100%);
   height: 100%;
-  margin-top: -25px;
   text-align: center;
   text-align: center;
   display: flex;
@@ -37,6 +36,9 @@ h1.site-title {
   }
   .btn {
     border: none;
+    &.form-control:hover, &.form-control:active, &.form-control:focus {
+      box-shadow: none;
+    }
   }
 
   .btn-success {
