@@ -87,7 +87,14 @@ const FeedItemDetails = React.createClass({
     if (this.state.feedItems && this.state.feedItems.length > 0) {
 
       const feedItems = this.state.feedItems.map(feedItem => {
-        return <FeedItemDetailsItem setActiveFeedItem={this.props.setActiveFeedItem} activeFeedItem={this.props.activeFeedItem} key={feedItem.id} feedItem={feedItem} />
+        return (
+          <FeedItemDetailsItem 
+            setActiveFeedItem={this.props.setActiveFeedItem} 
+            activeFeedItem={this.props.activeFeedItem} 
+            key={feedItem.id} 
+            feedItem={feedItem}
+          />
+        );
       });
       
       return (

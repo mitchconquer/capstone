@@ -55,12 +55,6 @@ const FeedItemDetailsItem = React.createClass({
       const screenBottom = scrollTop + window.outerHeight;
       if (elementBottom < screenBottom - 200 && elementBottom > screenBottom - 250 ) {
 
-        // if (this.props.activeFeedItem && this.props.activeFeedItem === this.props.feedItem.id) {
-        //   this.props.setActiveFeedItem(this.props.feedItem.id);
-        // } else if (!this.props.activeFeedItem) {
-        //   this.props.setActiveFeedItem(this.props.feedItem.id);
-        // }
-        
         this.props.setActiveFeedItem(this.props.feedItem.id);
 
       }
@@ -69,19 +63,17 @@ const FeedItemDetailsItem = React.createClass({
     this.prevOffsetTop = scrollTop;
   },
 
-  // TODO: check that save is still working
   toggleSave(feedItemId) {
-    if (this.state.savedArticles.includes(this.props.feedItem.id)) {
+   const feedItem = this.props.feedItem;
+
+    if (this.state.savedArticles.includes(feedItem.id)) {
       // unsave
-      this.findIndex(feedItemId);
-      SavedArticleActions.deleteByOriginalId(feedItemId)
+      SavedArticleActions.deleteByOriginalId(feedItem.id)
     } else {
       // save
-      const index = this.findIndex(feedItemId);
-      const feedItem = this.state.feedItems[index];
       
       SavedArticleActions.create({
-        feed_source_title: this.props.feedSourceTitle,
+        feed_source_title: feedItem.sourceTitle,
         original_id: feedItem.id,
         title: feedItem.title,
         url: feedItem.link,

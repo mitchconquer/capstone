@@ -59,7 +59,7 @@ const LoginForm = React.createClass({
 
   errorChange() {
     const errors = ErrorStore.formErrors('LoginForm');
-    this.setState({ errors: errors, loggingIn: false }, () => {console.log(this.state.loggingIn)});
+    this.setState({ errors: errors, loggingIn: false });
   },
 
   redirectIfLoggedIn() {
