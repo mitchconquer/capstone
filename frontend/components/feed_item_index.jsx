@@ -1,7 +1,5 @@
 const React = require('react'),
       FeedItemDetails = require('./feed_item_details'),
-      FeedStore = require('../stores/feed_store'),
-      FeedActions = require('../actions/feed_actions'),
       FolderStore = require('../stores/folder_store'),
       ReadItemStore = require('../stores/read_item_store'),
       ReadItemActions = require('../actions/read_item_actions'),      
@@ -12,7 +10,6 @@ const React = require('react'),
 const FeedItemIndex = React.createClass({
   getInitialState(){
     return ({
-      feedData: FeedStore.getFeeds(this.currentFeedSourceIds()),
       readItems: ReadItemStore.all(),
       activeFeedItem: 0,
       feedItems: FeedItemStore.all()
@@ -21,37 +18,29 @@ const FeedItemIndex = React.createClass({
 
   componentDidMount() {
     this.refreshFeedSources();
-    this.feedStoreListener = FeedStore.addListener(this._storeChange);
     this.feedItemStoreListener = FeedItemStore.addListener(this._feedItemStoreChange);
-    this.folderStoreListener = FolderStore.addListener(this._storeChange);
+    this.folderStoreListener = FolderStore.addListener(this._folderStoreChange);
     this.readItemStoreListener = ReadItemStore.addListener(this._readItemStoreChange);
     this.initialFeedItemFetchFlag = false;
     this.targeting = undefined; // A flag to prevent the div from scrolling around if the user clicked a link
     this.initialFeedItemFetch();
+    this.scrollQueue = [];
   },
 
   componentWillUnmount() {
-    this.feedStoreListener.remove();
     this.feedItemStoreListener.remove();
     this.readItemStoreListener.remove();
     this.folderStoreListener.remove();
-    // document.removeEventListener('DOMContentLoaded', this.initialFeedItemFetch);
   },
 
   componentWillReceiveProps(nextProps) {
-    this.setState({
-      feedData: FeedStore.getFeeds(this.nextFeedSourceIds(nextProps))
-    });
-    // FeedActions.refreshFeedSources(this.nextFeedSourceIds(nextProps));
     FeedItemActions.refreshFeedSources(this.nextFeedSourceIds(nextProps));
     document.getElementById('feed').scrollTop = 0;
   },
 
-  _storeChange(){
+  _folderStoreChange(){
     const currentFeedSourceIds = this.currentFeedSourceIds();
-    this.setState({
-      feedData: FeedStore.getFeeds(currentFeedSourceIds)
-    });
+    FeedItemActions.refreshFeedSources(currentFeedSourceIds);
   },
 
   _readItemStoreChange(){
@@ -67,7 +56,6 @@ const FeedItemIndex = React.createClass({
   },
 
   initialFeedItemFetch() {
-    console.log('called initialFeedItemFetch');
     // If there are no feed items in the DB, the initial page will hang unless you force refresh feeds
     if (!this.initialFeedItemFetchFlag && FeedItemStore.all().size < 1) {
       if (this.currentFeedSourceIds().length < 1) {
@@ -87,7 +75,6 @@ const FeedItemIndex = React.createClass({
   },
 
   viewFeedItem(itemId) {
-    // document.getElementById(`item-${itemId}`).scrollIntoView(true);
 
     this.setState({ activeFeedItem: itemId });
     this.targeting = itemId;
@@ -101,18 +88,35 @@ const FeedItemIndex = React.createClass({
   },
 
   setActiveFeedItem(feedItemId) {
+    // If we were skipping to a particular item in the Feed Details
+    // and arrived at that item, turn off "targeting" mode
     if (this.targeting && this.targeting === feedItemId) {
       this.targeting = undefined;
     }
 
-    if (!this.targeting) {
-      this.setState({ activeFeedItem: feedItemId });
-      const indexTargetTop = document.getElementById(`feedindex-${feedItemId}`).offsetTop;
-      $('#feed').animate({
-        scrollTop: indexTargetTop - 300
-      }, 200); 
+    // If we aren't currently targeting a particular item,
+    // update the active feed item if it has changed
+    if (!this.targeting && feedItemId != this.state.feedItemId) {
+      this.scrollQueue.push(feedItemId);
+      this.setState({ activeFeedItem: feedItemId }, 
+        () => {window.setTimeout(this.scrollToNewActiveItem, 500)}
+      );   
+    }
+    // console.log('animating FeedItemIndex#setActiveFeedItem');
+  },
+
+  scrollToNewActiveItem() {
+    if (this.scrollQueue.length < 1) {
+      return;
     }
 
+    const indexTargetTop = document.getElementById(`feedindex-${this.scrollQueue.slice(-1)}`).offsetTop;
+    const skipping = this.scrollQueue.length - 1
+    console.log('Skipping ' + skipping);
+    this.scrollQueue = [];
+    $('#feed').animate({
+      scrollTop: indexTargetTop - 200
+    }, (skipping > 3 ? 500 : 150 * skipping) ); 
   },
 
   currentFeedSourceIds() {
@@ -167,69 +171,20 @@ const FeedItemIndex = React.createClass({
   },
 
   currentFeedItemIds() {
-    const feedItems = [];
-    if (Object.keys(this.state.feedData).length > 0) {
-      Object.keys(this.state.feedData).forEach((feedSourceId) => {
-        const sourceId = parseInt(feedSourceId);
-        if ((this.state.feedData[sourceId]) && (this.state.feedData[sourceId].feedItems) && (Object.keys(this.state.feedData[sourceId].feedItems).length > 0)) {
-          Object.keys(this.state.feedData[sourceId].feedItems).forEach((feedItemId) => {
-            feedItems.push(parseInt(feedItemId));
-          });
-        }
-      });
+    if (this.state.feedItems.size > 0) {
+      return this.state.feedItems.keys();
     }
-    return feedItems;
+    return []
   },
 
   currentFeedItemObjects() {
-    const feedItems = [];
-    if (Object.keys(this.state.feedData).length > 0) {
-      Object.keys(this.state.feedData).forEach((feedSourceId) => {
-        const sourceId = parseInt(feedSourceId);
-        if ((this.state.feedData[sourceId]) && (this.state.feedData[sourceId].feedItems) && (Object.keys(this.state.feedData[sourceId].feedItems).length > 0)) {
-          Object.keys(this.state.feedData[sourceId].feedItems).forEach((feedItemId) => {
-            feedItems.push(this.state.feedData[sourceId].feedItems[parseInt(feedItemId)]);
-          });
-        }
-      });
+    if (this.state.feedItems.size > 0) {
+      return this.state.feedItems.values();
     }
-    const sortedFeedItems = feedItems.sort(this.sortFeedItems);
-    return sortedFeedItems;
+    return []
   },
 
-  sortFeedItems(item1, item2) {
-    const a = Date.parse(item1.pubDate);
-    const b = Date.parse(item2.pubDate);
-
-    if (a > b) {
-      return -1;
-    }
-    if (b > a) {
-      return 1;
-    }
-    return 0;
-  },
-
-  currentFeedItems() {
-    const feedItems = [];
-    this.currentFeedItemObjects().forEach((feedItem) => {
-      const read = this.state.readItems[feedItem.id] ? " read" : "";
-      const active = this.state.activeFeedItem === feedItem.id ? " active" : "";
-      const author = feedItem.author ? <span className="author">{feedItem.author},&nbsp;</span> : "";
-      const authorText = feedItem.author ? feedItem.author + ", " : "";
-      feedItems.push(
-        <li key={feedItem.id} className={"feed-item" + read + active} id={`feedindex-${feedItem.id}`}>
-            <a href="#" onClick={ (e) => {e.preventDefault(); this.viewFeedItem(feedItem.id);} }>
-              <div className="feed-item-title">{feedItem.title}</div>
-              <div className="feed-item-meta" title={authorText + feedItem.pubDateAgo + " ago"}>{author}{feedItem.pubDateAgo}&nbsp;ago</div>
-            </a>
-        </li>
-      );
-    });
-    return feedItems;
-  },
-
-  currentFeedItems_FeedItemStore() {
+  feedItemHtml() {
     let feedItems = [];
     if (this.state.feedItems.size > 0) {
       this.state.feedItems.forEach(feedItem => {
@@ -260,7 +215,7 @@ const FeedItemIndex = React.createClass({
             <a className="btn btn-sm btn-success mark-unread" onClick={this.markAllUnread} >Mark All Unread</a>
           </header>
           <ul className="list-unstyled">
-            {this.currentFeedItems_FeedItemStore()}
+            {this.feedItemHtml()}
           </ul>
         </section>
         <FeedItemDetails setActiveFeedItem={this.setActiveFeedItem} activeFeedItem={this.state.activeFeedItem} feedSourceIds={this.currentFeedSourceIds()} feedSourceTitle={this.currentFeedTitle()}/>
