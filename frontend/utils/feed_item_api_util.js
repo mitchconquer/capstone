@@ -22,6 +22,17 @@ module.exports = {
       error: ErrorActions.setErrors
     });
   },
+  
+  loadNextPage(feedSourceIds, page, successCallback) {
+    $.ajax({
+      url: `api/feeds/next`,
+      method: 'GET',
+      dataType: 'json',
+      data: { feed_sources: feedSourceIds, page: page },
+      success: successCallback,
+      error: ErrorActions.setErrors
+    });
+  },
 
   delete(feedItemId, successCallback) {
     $.ajax({

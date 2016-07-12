@@ -39,7 +39,7 @@ const FeedItemDetailsItem = React.createClass({
       // When item scrolls into 'currently reading' position
       const screenTop = this.parentDiv.scrollTop;
       const elementTop = this.element.offsetTop;
-      if (screenTop > elementTop - 150 && screenTop < elementTop) {
+      if (screenTop > elementTop - 200 && screenTop < elementTop) {
 
         this.props.setActiveFeedItem(this.props.feedItem.id);
 
@@ -53,7 +53,7 @@ const FeedItemDetailsItem = React.createClass({
       // When item scrolls into 'currently reading' position
       const elementBottom = this.element.offsetTop + this.element.offsetHeight;
       const screenBottom = scrollTop + window.outerHeight;
-      if (elementBottom < screenBottom - 200 && elementBottom > screenBottom - 250 ) {
+      if (elementBottom < screenBottom - 100 && elementBottom > screenBottom - 250 ) {
 
         this.props.setActiveFeedItem(this.props.feedItem.id);
 

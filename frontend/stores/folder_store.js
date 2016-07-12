@@ -34,6 +34,22 @@ FolderStore.find = function(folderId) {
   return Object.assign({}, _folders[folderId]);
 };
 
+FolderStore.titleByFeedSourceId = function(feedSourceId) {
+  let title = "";
+  if (Object.keys(_folders)) {
+    Object.keys(_folders).forEach(folderId => {
+      if (_folders[folderId] && _folders[folderId].length > 0) {
+        _folders[folderId].forEach(feedSource => {
+          if (feedSource.id === feedSourceId) {
+            title = feedSource.title;
+          }
+        });
+      }
+    });
+  }
+  return title;
+};
+
 FolderStore.feedSourceIdsByFolder = function(folderId) {
   // In case _folders is empty when called
   if (_folders[folderId]) {

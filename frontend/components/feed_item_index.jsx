@@ -1,4 +1,5 @@
 const React = require('react'),
+      ReactDOM = require('react-dom'),
       FeedItemDetails = require('./feed_item_details'),
       FolderStore = require('../stores/folder_store'),
       ReadItemStore = require('../stores/read_item_store'),
@@ -12,7 +13,9 @@ const FeedItemIndex = React.createClass({
     return ({
       readItems: ReadItemStore.all(),
       activeFeedItem: 0,
-      feedItems: FeedItemStore.all()
+      feedItems: FeedItemStore.all(),
+      loading: false,
+      page: 1
     });
   },
 
@@ -25,12 +28,14 @@ const FeedItemIndex = React.createClass({
     this.targeting = undefined; // A flag to prevent the div from scrolling around if the user clicked a link
     this.initialFeedItemFetch();
     this.scrollQueue = [];
+    this.handleScrollListener = document.getElementById('feed').addEventListener('scroll', this.handleScroll);
   },
 
   componentWillUnmount() {
     this.feedItemStoreListener.remove();
     this.readItemStoreListener.remove();
     this.folderStoreListener.remove();
+    this.handleScrollListener.remove();
   },
 
   componentWillReceiveProps(nextProps) {
@@ -51,7 +56,30 @@ const FeedItemIndex = React.createClass({
 
   _feedItemStoreChange(){
     this.setState({
-      feedItems: FeedItemStore.all()
+      feedItems: FeedItemStore.all(),
+      loading: false
+    });
+  },
+
+  handleScroll() {
+    const feeds = document.getElementById('feed');
+
+    if (feeds.scrollTop > (feeds.scrollHeight - feeds.offsetHeight - 10)) {
+      console.log('bottom!');
+      this.loadNextPage();
+    }
+  },
+
+  loadNextPage() {
+    if (this.state.loading) {
+      return;
+    }
+
+    FeedItemActions.loadNextPage(this.currentFeedSourceIds, (this.state.page + 1));
+
+    this.setState({
+      page: (this.state.page + 1),
+      loading: true
     });
   },
 
@@ -112,7 +140,6 @@ const FeedItemIndex = React.createClass({
 
     const indexTargetTop = document.getElementById(`feedindex-${this.scrollQueue.slice(-1)}`).offsetTop;
     const skipping = this.scrollQueue.length - 1
-    console.log('Skipping ' + skipping);
     this.scrollQueue = [];
     $('#feed').animate({
       scrollTop: indexTargetTop - 200
@@ -147,9 +174,7 @@ const FeedItemIndex = React.createClass({
     let title;
     if (this.props.params.feedId) {
       const feedId = parseInt(this.props.params.feedId);
-      if (this.state.feedData[feedId]) {
-        title = this.state.feedData[feedId].title;
-      }
+      title = FolderStore.titleByFeedSourceId(feedId);
     } else if (this.props.params.folderId) {
       title = FolderStore.find(this.props.params.folderId).name;
       if (typeof title === "string") {
@@ -206,6 +231,8 @@ const FeedItemIndex = React.createClass({
   },
 
   render() {
+    const loading = this.state.loading ? <li><div className="loading-more-text">Loading More Items&nbsp;<div className="spinner"><div className="double-bounce1"></div> <div className="double-bounce2"></div> </div></div></li> : "";
+
     return (
       <span>
         <section className="col-sm-4 app-column feed" id="feed">
@@ -216,9 +243,10 @@ const FeedItemIndex = React.createClass({
           </header>
           <ul className="list-unstyled">
             {this.feedItemHtml()}
+            {loading}
           </ul>
         </section>
-        <FeedItemDetails setActiveFeedItem={this.setActiveFeedItem} activeFeedItem={this.state.activeFeedItem} feedSourceIds={this.currentFeedSourceIds()} feedSourceTitle={this.currentFeedTitle()}/>
+        <FeedItemDetails loadNextPage={this.loadNextPage} setActiveFeedItem={this.setActiveFeedItem} activeFeedItem={this.state.activeFeedItem} feedSourceIds={this.currentFeedSourceIds()} feedSourceTitle={this.currentFeedTitle()}/>
       </span>
     );
   }

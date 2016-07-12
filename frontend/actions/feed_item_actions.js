@@ -26,16 +26,25 @@ const FeedItemActions = {
   refreshFeedSources(feedSourceIds) {
     // Make a call for each one to the API with a success function
     feedSourceIds.forEach(id => {
-      console.log('refreshFeedSources called for ' + id);
       FeedItemApiUtil.refreshFeedSource(id, feedSourceIds, FeedItemActions.receiveFeedItems);
     });
   },
 
+  loadNextPage(feedSourceIds, page) {
+    // Make a call for each one to the API with a success function
+    FeedItemApiUtil.loadNextPage(feedSourceIds, page, FeedItemActions.addFeedItems);
+  },
+
   receiveFeedItems(response) {
-    // console.log('receiveFeedItems called with');
-    // console.log(response);
     AppDispatcher.dispatch({
       actionType: FeedItemConstants.RECEIVE_FEED_ITEMS,
+      feedItems: response.feedItems
+    });
+  },
+
+  addFeedItems(response) {
+    AppDispatcher.dispatch({
+      actionType: FeedItemConstants.ADD_FEED_ITEMS,
       feedItems: response.feedItems
     });
   },

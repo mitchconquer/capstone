@@ -10,6 +10,8 @@ Rails.application.routes.draw do
 
     get '/feed_items/', to: 'feed_items#index'
     get '/feeds/:feed_source_id/refresh', to: 'feed_items#refresh'
+    get '/feeds/next', to: 'feed_items#next_page'
+
 
     resources :feed_sources, path: 'feeds', except: [ :new, :edit ]
 
