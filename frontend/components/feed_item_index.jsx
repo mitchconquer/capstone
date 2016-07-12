@@ -243,10 +243,11 @@ const FeedItemIndex = React.createClass({
   },
 
   render() {
-    const loading = this.state.loading ? <li><div className="loading-more-text">Loading More Items&nbsp;<div className="spinner"><div className="double-bounce1"></div> <div className="double-bounce2"></div> </div></div></li> : "";
+    const loading = this.state.loading ? "loading" : "not-loading";
 
     return (
       <span>
+        <div id="loading-notice" className={loading}><div className="loading-more-text">Loading More Items&nbsp;<div className="spinner"><div className="double-bounce1"></div> <div className="double-bounce2"></div> </div></div></div> 
         <section className="col-sm-4 app-column feed" id="feed">
           <header className="">
             <h3 className="color-bg-heading">{this.currentFeedTitle()}</h3>
@@ -255,7 +256,6 @@ const FeedItemIndex = React.createClass({
           </header>
           <ul className="list-unstyled">
             {this.feedItemHtml()}
-            {loading}
           </ul>
         </section>
         <FeedItemDetails loadNextPage={this.loadNextPage} setActiveFeedItem={this.setActiveFeedItem} activeFeedItem={this.state.activeFeedItem} feedSourceIds={this.currentFeedSourceIds()} feedSourceTitle={this.currentFeedTitle()}/>
