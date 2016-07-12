@@ -15,6 +15,7 @@ const FeedItemIndex = React.createClass({
       activeFeedItem: 0,
       feedItems: FeedItemStore.all(),
       loading: false,
+      loader: false,
       page: 0
     });
   },
@@ -91,8 +92,11 @@ const FeedItemIndex = React.createClass({
     FeedItemActions.loadNextPage(this.currentFeedSourceIds, (this.state.page + 1));
 
     this.setState({
-      loading: true
+      loading: true,
+      loader: true
     });
+
+    window.setTimeout(() => {this.setState({loader: false}); }, 500);
   },
 
   initialFeedItemFetch() {
@@ -243,7 +247,7 @@ const FeedItemIndex = React.createClass({
   },
 
   render() {
-    const loading = this.state.loading ? "loading" : "not-loading";
+    const loading = this.state.loader ? "loading" : "not-loading";
 
     return (
       <span>
