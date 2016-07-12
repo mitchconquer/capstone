@@ -30,6 +30,7 @@ const FeedItemIndex = React.createClass({
     this.initialFeedItemFetch();
     this.scrollQueue = [];
     this.handleScrollListener = document.getElementById('feed').addEventListener('scroll', this.handleScroll);
+    this.prevScroll = 0;
   },
 
   componentWillUnmount() {
