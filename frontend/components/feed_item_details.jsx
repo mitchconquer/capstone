@@ -29,7 +29,7 @@ const FeedItemDetails = React.createClass({
     this.setState({
       feedItems: FeedItemStore.all(),
       filtering: FeedStore.filtering()
-    }, () => {console.log('feeddetails feed items' + (this.state.feeditems ? this.state.feeditems.size : 0));});
+    });
 
   },
 

@@ -17,8 +17,6 @@ function reset(feedItems) {
 
 // Rails API passes back array of FeedItems
 function add(feedItems) {
-  console.log('FeedItemStore#add');
-  console.log(feedItems);
   feedItems.forEach(feedItem => {
     _feedItems.set(feedItem.id, feedItem);
   });
