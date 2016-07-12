@@ -41,7 +41,7 @@ const FeedItemIndex = React.createClass({
   componentWillReceiveProps(nextProps) {
     FeedItemActions.refreshFeedSources(this.nextFeedSourceIds(nextProps));
     document.getElementById('feed').scrollTop = 0;
-    this.setState({ page: 1 });
+    // this.setState({ page:  });
   },
 
   _folderStoreChange(){
@@ -67,6 +67,10 @@ const FeedItemIndex = React.createClass({
         this.setState({
           page: this.state.page + 1
         })
+      } else if (this.state.feedItems.size < prevSize) {
+        this.setState({
+          page: 1
+        });
       }
     });
   },
