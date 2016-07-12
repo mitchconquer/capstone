@@ -14,6 +14,13 @@ const FeedItemActions = {
     FeedItemApiUtil.fetchAll(feedSourceIds, FeedItemActions.receiveFeedItems);
   },
 
+  filter(filterText) {
+    AppDispatcher.dispatch({
+      actionType: FeedItemConstants.FILTER_FEEDS,
+      filterText: filterText
+    });
+  },
+
   /* SERVER-INITIATED ACTIONS */
 
   receiveFeedItem(feedItem) {

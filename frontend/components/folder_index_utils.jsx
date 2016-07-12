@@ -2,7 +2,7 @@ import { Link, hashHistory } from 'react-router';
 const React = require('react'),
       ControlLabel = require('react-bootstrap/lib/ControlLabel'),
       FormControl = require('react-bootstrap/lib/FormControl'),
-      FeedActions = require('../actions/feed_actions');
+      FeedItemActions = require('../actions/feed_item_actions');
 
 const FolderIndexUtils = React.createClass({
   getInitialState() {
@@ -12,7 +12,7 @@ const FolderIndexUtils = React.createClass({
   },
 
   filterFeeds() {
-    FeedActions.filter(this.state.filterText);
+    FeedItemActions.filter(this.state.filterText);
   },
 
   clearSearch() {
