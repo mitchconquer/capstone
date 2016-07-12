@@ -7,29 +7,30 @@ const React = require('react'),
 
 const FeedItemDetails = React.createClass({
   getInitialState() {
-      return {
-          feedItems: FeedItemStore.all(),
-          savedArticles: [],
-          filtering: false
-      };
+    return {
+      feedItems: FeedItemStore.all(),
+      savedArticles: [],
+      filtering: false
+    };
   },
 
   componentDidMount() {
-      this.feedItemStoreListener = FeedStore.addListener(this._feedItemStoreChange); 
-      SavedArticleActions.fetchAll();
-      this.savedArticleStoreListener = SavedArticleStore.addListener(this._savedArticleStoreChange); 
+    this.feedItemStoreListener = FeedItemStore.addListener(this._feedItemStoreChange); 
+    SavedArticleActions.fetchAll();
+    this.savedArticleStoreListener = SavedArticleStore.addListener(this._savedArticleStoreChange); 
   },
 
   componentWillUnmount() {
-      this.feedItemStoreListener.remove();  
-      this.savedArticleStoreListener.remove();  
+    this.feedItemStoreListener.remove();  
+    this.savedArticleStoreListener.remove();  
   },
 
   _feedItemStoreChange() {
     this.setState({
       feedItems: FeedItemStore.all(),
       filtering: FeedStore.filtering()
-    });
+    }, () => {console.log('feeddetails feed items' + (this.state.feeditems ? this.state.feeditems.size : 0));});
+
   },
 
   _savedArticleStoreChange() {

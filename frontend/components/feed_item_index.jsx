@@ -15,7 +15,7 @@ const FeedItemIndex = React.createClass({
       activeFeedItem: 0,
       feedItems: FeedItemStore.all(),
       loading: false,
-      page: 1
+      page: 0
     });
   },
 
@@ -41,6 +41,7 @@ const FeedItemIndex = React.createClass({
   componentWillReceiveProps(nextProps) {
     FeedItemActions.refreshFeedSources(this.nextFeedSourceIds(nextProps));
     document.getElementById('feed').scrollTop = 0;
+    this.setState({ page: 1 });
   },
 
   _folderStoreChange(){
@@ -55,9 +56,18 @@ const FeedItemIndex = React.createClass({
   },
 
   _feedItemStoreChange(){
+    const prevSize = this.state.feedItems ? this.state.feedItems.size : 0;
     this.setState({
       feedItems: FeedItemStore.all(),
       loading: false
+    }, () => {
+      // Only increase the page number once confirmed that 
+      // recieved more results
+      if (this.state.feedItems.size > prevSize) {
+        this.setState({
+          page: this.state.page + 1
+        })
+      }
     });
   },
 
@@ -65,7 +75,6 @@ const FeedItemIndex = React.createClass({
     const feeds = document.getElementById('feed');
 
     if (feeds.scrollTop > (feeds.scrollHeight - feeds.offsetHeight - 10)) {
-      console.log('bottom!');
       this.loadNextPage();
     }
   },
@@ -78,7 +87,6 @@ const FeedItemIndex = React.createClass({
     FeedItemActions.loadNextPage(this.currentFeedSourceIds, (this.state.page + 1));
 
     this.setState({
-      page: (this.state.page + 1),
       loading: true
     });
   },
@@ -130,7 +138,6 @@ const FeedItemIndex = React.createClass({
         () => {window.setTimeout(this.scrollToNewActiveItem, 700)}
       );   
     }
-    // console.log('animating FeedItemIndex#setActiveFeedItem');
   },
 
   scrollToNewActiveItem() {

@@ -39,11 +39,14 @@ function remove(feedItemId) {
 const FeedItemStore = new Store(AppDispatcher);
 
 FeedItemStore.all = function() {
-  return _feedItems;
+  let result = new Map();
+  _feedItems.forEach(item => {
+    result.set(item.id, item);
+  });
+  return result;
 };
 
 FeedItemStore.__onDispatch = function(payload) {
-  console.log(payload.actionType);
   switch (payload.actionType) {
   case FeedItemConstants.RECEIVE_FEED_ITEMS:
     reset(payload.feedItems);
