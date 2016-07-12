@@ -37,7 +37,6 @@ const FeedItemIndex = React.createClass({
     this.feedItemStoreListener.remove();
     this.readItemStoreListener.remove();
     this.folderStoreListener.remove();
-    this.handleScrollListener.remove();
   },
 
   componentWillReceiveProps(nextProps) {
