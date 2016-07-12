@@ -99,7 +99,7 @@ const FeedItemIndex = React.createClass({
     if (!this.targeting && feedItemId != this.state.feedItemId) {
       this.scrollQueue.push(feedItemId);
       this.setState({ activeFeedItem: feedItemId }, 
-        () => {window.setTimeout(this.scrollToNewActiveItem, 500)}
+        () => {window.setTimeout(this.scrollToNewActiveItem, 700)}
       );   
     }
     // console.log('animating FeedItemIndex#setActiveFeedItem');
