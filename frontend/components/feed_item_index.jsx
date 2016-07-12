@@ -207,10 +207,11 @@ const FeedItemIndex = React.createClass({
   },
 
   currentFeedItemIds() {
+    const results = [];
     if (this.state.feedItems.size > 0) {
-      return this.state.feedItems.keys();
+      this.state.feedItems.forEach(item => {results.push(item.id)});
     }
-    return []
+    return results;
   },
 
   currentFeedItemObjects() {
