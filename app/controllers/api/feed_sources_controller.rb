@@ -5,8 +5,7 @@ class Api::FeedSourcesController < ApplicationController
   # 
   # #
   def index
-    @feed_sources = FeedSource.includes(:feed_items).find(current_user.feed_sources.map { |source| source.id })
-    @read_feed_items = @feed_sources.map{ |src| src.read_feed_items(current_user) }.flatten
+    @feed_sources = FeedSource.find(current_user.feed_sources.map { |source| source.id })
     render :index
   end
 
@@ -51,8 +50,7 @@ class Api::FeedSourcesController < ApplicationController
 
   def show
     FeedSource.find(params[:id]).refresh
-    @feed_source = FeedSource.includes(:feed_items).find(params[:id])
-    @read_feed_items = @feed_source.read_feed_items(current_user)
+    @feed_source = FeedSource.find(params[:id])
 
     render :show
   end

@@ -1,5 +1,4 @@
 const React = require('react'),
-      FeedStore = require('../stores/feed_store'),
       SavedArticleStore = require('../stores/saved_article_store'),
       SavedArticleActions = require('../actions/saved_article_actions'),
       FeedItemStore = require('../stores/feed_item_store'),
@@ -28,7 +27,7 @@ const FeedItemDetails = React.createClass({
   _feedItemStoreChange() {
     this.setState({
       feedItems: FeedItemStore.all(),
-      filtering: FeedStore.filtering()
+      filtering: FeedItemStore.filtering()
     });
 
   },

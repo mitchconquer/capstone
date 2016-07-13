@@ -3,6 +3,7 @@ json.set! :feedItems do
     json.extract! feed_item, :id, :title, :description, :author, :enclosure, :identifier
     json.set! :link, feed_item.url
     json.set! :pubDate, feed_item.pub_date
+    json.set! :sourceTitle, @feed_source_titles[feed_item.feed_source_id]
 
     unless feed_item.pub_date.nil?
       json.set! :pubDateAgo, time_ago_in_words(feed_item.pub_date)

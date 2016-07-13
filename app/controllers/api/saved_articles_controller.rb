@@ -6,8 +6,8 @@ class Api::SavedArticlesController < ApplicationController
   end
 
   def create
-    params = saved_article_params.merge({user_id: current_user.id})
-    @saved_article = SavedArticle.create!(params)
+    parameters = saved_article_params.merge({user_id: current_user.id})
+    @saved_article = SavedArticle.create!(parameters)
     render :show
   end
 

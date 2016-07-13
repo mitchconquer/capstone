@@ -1,5 +1,4 @@
 const React = require('react'),
-      FeedStore = require('../stores/feed_store'),
       SavedArticleStore = require('../stores/saved_article_store'),
       SavedArticleActions = require('../actions/saved_article_actions');
 

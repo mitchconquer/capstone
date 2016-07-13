@@ -96,7 +96,7 @@ const FeedItemIndex = React.createClass({
       loader: true
     });
 
-    window.setTimeout(() => {this.setState({loader: false}); }, 500);
+    window.setTimeout(() => {this.setState({loader: false}); }, 700);
   },
 
   initialFeedItemFetch() {
