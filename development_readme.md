@@ -40,7 +40,7 @@ Handy reference for RSS XML documents: [W3.org Feed Validator][w3_validator]
 - [X] Add recommended and own custom feed sources
   - [X] Select a FeedSource from recommended FeedSources
   - [X] Add own custom feed source
-- [ ] Search codebase for TODO's for more
+- [X] Search codebase for TODO's for more
 - [ ] Fix the bugs from Scott's review (notes in Gdox)
 - [X] BUG: Disable Demo Login button on first click so users can't doubleclick
 - [X] BUG: Some feed items still appearing out of order in feed feed item store

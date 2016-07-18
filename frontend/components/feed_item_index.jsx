@@ -6,7 +6,8 @@ const React = require('react'),
       ReadItemActions = require('../actions/read_item_actions'),      
       FeedItemStore = require('../stores/feed_item_store'),
       FeedItemActions = require('../actions/feed_item_actions'),
-      Button = require('react-bootstrap').Button;
+      Button = require('react-bootstrap').Button,
+      FlipMove = require('react-flip-move');
 
 const FeedItemIndex = React.createClass({
   getInitialState(){
@@ -269,7 +270,9 @@ const FeedItemIndex = React.createClass({
             <a className="btn btn-sm btn-success mark-unread" onClick={this.markAllUnread} >Mark All Unread</a>
           </header>
           <ul className="list-unstyled">
+          <FlipMove easing="cubic-bezier(0, 0.7, 0.8, 0.1)">
             {this.feedItemHtml()}
+          </FlipMove>
           </ul>
         </section>
         <FeedItemDetails loadNextPage={this.loadNextPage} setActiveFeedItem={this.setActiveFeedItem} activeFeedItem={this.state.activeFeedItem} feedSourceIds={this.currentFeedSourceIds()} feedSourceTitle={this.currentFeedTitle()}/>
