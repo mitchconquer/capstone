@@ -46,6 +46,10 @@ h1.site-title {
     MARGIN: 0 5px;
   }
 
+  .btn:disabled {
+    background-color: #4dcfd2;
+  }
+
   .btn-spinner-text {
     display: inline-block;
     padding-right: 15px;

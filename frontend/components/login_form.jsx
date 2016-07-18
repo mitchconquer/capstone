@@ -1,7 +1,7 @@
-const React = require('react');
-const SessionActions = require('../actions/session_actions');
-const SessionStore = require('../stores/session_store');
-const UserAccountLink = require('./user_account_link');
+const React = require('react'),
+      SessionActions = require('../actions/session_actions'),
+      SessionStore = require('../stores/session_store'),
+      UserAccountLink = require('./user_account_link');
 
 const LoginForm = React.createClass({
   contextTypes: {
@@ -31,6 +31,7 @@ const LoginForm = React.createClass({
   },
 
   demoLogin() {
+    // document.getElementById('demo-btn').disabled = true;
     this.setState({ username: "", password: "", loggingIn: true });
 
     const username = "demo";
@@ -93,6 +94,8 @@ const LoginForm = React.createClass({
       submitBtn = defaultSubmit;
     }
 
+    const disable = this.state.loggingIn ? true : false;
+
     return(
       <section className="login-signup-container">
         <div className="login-signup-form">
@@ -110,8 +113,7 @@ const LoginForm = React.createClass({
             <input type="password" onChange={this.passwordChange} value={this.state.password} id="password" className="form-control transparent login-form" />
             <br />
             {submitBtn}
-            <input type="button" onClick={this.demoLogin} value="Demo Login" className="form-control btn btn-success" />
-            
+            <input type="button" onClick={this.demoLogin} value="Demo Login" className="form-control btn btn-success" disabled={disable}/>
           </form>
         </div>
       </section>

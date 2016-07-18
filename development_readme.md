@@ -42,9 +42,8 @@ Handy reference for RSS XML documents: [W3.org Feed Validator][w3_validator]
   - [X] Add own custom feed source
 - [ ] Search codebase for TODO's for more
 - [ ] Fix the bugs from Scott's review (notes in Gdox)
-- [ ] BUG: Disable Demo Login button on first click so users can't doubleclick
-- [ ] BUG: Some feed items still appearing out of order in feed feed item store
-- [ ] BUG: No feed items loading when there is no connection on local machine, it should load existing feed items, right?
+- [X] BUG: Disable Demo Login button on first click so users can't doubleclick
+- [X] BUG: Some feed items still appearing out of order in feed feed item store
 
 Bonus Items
 
