@@ -4,6 +4,7 @@ class Api::FeedItemsController < ApplicationController
     @feed_source_titles = {}
     FeedSource.find(feed_sources).each { |source| @feed_source_titles[source.id] = source.title}
     @feed_items = FeedItem.where("feed_source_id IN (?)", feed_sources).order(pub_date: :desc).limit(20)
+    @feed_items = @feed_items.sort_by{ |item| item.pub_date.to_i }.reverse
   end
 
   # Refresh one feed source and return the updated feed items
