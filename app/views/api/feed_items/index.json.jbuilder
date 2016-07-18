@@ -6,7 +6,7 @@ json.set! :feedItems do
     json.set! :sourceTitle, @feed_source_titles[feed_item.feed_source_id]
 
     unless feed_item.pub_date.nil?
-      json.set! :pubDateAgo, time_ago_in_words(feed_item.pub_date)
+      json.set! :pubDateAgo, distance_of_time_in_words(feed_item.pub_date, Time.now.utc)
       json.set! :pubDateReadable, feed_item.pub_date.strftime("%B %d, %Y")
     else
       json.set! :pubDateType, feed_item.pub_date.class

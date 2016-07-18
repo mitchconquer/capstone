@@ -63,12 +63,13 @@ class FeedItem < ActiveRecord::Base
   end
 
   def self.set_params(feed_item)
-    optimizedDescription = FeedItem.custom_sanitize(FeedItem.chooseDescription(feed_item))
+    optimized_description = FeedItem.custom_sanitize(FeedItem.chooseDescription(feed_item))
+    optimized_pub_date = FeedItem.prevent_future_dating(feed_item)
     {
       title: feed_item.respond_to?(:title) ? Sanitize.fragment(feed_item.title, Sanitize::Config::RESTRICTED) : 'No Title!!!?? (╯°□°)╯︵ ┻━┻',
       url: feed_item.respond_to?(:url) ? feed_item.url : nil,
-      pub_date: feed_item.respond_to?(:published) ? feed_item.published : nil,
-      description: optimizedDescription,
+      pub_date: optimized_pub_date,
+      description: optimized_description,
       author: feed_item.respond_to?(:author) ? feed_item.author : nil,
       enclosure: feed_item.respond_to?(:enclosure) ? feed_item.summary : nil,
       identifier: FeedItem.get_identifier(feed_item)
@@ -82,6 +83,17 @@ class FeedItem < ActiveRecord::Base
         'a' => {'target' => '_blank'}
       }
     ))
+  end
+
+  def self.prevent_future_dating(feed_item)
+    pub_date = nil
+    if (feed_item.respond_to?(:published))
+      pub_date = feed_item.published
+      if (pub_date > Time.now)
+        pub_date = Time.now
+      end
+    end
+    pub_date
   end
 
   def self.chooseDescription(feed_item)

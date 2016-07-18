@@ -115,6 +115,7 @@ FeedItemStore.all = function() {
 FeedItemStore.__onDispatch = function(payload) {
   switch (payload.actionType) {
   case FeedItemConstants.RECEIVE_FEED_ITEMS:
+    console.log(payload.feedItems);
     reset(payload.feedItems);
     break;
   case FeedItemConstants.FILTER_FEEDS:
